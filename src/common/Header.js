@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../static/css/style.css"
-
+import "../assets/boxicons-2.0.7/css"
 const Header = (props) =>{
     return(
         <div className="mini-card">
