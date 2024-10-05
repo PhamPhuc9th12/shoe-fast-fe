@@ -3,6 +3,9 @@ import React from 'react'
 import '../static/css/style.css'
 // import des from '../static/images/title-des.jpg'
 import { NavLink } from 'react-router-dom'
+// import '../assets/css/index.css';
+// import '../assets/css/theme.css';
+// import "../assets/css/grid.css";
 const Footer = () => {
   return (
     <div>
