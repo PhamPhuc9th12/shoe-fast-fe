@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { Switch, Route } from "react-router-dom";
+import Header from "../common/Header";
 const UserLayout = () =>{
 
     return(
-        <div className="col">
-            {/* <Header>
+        <div className="col-10 offset-1">
+            <Header>
 
-            </Header> */}
+            </Header>
             <Switch>
                 
             </Switch>
