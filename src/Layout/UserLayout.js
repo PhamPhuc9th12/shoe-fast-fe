@@ -13,16 +13,19 @@ import SignIn from "../authen/SignIn";
 import { useState } from "react";
 const UserLayout = () =>{
     const [header, setHeader] = useState(1);
-
+    const [user, setUser] = useState(null);
+    const userHandler = (user) => {
+        setUser(user);
+      };
     return(
         <div className="col-10 offset-1">
             <Header
             header={header}
             ></Header>
             <Switch>
-            {/* <Route path="/sign-in" exact>
+            <Route path="/sign-in" exact>
           <SignIn userHandler={userHandler}></SignIn>
-        </Route> */}
+        </Route>
             </Switch>
             <Footer></Footer>
             <ToastContainer></ToastContainer>           
