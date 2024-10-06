@@ -1,25 +1,3 @@
-// import axios from 'axios'
-
-// const Instance = axios.create({
-//     baseURL: "http://localhost:8086",
-//     headers:{
-//         "Content-Type" : "application/json"
-//     }
-// });
-// const accessToken = localStorage.getItem('Authorization');
-  
-//   Instance.interceptors.request.use(
-//     config => {
-//         config.headers.authorization = `Bearer ${accessToken}`;
-//         return config;
-//     },
-//     error =>{
-//         return Promise.reject(error)
-//     }
-//   );
-
-// export default Instance
-
 import axios from 'axios';
 
 const Instance = axios.create({
