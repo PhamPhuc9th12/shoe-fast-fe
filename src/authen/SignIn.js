@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import "./signin.css";
 import { signIn } from "../api/AuthenticateApi";
@@ -8,45 +8,45 @@ import { getInformation } from "../api/AccountApi";
 
 
 const SignIn = (props) => {
-    const history = useHistory();
-  
-    const signInHandler = (data) => {
-      const userFlag = {
-        ...data,
-        admin: false,
-      };
-  
-      signIn(userFlag)
-        .then((res) => {
-          const accessToken = res.data.accessToken;
-  
-          // Kiểm tra xem token có hợp lệ không
-          if (!accessToken) {
-            throw new Error("Token không hợp lệ");
-          }
-  
-          // Lưu token vào localStorage
-          localStorage.setItem("token", accessToken);
-          console.log("Token ===>>>>", accessToken);
-  
-          // Lấy thông tin người dùng
-          return getInformation(accessToken);
-        })
-        .then((res) => {
-          // Cập nhật thông tin người dùng
-          props.userHandler(res.data);
-          localStorage.setItem("username", res.data.username);
-          localStorage.setItem("password", "123456");
-          
-          // Điều hướng về trang chủ
-          history.push("/");
-          toast.success("Đăng nhập thành công!");
-        })
-        .catch((error) => {
-          console.error("Error fetching user information:", error);
-          toast.error(error.response?.data?.Errors || "Đã xảy ra lỗi. Vui lòng thử lại.");
-        });
+  const history = useHistory();
+
+  const signInHandler = (data) => {
+    const userFlag = {
+      ...data,
+      admin: false,
     };
+
+    signIn(userFlag)
+      .then((res) => {
+        const accessToken = res.data.accessToken;
+
+        // Kiểm tra xem token có hợp lệ không
+        if (!accessToken) {
+          throw new Error("Token không hợp lệ");
+        }
+
+        // Lưu token vào localStorage
+        localStorage.setItem("token", accessToken);
+        console.log("Token ===>>>>", accessToken);
+
+        // Lấy thông tin người dùng
+        return getInformation(accessToken);
+      })
+      .then((res) => {
+        // Cập nhật thông tin người dùng
+        props.userHandler(res.data);
+        localStorage.setItem("username", res.data.username);
+        localStorage.setItem("password", "123456");
+
+        // Điều hướng về trang chủ
+        history.push("/");
+        toast.success("Đăng nhập thành công!");
+      })
+      .catch((error) => {
+        console.error("Error fetching user information:", error);
+        toast.error(error.response?.data?.Errors || "Đã xảy ra lỗi. Vui lòng thử lại.");
+      });
+  };
 
   const {
     register,
@@ -151,7 +151,7 @@ const SignIn = (props) => {
             </div>
           </div>
         </div>
-      </section>    
+      </section>
     </div>
   );
 };

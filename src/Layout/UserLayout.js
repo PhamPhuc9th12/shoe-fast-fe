@@ -10,25 +10,33 @@ import Modal from "react-bootstrap/Modal";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import SignIn from "../authen/SignIn";
+import ForgotPassword from "../authen/ForgotPassword";
+import Register from "../authen/Register";
 import { useState } from "react";
-const UserLayout = () =>{
+const UserLayout = () => {
     const [header, setHeader] = useState(1);
     const [user, setUser] = useState(null);
     const userHandler = (user) => {
         setUser(user);
-      };
-    return(
+    };
+    return (
         <div className="col-10 offset-1">
             <Header
-            header={header}
+                header={header}
             ></Header>
             <Switch>
-            <Route path="/sign-in" exact>
-          <SignIn userHandler={userHandler}></SignIn>
-        </Route>
+                <Route path="/sign-in" exact>
+                    <SignIn userHandler={userHandler}></SignIn>
+                </Route>
+                <Route path="/register" exact>
+                    <Register></Register>
+                </Route>
+                <Route path="/forgot-password" exact>
+                    <ForgotPassword></ForgotPassword>
+                </Route>
             </Switch>
             <Footer></Footer>
-            <ToastContainer></ToastContainer>           
+            <ToastContainer></ToastContainer>
         </div>
     );
 }
