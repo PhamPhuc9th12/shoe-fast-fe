@@ -12,17 +12,30 @@ import Footer from "../common/Footer";
 import SignIn from "../authen/SignIn";
 import ForgotPassword from "../authen/ForgotPassword";
 import Register from "../authen/Register";
+import Profile from "../authen/Profile";
 import { useState } from "react";
 const UserLayout = () => {
     const [header, setHeader] = useState(1);
     const [user, setUser] = useState(null);
+    const [temp, setTemp] = useState(true);
+    const [keyword, setKeyword] = useState("");
     const userHandler = (user) => {
         setUser(user);
+    };
+    const refresh = (data) => {
+        setTemp(data);
+    };
+    const searchHandler = (keyword) => {
+        setKeyword(keyword);
     };
     return (
         <div className="col-10 offset-1">
             <Header
                 header={header}
+                searchHandler={searchHandler}
+                user={user}
+                userHandler={userHandler}
+                refresh={refresh}
             ></Header>
             <Switch>
                 <Route path="/sign-in" exact>
@@ -33,6 +46,9 @@ const UserLayout = () => {
                 </Route>
                 <Route path="/forgot-password" exact>
                     <ForgotPassword></ForgotPassword>
+                </Route>
+                <Route path="/profile" exact>
+                    <Profile user={user} refresh={refresh} userHandler={userHandler}></Profile>
                 </Route>
             </Switch>
             <Footer></Footer>

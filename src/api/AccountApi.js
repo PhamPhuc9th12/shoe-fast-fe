@@ -10,8 +10,11 @@ export const getInformation = (token) => {
     const headers = {
         Authorization: `Bearer ${token}`,
     };
-    console.log(getInformation)
     return Instance.get(url, { headers });
+}
 
+export const getAccountDetailByAccountId = (id) => {
+    const url = `/api/v1/user/detail?id=${id}`;
+    return Instance.get(url);
 }
 

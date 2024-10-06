@@ -12,3 +12,7 @@ export const forgotPassword = (data) => {
     const url = '/api/v1/user/forgot-password';
     return Instance.post(url, data);
 }
+export const updatepProfile = (data) => {
+    const url = `/api/v1/user/update-profile`;
+    return Instance.post(url, data);
+}
