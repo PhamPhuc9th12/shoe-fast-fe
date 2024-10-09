@@ -27,6 +27,7 @@ const SignIn = (props) => {
 
         // Lưu token vào localStorage
         localStorage.setItem("token", accessToken);
+
         console.log("Token ===>>>>", accessToken);
 
         // Lấy thông tin người dùng

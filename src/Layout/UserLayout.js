@@ -19,8 +19,12 @@ const UserLayout = () => {
     const [user, setUser] = useState(null);
     const [temp, setTemp] = useState(true);
     const [keyword, setKeyword] = useState("");
+
     const userHandler = (user) => {
         setUser(user);
+    };
+    const changeHeaderHandler = (value) => {
+        setHeader(value);
     };
     const refresh = (data) => {
         setTemp(data);
@@ -38,6 +42,9 @@ const UserLayout = () => {
                 refresh={refresh}
             ></Header>
             <Switch>
+                {/* <Route path="/" exact>
+                    <Home changeHeaderHandler={changeHeaderHandler} user={user}></Home>
+                </Route> */}
                 <Route path="/sign-in" exact>
                     <SignIn userHandler={userHandler}></SignIn>
                 </Route>

@@ -14,5 +14,5 @@ export const forgotPassword = (data) => {
 }
 export const updatepProfile = (data) => {
     const url = `/api/v1/user/update-profile`;
-    return Instance.post(url, data);
+    return Instance.put(url, data);
 }

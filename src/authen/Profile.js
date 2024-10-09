@@ -9,12 +9,12 @@ import { updatepProfile } from "../api/AuthenticateApi"
 const Profile = (props) => {
   const history = useHistory();
   const [flag, setFlag] = useState();
-
   useEffect(() => {
-    getAccountDetailByAccountId(props.user.id)
+    getInformation(localStorage.getItem('token'))
       .then((res) => {
         reset(res.data);
         setFlag(res.data);
+        props.userHandler(res.data)
       })
       .catch((error) => console.log(error));
   }, []);
@@ -27,11 +27,6 @@ const Profile = (props) => {
   } = useForm();
 
   const onSubmitHandler = (data) => {
-    if (!flag || !flag.id) {
-      toast.error("Dữ liệu người dùng chưa được tải.");
-      return;
-    }
-    console.log(data)
     const result = {
       ...data,
       id: flag.id,
@@ -41,14 +36,15 @@ const Profile = (props) => {
       .then(() => {
         toast.success("Cập nhật thông tin thành công!");
         props.refresh(false);
+        console.log("TOKEN INFOR: " + localStorage.getItem('token'))
         getInformation(localStorage.getItem('token'))
           .then((res) => {
             props.userHandler(res.data)
           })
           .catch((error) => console.log(error))
-        history.push("/");
+        history.push("/profile");
       })
-      .catch((error) => toast.error(error.response.data.Errors));
+      .catch((error) => toast.error(error.response.data));
   };
   return (
     <div>
