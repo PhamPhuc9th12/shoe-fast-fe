@@ -13,6 +13,7 @@ import SignIn from "../authen/SignIn";
 import ForgotPassword from "../authen/ForgotPassword";
 import Register from "../authen/Register";
 import Profile from "../authen/Profile";
+import Home from "../component/Home";
 import { useState } from "react";
 const UserLayout = () => {
     const [header, setHeader] = useState(1);
@@ -42,9 +43,9 @@ const UserLayout = () => {
                 refresh={refresh}
             ></Header>
             <Switch>
-                {/* <Route path="/" exact>
+                <Route path="/" exact>
                     <Home changeHeaderHandler={changeHeaderHandler} user={user}></Home>
-                </Route> */}
+                </Route>
                 <Route path="/sign-in" exact>
                     <SignIn userHandler={userHandler}></SignIn>
                 </Route>
