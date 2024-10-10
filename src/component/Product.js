@@ -189,27 +189,27 @@ const Product = (props) => {
     }
     onChangePage(1);
   };
-
   const choosePriceHandler = (value) => {
     const index = price.indexOf(value);
     let temp = [];
+
     if (index > -1) {
-      temp = price.filter((i) => i !== value);
-      setPrice(price.filter((i) => i !== value));
-    } else {
-      temp = [...price, value];
-      setPrice([...price, value]);
-    }
-    if (temp.length > 0) {
-      temp.sort();
-      setMin(prices[temp[0]].min);
-      setMax(prices[temp[temp.length - 1]].max);
-    } else {
+      // Nếu giá trị đã tồn tại, xóa tất cả giá trị trong mảng giá
+      setPrice([]);
       setMin(0);
       setMax(10000000);
+    } else {
+      // Nếu chưa chọn giá, thêm giá mới vào mảng
+      setPrice([value]);
+      setMin(prices[value].min);
+      setMax(prices[value].max);
     }
+
     onChangePage(1);
   };
+
+
+
 
   return (
     <div>
