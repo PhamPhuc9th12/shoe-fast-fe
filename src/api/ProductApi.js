@@ -9,3 +9,18 @@ export const filterProducts = (data) => {
     const url = `/api/v1/product/get-all/filter`;
     return Instance.post(url, data);
 }
+
+export const getProductById = (id) => {
+    const url = `/api/v1/product?id=${id}`;
+    return Instance.get(url);
+}
+
+export const relateProduct = (id, brandId) => {
+    const url = `/api/v1/product/relate?brandId=${brandId}&id=${id}&page=0&size=20`;
+    return Instance.get(url);
+}
+
+export const searchByKeyword = (page, size, keyword) => {
+    const url = `/api/v1/product/search?page=${page}&size=${size}&search=${keyword}`;
+    return Instance.get(url);
+}

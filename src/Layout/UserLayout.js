@@ -10,10 +10,12 @@ import Modal from "react-bootstrap/Modal";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import SignIn from "../authen/SignIn";
+import Search from "../component/Search";
 import ForgotPassword from "../authen/ForgotPassword";
 import Register from "../authen/Register";
 import Profile from "../authen/Profile";
 import Home from "../component/Home";
+import ProductDetail from "../component/ProductDetail";
 import Product from "../component/Product";
 import { useState } from "react";
 const UserLayout = () => {
@@ -21,6 +23,7 @@ const UserLayout = () => {
     const [user, setUser] = useState(null);
     const [temp, setTemp] = useState(true);
     const [keyword, setKeyword] = useState("");
+    const [cartItem, setCartItem] = useState([]);
 
     const userHandler = (user) => {
         setUser(user);
@@ -33,6 +36,21 @@ const UserLayout = () => {
     };
     const searchHandler = (keyword) => {
         setKeyword(keyword);
+    };
+
+    const addHandler = (data) => {
+        const res = cartItem.find((item) => item.id === data.id);
+        if (res) {
+            setCartItem(
+                cartItem.map((item) =>
+                    item.id === data.id
+                        ? { ...res, quantity: res.quantity + data.quantity }
+                        : item
+                )
+            );
+        } else {
+            setCartItem([...cartItem, data]);
+        }
     };
     return (
         <div className="col-10 offset-1">
@@ -64,6 +82,16 @@ const UserLayout = () => {
                 </Route>
                 <Route path="/profile" exact>
                     <Profile user={user} refresh={refresh} userHandler={userHandler}></Profile>
+                </Route>
+                <Route path={`/product-detail/:id`} exact>
+                    <ProductDetail
+                        changeHeaderHandler={changeHeaderHandler}
+                        user={user}
+                        addHandler={addHandler}
+                    ></ProductDetail>
+                </Route>
+                <Route path="/search-page" exact>
+                    <Search keyword={keyword} user={user}></Search>
                 </Route>
             </Switch>
             <Footer></Footer>
