@@ -15,3 +15,8 @@ export const getCartItemByAccountId = (id) => {
     const url = `/api/v1/cart/by-account?id=${id}`;
     return Instance.get(url);
 }
+
+export const removeCartItem = (data) => {
+    const url = `/api/v1/cart/remove`;
+    return Instance.post(url, data);
+}

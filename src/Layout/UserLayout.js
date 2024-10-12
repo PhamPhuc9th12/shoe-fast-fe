@@ -15,6 +15,7 @@ import ForgotPassword from "../authen/ForgotPassword";
 import Register from "../authen/Register";
 import Profile from "../authen/Profile";
 import Home from "../component/Home";
+import Cart from "../component/Cart";
 import ProductDetail from "../component/ProductDetail";
 import Product from "../component/Product";
 import { useState } from "react";
@@ -24,6 +25,9 @@ const UserLayout = () => {
     const [temp, setTemp] = useState(true);
     const [keyword, setKeyword] = useState("");
     const [cartItem, setCartItem] = useState([]);
+    const [outStock, setOutStock] = useState([]);
+    const [buy, setBuy] = useState([]);
+    const [size, setSize] = useState("");
 
     const userHandler = (user) => {
         setUser(user);
@@ -52,6 +56,25 @@ const UserLayout = () => {
             setCartItem([...cartItem, data]);
         }
     };
+
+    //cart
+    const cartHandler = (data) => {
+        setCartItem(data);
+    };
+    const outStockHandler = (data) => {
+        setOutStock(data);
+    };
+    const buyHandler = (id) => {
+        setBuy([...buy, id]);
+    };
+    const cancelBuyHandler = (id) => {
+        const res = buy.filter((item) => item != id);
+        setBuy(res);
+    };
+    const clearBuyHandler = () => {
+        setBuy([]);
+    };
+
     return (
         <div className="col-10 offset-1">
             <Header
@@ -92,6 +115,19 @@ const UserLayout = () => {
                 </Route>
                 <Route path="/search-page" exact>
                     <Search keyword={keyword} user={user}></Search>
+                </Route>
+                <Route path="/cart" exact>
+                    <Cart
+                        outStockHandler={outStockHandler}
+                        buyHandler={buyHandler}
+                        cancelBuyHandler={cancelBuyHandler}
+                        clearBuyHandler={clearBuyHandler}
+                        buy={buy}
+                        changeHeaderHandler={changeHeaderHandler}
+                        user={user}
+                        cartItem={cartItem}
+                        cartHandler={cartHandler}
+                    ></Cart>
                 </Route>
             </Switch>
             <Footer></Footer>
