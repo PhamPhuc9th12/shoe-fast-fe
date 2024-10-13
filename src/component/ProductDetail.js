@@ -188,10 +188,15 @@ const ProductDetail = (props) => {
                     </h4>
                     <h6 className="card-text fw-bolder fs-5">
                       Giá gốc:{" "}
-                      <del>{price && price.toLocaleString() + " đ"}</del>
+                      {price && item.discount > 0 ? (
+                        <del>{price.toLocaleString() + " đ"}</del>
+                      ) : (
+                        price && price.toLocaleString() + " đ"
+                      )}
                     </h6>
-                    <h6 className="card-text fw-bolder fs-5" hidden>
-                      Sản phẩm còn: {stock && stock + " đôi"}
+                    <span className="card-text text-danger fs-5">Discount: {item.discount}%</span>
+                    <h6 className="card-text fw-bolder fs-5" >
+                      Remain: {stock}
                     </h6>
                     <hr />
                     <div className="div">
@@ -218,9 +223,10 @@ const ProductDetail = (props) => {
                     <div className="mt-5">
                       <button
                         className="btn btn-outline-dark"
-                        onClick={() => addCount(count + 1)}
+                        onClick={() => addCount(count - 1)}
+                        disabled={count == 1}
                       >
-                        +
+                        -
                       </button>
                       <input
                         className="text-center"
@@ -233,14 +239,13 @@ const ProductDetail = (props) => {
                       />
                       <button
                         className="btn btn-outline-dark"
-                        onClick={() => addCount(count - 1)}
-                        disabled={count == 1}
+                        onClick={() => addCount(count + 1)}
                       >
-                        -
+                        +
                       </button>
                     </div>
                     <hr />
-                    <button
+                    <button style={{ marginRight: "20px" }}
                       onClick={() =>
                         onAddCartHandler(
                           flag,
