@@ -1,9 +1,9 @@
 
 import React from "react";
 import "../static/css/style.css";
-// import logo from "../static/images/logo-sneaker1.jpg";
+import logo from "../static/images/nike.jpg";
 import { NavLink, useHistory } from "react-router-dom";
-// import user_image from "../static/images/default.png";
+import user_image from "../static/images/puma.jpg";
 import Dropdown from "../component/admin/dropdown/Dropdown";
 import { toast } from "react-toastify";
 
@@ -47,13 +47,13 @@ const Header = (props) => {
 
   const curr_user = {
     display_name: props.user ? props.user.fullName : "Tài khoản",
-    // image: user_image,
+    image: user_image,
   };
 
   const renderUserToggle = (user) => (
     <div className="topnav__right-user">
       <div className="topnav__right-user__image">
-        <img src={user.image} alt="user avatar" />
+        <img style={{ width: "50px" }} src={user.image} alt="user avatar" />
       </div>
       <div className="topnav__right-user__name">{user.display_name}</div>
     </div>
@@ -86,7 +86,7 @@ const Header = (props) => {
     <div className="mini-card">
       <nav className="navbar navbar-expand-md col-12">
         <div className="navbar-brand ml-1 col">
-          {/* <img src={logo} width={50} height={50} alt="logo" /> */}
+          <img src={logo} width={50} height={50} alt="logo" />
         </div>
         <div className="collapse navbar-collapse col">
           <ul className="navbar-nav mini-ul">
