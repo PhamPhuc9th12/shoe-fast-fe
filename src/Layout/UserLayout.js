@@ -16,6 +16,7 @@ import Register from "../authen/Register";
 import Profile from "../authen/Profile";
 import Home from "../component/Home";
 import Cart from "../component/Cart";
+import Checkout from "../component/Checkout";
 import ProductDetail from "../component/ProductDetail";
 import Product from "../component/Product";
 import { useState } from "react";
@@ -75,6 +76,18 @@ const UserLayout = () => {
         setBuy([]);
     };
 
+    //checkout
+    const clearHandler = () => {
+        const res = cartItem.filter((item) => !buy.includes(item.id + ""));
+        setCartItem(res);
+    };
+
+
+    const setCartItemHandler = (data) => {
+        setCartItem(data);
+    };
+
+
     return (
         <div className="col-10 offset-1">
             <Header
@@ -88,24 +101,30 @@ const UserLayout = () => {
                 <Route path="/" exact>
                     <Home changeHeaderHandler={changeHeaderHandler} user={user}></Home>
                 </Route>
+
                 <Route path="/store" exact>
                     <Product
                         changeHeaderHandler={changeHeaderHandler}
                         user={user}
                     ></Product>
                 </Route>
+
                 <Route path="/sign-in" exact>
                     <SignIn userHandler={userHandler}></SignIn>
                 </Route>
+
                 <Route path="/register" exact>
                     <Register></Register>
                 </Route>
+
                 <Route path="/forgot-password" exact>
                     <ForgotPassword></ForgotPassword>
                 </Route>
+
                 <Route path="/profile" exact>
                     <Profile user={user} refresh={refresh} userHandler={userHandler}></Profile>
                 </Route>
+
                 <Route path={`/product-detail/:id`} exact>
                     <ProductDetail
                         changeHeaderHandler={changeHeaderHandler}
@@ -113,9 +132,11 @@ const UserLayout = () => {
                         addHandler={addHandler}
                     ></ProductDetail>
                 </Route>
+
                 <Route path="/search-page" exact>
                     <Search keyword={keyword} user={user}></Search>
                 </Route>
+
                 <Route path="/cart" exact>
                     <Cart
                         outStockHandler={outStockHandler}
@@ -128,6 +149,19 @@ const UserLayout = () => {
                         cartItem={cartItem}
                         cartHandler={cartHandler}
                     ></Cart>
+                </Route>
+
+                <Route path="/checkout" exact>
+                    <Checkout
+                        temp={temp}
+                        buy={buy}
+                        outStockHandler={outStockHandler}
+                        changeHeaderHandler={changeHeaderHandler}
+                        user={user}
+                        cartItem={cartItem}
+                        clearHandler={clearHandler}
+                        setCartItemHandler={setCartItemHandler}
+                    ></Checkout>
                 </Route>
             </Switch>
             <Footer></Footer>
