@@ -166,7 +166,6 @@ const Product = (props) => {
         setTotal(resp.data.totalPages);
       });
     }
-    props.changeHeaderHandler(2);
   }, [page, categoryIds, brandIds, price]);
 
   const onChangePage = (page) => {

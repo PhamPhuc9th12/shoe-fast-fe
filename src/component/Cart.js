@@ -28,7 +28,6 @@ const Cart = (props) => {
       props.outStockHandler(props.cartItem);
     }
     props.clearBuyHandler();
-    props.changeHeaderHandler(3);
   };
 
   const modifyCartItemHandler = (attr, quantity) => {

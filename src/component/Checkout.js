@@ -82,7 +82,6 @@ const Checkout = (props) => {
         );
       setAmount(result);
     }
-    props.changeHeaderHandler(3);
     props.user ? console.log(props.user) : console.log('');
   };
 

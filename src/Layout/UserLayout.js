@@ -19,9 +19,9 @@ import Cart from "../component/Cart";
 import Checkout from "../component/Checkout";
 import ProductDetail from "../component/ProductDetail";
 import Product from "../component/Product";
+import Blog from "../component/blog/Blog";
 import { useState } from "react";
 const UserLayout = () => {
-    const [header, setHeader] = useState(1);
     const [user, setUser] = useState(null);
     const [temp, setTemp] = useState(true);
     const [keyword, setKeyword] = useState("");
@@ -32,9 +32,6 @@ const UserLayout = () => {
 
     const userHandler = (user) => {
         setUser(user);
-    };
-    const changeHeaderHandler = (value) => {
-        setHeader(value);
     };
     const refresh = (data) => {
         setTemp(data);
@@ -91,7 +88,7 @@ const UserLayout = () => {
     return (
         <div className="col-10 offset-1">
             <Header
-                header={header}
+
                 searchHandler={searchHandler}
                 user={user}
                 userHandler={userHandler}
@@ -99,12 +96,11 @@ const UserLayout = () => {
             ></Header>
             <Switch>
                 <Route path="/" exact>
-                    <Home changeHeaderHandler={changeHeaderHandler} user={user}></Home>
+                    <Home user={user}></Home>
                 </Route>
 
                 <Route path="/store" exact>
                     <Product
-                        changeHeaderHandler={changeHeaderHandler}
                         user={user}
                     ></Product>
                 </Route>
@@ -127,7 +123,6 @@ const UserLayout = () => {
 
                 <Route path={`/product-detail/:id`} exact>
                     <ProductDetail
-                        changeHeaderHandler={changeHeaderHandler}
                         user={user}
                         addHandler={addHandler}
                     ></ProductDetail>
@@ -144,7 +139,6 @@ const UserLayout = () => {
                         cancelBuyHandler={cancelBuyHandler}
                         clearBuyHandler={clearBuyHandler}
                         buy={buy}
-                        changeHeaderHandler={changeHeaderHandler}
                         user={user}
                         cartItem={cartItem}
                         cartHandler={cartHandler}
@@ -156,12 +150,14 @@ const UserLayout = () => {
                         temp={temp}
                         buy={buy}
                         outStockHandler={outStockHandler}
-                        changeHeaderHandler={changeHeaderHandler}
                         user={user}
                         cartItem={cartItem}
                         clearHandler={clearHandler}
                         setCartItemHandler={setCartItemHandler}
                     ></Checkout>
+                </Route>
+                <Route path="/blog" exact>
+                    <Blog></Blog>
                 </Route>
             </Switch>
             <Footer></Footer>

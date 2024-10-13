@@ -67,7 +67,6 @@ const ProductDetail = (props) => {
       });
     }
 
-    props.changeHeaderHandler(2);
   };
 
   const onModify = (price, stock, flag) => {

@@ -40,7 +40,6 @@ const Home = (props) => {
       setProducts(response.data.content);
       setTotal(response.data.totalPages);
     });
-    props.changeHeaderHandler(1);
   }, [page]);
 
 
