@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { getAllProducts, filterProducts } from "../api/ProductApi";
 import { NavLink } from "react-router-dom";
+import { Collapse } from "antd";
 import "./sidebar/sidebar.css";
+
+
+const { Panel } = Collapse;
 
 const brands = [
   {
@@ -149,7 +153,6 @@ const Product = (props) => {
         setTotal(response.data.totalPages);
       });
     } else {
-      console.log(false);
       const data = {
         page: page,
         count: count,
@@ -191,105 +194,93 @@ const Product = (props) => {
   };
   const choosePriceHandler = (value) => {
     const index = price.indexOf(value);
-    let temp = [];
-
     if (index > -1) {
-      // Nếu giá trị đã tồn tại, xóa tất cả giá trị trong mảng giá
       setPrice([]);
       setMin(0);
       setMax(10000000);
     } else {
-      // Nếu chưa chọn giá, thêm giá mới vào mảng
       setPrice([value]);
       setMin(prices[value].min);
       setMax(prices[value].max);
     }
-
     onChangePage(1);
   };
-
-
-
-
   return (
     <div>
       <div className="mt-5">
         <div className="row">
-          <div className="col-2.5">
-            <div className="col mini-card">
-              <h4 className="text-danger fw-bolder">Thương hiệu</h4>
-              <ul className="list-group">
-                {brandIds.map((item, index) => (
-                  <div
-                    className="sidebar__item"
-                    key={index}
-                    onClick={() => chooseBrandHandler(item.value)}
-                  >
+          <div className="col-3">
+            <Collapse defaultActiveKey={["1"]} accordion>
+              <Panel header="Thương hiệu" key="1">
+                <ul className="list-group">
+                  {brands.map((item, index) => (
                     <div
-                      className={
-                        brandIds.includes(item.value)
-                          ? `sidebar__item-inner active`
-                          : `sidebar__item-inner`
-                      }
+                      className="sidebar__item"
+                      key={index}
+                      onClick={() => chooseBrandHandler(item.value)}
                     >
-                      <i className={item.icon}></i>
-                      <span>{item.display_name}</span>
+                      <div
+                        className={
+                          brandIds.includes(item.value)
+                            ? `sidebar__item-inner active`
+                            : `sidebar__item-inner`
+                        }
+                      >
+                        <i className={item.icon}></i>
+                        <span>{item.display_name}</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </ul>
-            </div>
-            <div className="col mini-card">
-              <h4 className="text-danger fw-bolder">Loại sản phẩm</h4>
-              <ul className="list-group">
-                {categories.map((item, index) => (
-                  <div
-                    className="sidebar__item"
-                    key={index}
-                    onClick={() => chooseCategoryHandler(item.value)}
-                  >
+                  ))}
+                </ul>
+              </Panel>
+              <Panel header="Loại sản phẩm" key="2">
+                <ul className="list-group">
+                  {categories.map((item, index) => (
                     <div
-                      className={
-                        categoryIds.includes(item.value)
-                          ? `sidebar__item-inner active`
-                          : `sidebar__item-inner`
-                      }
+                      className="sidebar__item"
+                      key={index}
+                      onClick={() => chooseCategoryHandler(item.value)}
                     >
-                      <i className={item.icon}></i>
-                      <span>{item.display_name}</span>
+                      <div
+                        className={
+                          categoryIds.includes(item.value)
+                            ? `sidebar__item-inner active`
+                            : `sidebar__item-inner`
+                        }
+                      >
+                        <i className={item.icon}></i>
+                        <span>{item.display_name}</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </ul>
-            </div>
-
-            <div className="col mt-3 mini-card">
-              <h4 className="text-danger fw-bolder">Giá</h4>
-              <ul className="list-group">
-                {prices.map((item, index) => (
-                  <div className="sidebar__item" key={index}>
-                    <div
-                      className={
-                        price.includes(item.value)
-                          ? `sidebar__item-inner active`
-                          : `sidebar__item-inner`
-                      }
-                      onClick={() => choosePriceHandler(item.value)}
-                    >
-                      <i className={item.icon}></i>
-                      <span>{item.display_name}</span>
+                  ))}
+                </ul>
+              </Panel>
+              <Panel header="Giá" key="3">
+                <ul className="list-group">
+                  {prices.map((item, index) => (
+                    <div className="sidebar__item" key={index}>
+                      <div
+                        className={
+                          price.includes(item.value)
+                            ? `sidebar__item-inner active`
+                            : `sidebar__item-inner`
+                        }
+                        onClick={() => choosePriceHandler(item.value)}
+                      >
+                        <i className={item.icon}></i>
+                        <span>{item.display_name}</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </ul>
-            </div>
+                  ))}
+                </ul>
+              </Panel>
+            </Collapse>
           </div>
+
           <div className="col">
             <div className="container-fluid padding">
-              <div className="container-fluid padding">
-                <div className="row welcome mini-card">
-                  <h4 className="title text-danger">Sản phẩm nổi bật</h4>
-                </div>
+              <div className="row welcome mini-card">
+                <h4 className="title text-danger">Sản phẩm nổi bật</h4>
               </div>
               <div className="row padding">
                 {products &&
@@ -298,9 +289,9 @@ const Product = (props) => {
                       <div className="card h-100">
                         <div className="d-flex justify-content-between position-absolute w-100">
                           <div className="label-new">
-                            <span className="text-white bg-success small d-flex align-items-center px-2 py-1">
+                            <span className="text-white small d-flex align-items-center px-2 py-1" style={{ backgroundColor: "yellowgreen" }} >
                               <i className="fa fa-star" aria-hidden="true"></i>
-                              <span className="ml-1">New</span>
+                              <span className="ml-1">Mới</span>
                             </span>
                           </div>
                         </div>
@@ -308,7 +299,7 @@ const Product = (props) => {
                           <img
                             src={require(`../static/images/${item.image}`)}
                             style={{ width: 150, height: 150 }}
-                            alt="Product"
+                            alt={item.name}
                           />
                         </NavLink>
                         <div className="card-body px-2 pb-2 pt-1">
@@ -393,35 +384,16 @@ const Product = (props) => {
                     </div>
                   ))}
               </div>
+              <nav aria-label="Page navigation example">
+                <ul className="pagination justify-content-center">{rows}</ul>
+              </nav>
             </div>
           </div>
-        </div>
-
-        <div className="d-flex justify-content-center mt-5">
-          <nav aria-label="Page navigation example">
-            <ul className="pagination offset-5">
-              <li className={page === 1 ? "page-item disabled" : "page-item"}>
-                <button className="page-link" onClick={() => onChangePage(1)}>
-                  First
-                </button>
-              </li>
-              {rows}
-              <li
-                className={page === total ? "page-item disabled" : "page-item"}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => onChangePage(total)}
-                >
-                  Last
-                </button>
-              </li>
-            </ul>
-          </nav>
         </div>
       </div>
     </div>
   );
+
 };
 
 export default Product;
