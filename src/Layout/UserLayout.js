@@ -20,6 +20,7 @@ import Checkout from "../component/Checkout";
 import ProductDetail from "../component/ProductDetail";
 import Product from "../component/Product";
 import Blog from "../component/blog/Blog";
+import OrderDetail from "../component/OrderDetail";
 import { useState } from "react";
 const UserLayout = () => {
     const [user, setUser] = useState(null);
@@ -155,6 +156,11 @@ const UserLayout = () => {
                         clearHandler={clearHandler}
                         setCartItemHandler={setCartItemHandler}
                     ></Checkout>
+                </Route>
+                <Route path="/order/detail/:id" exact>
+                    <OrderDetail
+                        user={user}
+                    ></OrderDetail>
                 </Route>
                 <Route path="/blog" exact>
                     <Blog></Blog>
