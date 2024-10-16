@@ -21,6 +21,7 @@ import ProductDetail from "../component/ProductDetail";
 import Product from "../component/Product";
 import Blog from "../component/blog/Blog";
 import OrderDetail from "../component/OrderDetail";
+import Order from "../component/Order";
 import { useState } from "react";
 const UserLayout = () => {
     const [user, setUser] = useState(null);
@@ -161,6 +162,9 @@ const UserLayout = () => {
                     <OrderDetail
                         user={user}
                     ></OrderDetail>
+                </Route>
+                <Route path="/order" exact>
+                    <Order user={user}></Order>
                 </Route>
                 <Route path="/blog" exact>
                     <Blog></Blog>
