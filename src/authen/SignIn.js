@@ -15,6 +15,30 @@ const SignIn = (props) => {
     formState: { errors },
   } = useForm();
 
+  // const signInHandler = (data) => {
+  //   const userFlag = {
+  //     ...data,
+  //     admin: false,
+  //   };
+  //   signIn(userFlag)
+  //     .then((res) => {
+  //       const accessToken = res.data.accessToken;
+  //       if (!accessToken) {
+  //         throw new Error("Token không hợp lệ");
+  //       }
+  //       localStorage.setItem("token", accessToken);
+  //       return getInformation(accessToken);
+  //     })
+  //     .then((res) => {
+  //       props.userHandler(res.data);
+  //       history.push("/");
+  //       toast.success("Đăng nhập thành công!");
+  //     })
+  //     .catch((error) => {
+  //       toast.error(error.response?.data?.Errors || "Đã xảy ra lỗi. Vui lòng thử lại.");
+  //     });
+  // };
+
   const signInHandler = (data) => {
     const userFlag = {
       ...data,
@@ -30,8 +54,16 @@ const SignIn = (props) => {
         return getInformation(accessToken);
       })
       .then((res) => {
-        props.userHandler(res.data);
-        history.push("/");
+        const user = res.data;
+        props.userHandler(user);
+        // Kiểm tra role và điều hướng
+        if (user.roleName === "ADMIN") {
+          history.push("/admin");
+        } else if (user.roleName === "CUSTOMER") {
+          history.push("/");
+        } else {
+          throw new Error("Role không hợp lệ");
+        }
         toast.success("Đăng nhập thành công!");
       })
       .catch((error) => {

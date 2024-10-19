@@ -24,3 +24,8 @@ export const searchByKeyword = (page, size, keyword) => {
     const url = `/api/v1/product/search?page=${page}&size=${size}&search=${keyword}`;
     return Instance.get(url);
 }
+
+export const countProduct = () => {
+    const url = `/api/v1/product/count`;
+    return Instance.get(url);
+}
