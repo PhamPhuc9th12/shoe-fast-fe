@@ -28,3 +28,24 @@ export const cancelOrder = (data) => {
     const url = `/api/v1/order/cancel`;
     return Instance.post(url, data);
 }
+
+//admin
+export const countOrderByName = () => {
+    const url = `/api/v1/order/list/count`;
+    return Instance.get(url);
+}
+
+export const countOrder = () => {
+    const url = `/api/v1/order/count`;
+    return Instance.get(url);
+}
+
+export const reportAmountYear = () => {
+    const url = `/api/v1/order/synthesis/year`;
+    return Instance.get(url);
+}
+
+export const reportByProduct = (page, size) => {
+    const url = `/api/v1/order/synthesis/product?page=${page}&size=${size}`;
+    return Instance.get(url);
+}
