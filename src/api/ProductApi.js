@@ -29,3 +29,8 @@ export const countProduct = () => {
     const url = `/api/v1/product/count`;
     return Instance.get(url);
 }
+
+export const getAllProductsByBrand = (brand, page, size) => {
+    const url = `/api/v1/product/by-brand?brandId=${brand}&page=${page}&size=${size}`;
+    return Instance.get(url);
+}
