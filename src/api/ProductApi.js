@@ -34,3 +34,8 @@ export const getAllProductsByBrand = (brand, page, size) => {
     const url = `/api/v1/product/by-brand?brandId=${brand}&page=${page}&size=${size}`;
     return Instance.get(url);
 }
+
+export const createProduct = (data) => {
+    const url = `/api/v1/product/create`;
+    return Instance.post(url, data);
+}
