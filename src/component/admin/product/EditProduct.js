@@ -4,24 +4,37 @@ import "../../../component/admin/image/CardProfile.css";
 import { getBrands } from "../../../api/BrandApi";
 import { getSale } from "../../../api/SaleApi";
 import { getCategory } from "../../../api/CategoryApi";
-// import logo from "../../assets/images/logo-sneaker.jpg";
-import { createProduct } from "../../../api/ProductApi";
+import { getProductById, modifyProduct } from "../../../api/ProductApi";
 import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom";
-import { upload } from "../../../api/UploadApi";
+import { useHistory, useParams } from "react-router-dom";
 
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-const ProductForm = () => {
-  const [count, setCount] = useState(1);
+const EditProduct = () => {
   const [brand, setBrand] = useState([]);
   const [sale, setSale] = useState([]);
-  const [category, setCategory] = useState([]);
-  const [image, setImage] = useState([]);
-
+  const [cate, setCate] = useState([]);
+  const [item, setItem] = useState();
+  const [attributes, setAttributes] = useState([]);
+  const [flag, setFlag] = useState([]);
+  const { id } = useParams();
   const history = useHistory();
+  const [count, setCount] = useState(0);
+  const [numbers, setNumbers] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   useEffect(() => {
+    onLoad();
+  }, []);
+
+  const changeCountHandler = (value) => {
+    setCount(value);
+  };
+
+  const onLoad = () => {
     getBrands(1, 20)
       .then((resp) => setBrand(resp.data.content))
       .catch((error) => console.log(error));
@@ -30,135 +43,108 @@ const ProductForm = () => {
       .then((resp) => setSale(resp.data.content))
       .catch((error) => console.log(error));
 
-    getCategory(1, 20)
-      .then((resp) => setCategory(resp.data.content))
+    getProductById(id)
+      .then((res) => {
+        setItem(res.data);
+        setFlag(res.data.category);
+        setAttributes(res.data.attributes);
+        setCount(res.data.attributes.length);
+        getCategory(1, 20)
+          .then((resp) => setCate(resp.data.content))
+          .catch((error) => console.log(error));
+
+        reset(res.data);
+      })
       .catch((error) => console.log(error));
-  }, []);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onFileChange = (event) => {
-    const images = Array.from(event.target.files);
-    const links = images.map((item) => item.name);
-    let flag = false;
-    for (let i of links) {
-      if (!i.includes(".jpg") && !i.includes(".png")) {
-        toast.warning("File ảnh không hợp lệ.");
-        setImage([]);
-        flag = true;
-        break;
-      }
-    }
-    if (!flag) {
-      setImage(images);
-    }
   };
-
   const submitHandler = (data) => {
-    if (image.length !== 6) {
-      toast.warning("Cần tải lên 6 bức ảnh");
+    const nums = [
+      data.size1,
+      data.size2,
+      data.size3,
+      data.size4,
+      data.size5,
+      data.size6,
+      data.size7,
+      data.size8,
+      data.size9,
+      data.size10,
+    ];
+    const newNums = nums.slice(0, count);
+    const hasDuplicate = newNums.some(x => newNums.indexOf(x) !== newNums.lastIndexOf(x));
+    if (hasDuplicate) {
+      toast.warning("Nhập trùng size. Vui lòng nhập lại!");
     } else {
-      const nums = [
-        data.size1,
-        data.size2,
-        data.size3,
-        data.size4,
-        data.size5,
-        data.size6,
-        data.size7,
-        data.size8,
-        data.size9,
-        data.size10,
-      ];
-      const newNums = nums.slice(0, count);
-      const hasDuplicate = newNums.some(x => newNums.indexOf(x) !== newNums.lastIndexOf(x));
-      if (hasDuplicate) {
-        toast.warning("Nhập trùng size. Vui lòng nhập lại!");
-      } else {
-        const flag = {
-          name: data.name,
-          code: data.code,
-          description: data.description,
-          brandId: data.brand,
-          saleId: data.sale,
-          categoryId: data.category,
-          imageUrl: image.map((item) => item.name),
-          attribute: [
-            {
-              size: data.size1,
-              price: data.price1,
-              stock: data.quantity1,
-            },
-            {
-              size: data.size2,
-              price: data.price2,
-              stock: data.quantity2,
-            },
-            {
-              size: data.size3,
-              price: data.price3,
-              stock: data.quantity3,
-            },
-            {
-              size: data.size4,
-              price: data.price4,
-              stock: data.quantity4,
-            },
-            {
-              size: data.size5,
-              price: data.price5,
-              stock: data.quantity5,
-            },
-            {
-              size: data.size6,
-              price: data.price6,
-              stock: data.quantity6,
-            },
-            {
-              size: data.size7,
-              price: data.price7,
-              stock: data.quantity7,
-            },
-            {
-              size: data.size8,
-              price: data.price8,
-              stock: data.quantity8,
-            },
-            {
-              size: data.size9,
-              price: data.price9,
-              stock: data.quantity9,
-            },
-            {
-              size: data.size10,
-              price: data.price10,
-              stock: data.quantity10,
-            },
-          ].slice(0, count),
-        };
-        createProduct(flag)
-          .then(() => {
-            image.forEach((item) => {
-              upload(item)
-                .then((resp) => console.log(resp.data))
-                .catch((error) => console.log(error.response.data));
-            });
-            toast.success("Thêm mới sản phẩm thành công");
-            history.push("/products");
-          })
-          .catch((error) => toast.error(error.response.data.Errors));
-      }
+      const flag = {
+        id: id,
+        name: data.name,
+        code: data.code,
+        description: data.description,
+        brandId: data.brandId,
+        saleId: data.saleId,
+        categoryId: data.category,
+        attribute: [
+          {
+            size: data.size1,
+            price: data.price1,
+            stock: data.quantity1,
+          },
+          {
+            size: data.size2,
+            price: data.price2,
+            stock: data.quantity2,
+          },
+          {
+            size: data.size3,
+            price: data.price3,
+            stock: data.quantity3,
+          },
+          {
+            size: data.size4,
+            price: data.price4,
+            stock: data.quantity4,
+          },
+          {
+            size: data.size5,
+            price: data.price5,
+            stock: data.quantity5,
+          },
+          {
+            size: data.size6,
+            price: data.price6,
+            stock: data.quantity6,
+          },
+          {
+            size: data.size7,
+            price: data.price7,
+            stock: data.quantity7,
+          },
+          {
+            size: data.size8,
+            price: data.price8,
+            stock: data.quantity8,
+          },
+          {
+            size: data.size9,
+            price: data.price9,
+            stock: data.quantity9,
+          },
+          {
+            size: data.size10,
+            price: data.price10,
+            stock: data.quantity10,
+          }
+        ].slice(0, count),
+      };
+      modifyProduct(flag)
+        .then(() => {
+          toast.success("Cập nhật thành công!");
+          history.push("/products");
+        })
+        .catch((error) => console.log(error.response.data));
     }
-  };
 
-  const changeCountHandler = (value) => {
-    setCount(value);
   };
-
   return (
     <div className="pb-3 container-fluid card">
       <div className="col-10 offset-1 text-center">
@@ -224,7 +210,7 @@ const ProductForm = () => {
                 <label className="form-label">Thương hiệu</label>
                 <select
                   className="form-control"
-                  {...register("brand", { required: true })}
+                  {...register("brandId", { required: true })}
                 >
                   {brand &&
                     brand.map((item, index) => (
@@ -238,72 +224,34 @@ const ProductForm = () => {
                 <label className="form-label">Chương trình giảm giá</label>
                 <select
                   className="form-control"
-                  {...register("sale", { required: true })}
+                  {...register("saleId", { required: true })}
                 >
                   {sale &&
                     sale.map((item, index) => (
-                      <option
-                        value={item.id}
-                        key={index}
-                        selected={item.id === 1}
-                      >
+                      <option value={item.id} key={index}>
                         {item.name} - {item.discount} %
                       </option>
                     ))}
                 </select>
               </div>
-              <div className="col-12 mt-5">
+              <div className="col-12 mt-5 mb-5">
                 <label className="form-label mb-3">Loại sản phẩm</label> <br />
-                {category &&
-                  category.map((item, index) => (
+                {cate &&
+                  cate.map((i, index) => (
                     <div
-                      class="col-2 form-check form-check-inline mr-5"
+                      className="col-2 form-check form-check-inline mr-5"
                       key={index}
                     >
                       <input
                         className="form-check-input"
                         type="checkbox"
-                        value={item.id}
+                        defaultValue={i.id}
+                        defaultChecked={flag.includes(i.id)}
                         {...register("category", { required: true })}
                       />
-                      <label class="form-check-label">{item.name}</label>
+                      <label className="form-check-label">{i.name}</label>
                     </div>
                   ))}
-                {errors.category && (
-                  <div className="alert alert-danger" role="alert">
-                    Chọn loại sản phẩm!
-                  </div>
-                )}
-              </div>
-              <div className="col-12 mt-5">
-                <label className="form-label mb-5">Hình ảnh sản phẩm</label>{" "}
-                <br />
-                <div className="row">
-                  <div
-                    className="col-3 mr-5 ml-3 mb-5"
-                    style={{ paddingRight: 70 }}
-                  >
-                    <label className="custom-file-upload fas">
-                      <div className="img-wrap img-upload">
-                        {/* <img alt="" src={logo} /> */}
-                      </div>
-                      <input
-                        id="photo-upload"
-                        type="file"
-                        multiple
-                        onChange={(e) => onFileChange(e)}
-                      />
-                    </label>
-                  </div>
-                  <div className="col">
-                    {image &&
-                      image.map((item, index) => (
-                        <span class="badge badge-primary" key={index}>
-                          {item.name}
-                        </span>
-                      ))}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -312,17 +260,19 @@ const ProductForm = () => {
               <h4 className="d-flex justify-content-between align-items-center mb-1">
                 <span className="text-dark">Chi tiết sản phẩm</span> <br />
               </h4>
-              <span className="text-dark">Số lượng</span> <br />
+              <span className="text-dark">Số lượng</span>{" "}
               <select
                 class="form-control mb-2"
                 onChange={(e) => changeCountHandler(e.target.value)}
+                value={count}
               >
                 {numbers.map((item, index) => (
-                  <option value={item} key={index}>
+                  <option value={item} key={index} disabled={item < attributes.length} hidden={item < attributes.length}>
                     {index + 1}
                   </option>
                 ))}
               </select>
+              <br />
             </div>
             {count >= 1 && (
               <div className="card mr-3">
@@ -332,6 +282,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[0] && item.attributes[0].size}
                       {...register("size1", {
                         required: true,
                         min: 36,
@@ -349,6 +300,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[0] && item.attributes[0].price}
                       {...register("price1", {
                         required: true,
                         min: 1,
@@ -365,6 +317,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[0] && item.attributes[0].stock}
                       {...register("quantity1", {
                         required: true,
                         min: 1,
@@ -387,6 +340,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[1] && item.attributes[1].size}
                       {...register("size2", {
                         required: true,
                         min: 36,
@@ -404,6 +358,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[1] && item.attributes[1].price}
                       {...register("price2", {
                         required: true,
                         min: 1,
@@ -420,6 +375,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[1] && item.attributes[1].stock}
                       {...register("quantity2", {
                         required: true,
                         min: 1,
@@ -442,6 +398,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[2] && item.attributes[2].size}
                       {...register("size3", {
                         required: true,
                         min: 36,
@@ -459,6 +416,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[2] && item.attributes[2].price}
                       {...register("price3", {
                         required: true,
                         min: 1,
@@ -475,6 +433,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[2] && item.attributes[2].stock}
                       {...register("quantity3", {
                         required: true,
                         min: 1,
@@ -497,6 +456,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[3] && item.attributes[3].size}
                       {...register("size4", {
                         required: true,
                         min: 36,
@@ -514,6 +474,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[3] && item.attributes[3].price}
                       {...register("price4", {
                         required: true,
                         min: 1,
@@ -530,6 +491,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[3] && item.attributes[3].stock}
                       {...register("quantity4", {
                         required: true,
                         min: 1,
@@ -552,6 +514,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[4] && item.attributes[4].size}
                       {...register("size5", {
                         required: true,
                         min: 36,
@@ -569,6 +532,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[4] && item.attributes[4].price}
                       {...register("price5", {
                         required: true,
                         min: 1,
@@ -585,6 +549,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[4] && item.attributes[4].stock}
                       {...register("quantity5", {
                         required: true,
                         min: 1,
@@ -607,6 +572,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[5] && item.attributes[5].size}
                       {...register("size6", {
                         required: true,
                         min: 36,
@@ -624,6 +590,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[5] && item.attributes[5].price}
                       {...register("price6", {
                         required: true,
                         min: 1,
@@ -640,6 +607,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[5] && item.attributes[5].stock}
                       {...register("quantity6", {
                         required: true,
                         min: 1,
@@ -662,6 +630,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[6] && item.attributes[6].size}
                       {...register("size7", {
                         required: true,
                         min: 36,
@@ -679,6 +648,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[6] && item.attributes[6].price}
                       {...register("price7", {
                         required: true,
                         min: 1,
@@ -695,6 +665,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[6] && item.attributes[6].stock}
                       {...register("quantity7", {
                         required: true,
                         min: 1,
@@ -717,6 +688,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[7] && item.attributes[7].size}
                       {...register("size8", {
                         required: true,
                         min: 36,
@@ -734,6 +706,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[7] && item.attributes[7].price}
                       {...register("price8", {
                         required: true,
                         min: 1,
@@ -750,6 +723,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[7] && item.attributes[7].stock}
                       {...register("quantity8", {
                         required: true,
                         min: 1,
@@ -772,6 +746,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[8] && item.attributes[8].size}
                       {...register("size9", {
                         required: true,
                         min: 36,
@@ -789,6 +764,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[8] && item.attributes[8].price}
                       {...register("price9", {
                         required: true,
                         min: 1,
@@ -805,6 +781,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[8] && item.attributes[8].stock}
                       {...register("quantity9", {
                         required: true,
                         min: 1,
@@ -827,6 +804,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[9] && item.attributes[9].size}
                       {...register("size10", {
                         required: true,
                         min: 36,
@@ -844,6 +822,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[9] && item.attributes[9].price}
                       {...register("price10", {
                         required: true,
                         min: 1,
@@ -860,6 +839,7 @@ const ProductForm = () => {
                     <input
                       type="number"
                       className="form-control"
+                      defaultValue={item.attributes[9] && item.attributes[9].stock}
                       {...register("quantity10", {
                         required: true,
                         min: 1,
@@ -880,7 +860,7 @@ const ProductForm = () => {
             type="submit"
             style={{ marginLeft: 70, borderRadius: 50 }}
           >
-            Thêm mới
+            Cập nhật
           </button>
         </form>
       </div>
@@ -888,4 +868,4 @@ const ProductForm = () => {
   );
 };
 
-export default ProductForm;
+export default EditProduct;

@@ -39,3 +39,8 @@ export const createProduct = (data) => {
     const url = `/api/v1/product/create`;
     return Instance.post(url, data);
 }
+
+export const modifyProduct = (data) => {
+    const url = `/api/v1/product/modify`;
+    return Instance.post(url, data);
+}

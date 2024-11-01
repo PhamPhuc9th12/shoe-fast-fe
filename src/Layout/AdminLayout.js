@@ -8,6 +8,7 @@ import '../static/css/style.css';
 import Account from "../component/admin/Account";
 import DashboardAdmin from "../component/admin/dashboard/DashboardAdmin";
 import { BrowserRouter as Router } from "react-router-dom";
+import ProductForm from "../component/admin/product/ProductForm";
 
 const AdminLayOut = () => {
 
@@ -25,6 +26,9 @@ const AdminLayOut = () => {
             </Router>
             <Router path="/admin" exact>
                 <DashboardAdmin ></DashboardAdmin>
+            </Router>
+            <Router path="/add-product" exact>
+                <ProductForm></ProductForm>
             </Router>
         </>
     );

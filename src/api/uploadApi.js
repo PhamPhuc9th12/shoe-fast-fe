@@ -1,4 +1,4 @@
-import Instance from "../../axios/Instance";
+import Instance from "../axios/Instance"
 
 export const upload = (file) => {
     let formData = new FormData();
