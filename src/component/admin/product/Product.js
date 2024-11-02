@@ -119,7 +119,7 @@ const Product = () => {
                           <img
                             className="img-fluid"
                             style={{ width: "100px", height: "100px" }}
-                            src={require(`../../static/images/${item.image}`)}
+                            // src={require(`../../static/images/${item.image}`)}
                             alt=""
                           />
                         </th>

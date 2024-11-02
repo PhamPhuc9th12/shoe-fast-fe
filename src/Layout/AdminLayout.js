@@ -9,7 +9,8 @@ import Account from "../component/admin/Account";
 import DashboardAdmin from "../component/admin/dashboard/DashboardAdmin";
 import { BrowserRouter as Router } from "react-router-dom";
 import ProductForm from "../component/admin/product/ProductForm";
-
+import Product from "../component/admin/product/Product";
+import EditProduct from "../component/admin/product/EditProduct";
 const AdminLayOut = () => {
 
     const [user, setUser] = useState(null);
@@ -27,8 +28,14 @@ const AdminLayOut = () => {
             <Router path="/admin" exact>
                 <DashboardAdmin ></DashboardAdmin>
             </Router>
+            <Router path="/products" exact>
+                <Product></Product>
+            </Router>
             <Router path="/add-product" exact>
                 <ProductForm></ProductForm>
+            </Router>
+            <Router path={`/product-detail/:id`} exact>
+                <EditProduct></EditProduct>
             </Router>
         </>
     );
