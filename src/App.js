@@ -2,15 +2,13 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import UserLayOut from "./layout/UserLayout";
+import AppLayout from "./layout/AppLayout";
 import { BrowserRouter as Router } from "react-router-dom";
-import AdminLayOut from './layout/AdminLayout';
 function App() {
   return (
     <div className="container-fluid">
       <Router>
-        <UserLayOut></UserLayOut>
-        <AdminLayOut></AdminLayOut>
+        <AppLayout></AppLayout>
       </Router>
     </div>
   );

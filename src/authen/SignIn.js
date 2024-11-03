@@ -58,7 +58,7 @@ const SignIn = (props) => {
         props.userHandler(user);
         // Kiểm tra role và điều hướng
         if (user.roleName === "ADMIN") {
-          history.push("/admin");
+          history.push("/admin/dashboard");
         } else if (user.roleName === "CUSTOMER") {
           history.push("/");
         } else {
