@@ -17,3 +17,7 @@ export const getVoucherDetail = (id) => {
     const url = `/api/v1/voucher/detail/${id}`;
     return Instance.get(url);
 }
+export const updateVoucher = (data) => {
+    const url = `/api/v1/voucher/update`;
+    return Instance.post(url, data);
+}
