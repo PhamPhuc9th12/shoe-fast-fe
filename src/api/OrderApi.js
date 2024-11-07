@@ -64,3 +64,16 @@ export const reportAmountMonth = (year) => {
     const url = `/api/v1/order/synthesis/amount-month?year=${year}`;
     return Instance.get(url);
 }
+export const updateOrder = (data) => {
+    const url = `/api/v1/order/update`;
+    return Instance.post(url, data);
+}
+export const updateCancel = (data) => {
+    const url = `/api/v1/order/admin/cancel-order`;
+    return Instance.post(url, data);
+}
+
+export const updateProcess = (data) => {
+    const url = `/api/v1/order/update-process`;
+    return Instance.post(url, data);
+}
