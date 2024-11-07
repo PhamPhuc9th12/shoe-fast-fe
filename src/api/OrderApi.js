@@ -59,3 +59,8 @@ export const getOrderByProduct = (id, page, size) => {
     const url = `/api/v1/order/synthesis/order-by-product?id=${id}&page=${page}&size=${size}`;
     return Instance.get(url);
 }
+
+export const reportAmountMonth = (year) => {
+    const url = `/api/v1/order/synthesis/amount-month?year=${year}`;
+    return Instance.get(url);
+}
