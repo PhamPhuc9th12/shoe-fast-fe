@@ -54,3 +54,8 @@ export const getOrderByOrderStatusAndYearAndMonth = (status, year, month, page, 
     const url = `/api/v1/order/synthesis/order-by-year-month?id=${status}&year=${year}&month=${month}&page=${page}&size=${size}`;
     return Instance.get(url);
 }
+
+export const getOrderByProduct = (id, page, size) => {
+    const url = `/api/v1/order/synthesis/order-by-product?id=${id}&page=${page}&size=${size}`;
+    return Instance.get(url);
+}
