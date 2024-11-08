@@ -77,3 +77,12 @@ export const updateProcess = (data) => {
     const url = `/api/v1/order/update-process`;
     return Instance.post(url, data);
 }
+export const updateShip = (data) => {
+    const url = `/api/v1/order/admin/update-shipment`;
+    return Instance.post(url, data);
+}
+
+export const updateSuccess = (data) => {
+    const url = `/api/v1/order/admin/update-success`;
+    return Instance.post(url, data);
+}
