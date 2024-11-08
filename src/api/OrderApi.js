@@ -86,3 +86,12 @@ export const updateSuccess = (data) => {
     const url = `/api/v1/order/admin/update-success`;
     return Instance.post(url, data);
 }
+
+export const getAllOrderAndPagination = (status, page, size) => {
+    const url = `/api/v1/order/page-admin?page=${page}&size=${size}&status=${status}`;
+    return Instance.get(url);
+}
+export const getOrderByOrderStatusBetweenDate = (status, from, to, page, size) => {
+    const url = `/api/v1/order/admin/page-orders-between-date?id=${status}&from=${from}&to=${to}&page=${page}&size=${size}`;
+    return Instance.get(url);
+}
