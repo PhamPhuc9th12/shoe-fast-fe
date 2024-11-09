@@ -11,7 +11,7 @@ const ReportMonth = (props) => {
   const [month, setMonth] = useState([]);
   const [year, setYear] = useState();
   const [order, setOrder] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [total, setTotal] = useState();
   const [select, setSelect] = useState();
 
@@ -57,7 +57,7 @@ const ReportMonth = (props) => {
 
   const clickHandler = (value) => {
     setSelect(value);
-    getOrderByOrderStatusAndYearAndMonth(3, year, value, page, 8)
+    getOrderByOrderStatusAndYearAndMonth(4, year, value, page, 8)
       .then((resp) => {
         setOrder(resp.data.content);
         setTotal(resp.data.totalPages);
@@ -83,10 +83,10 @@ const ReportMonth = (props) => {
             onChange={(e) => changeYearHandler(e.target.value)}
             defaultValue={id}
           >
-            <option value="2018">2021</option>
-            <option value="2019">2022</option>
-            <option value="2021">2023</option>
-            <option value="2022">2024</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
           </select>
         </div>
         <div className="card__body">
@@ -157,11 +157,11 @@ const ReportMonth = (props) => {
             </table>
             <nav aria-label="navigation">
               <ul className="pagination mt-3">
-                <li className={page === 1 ? "page-item disabled" : "page-item"}>
+                <li className={page === 0 ? "page-item disabled" : "page-item"}>
                   <button
                     className="page-link"
                     style={{ borderRadius: 50 }}
-                    onClick={() => onChangePage(1)}
+                    onClick={() => onChangePage(0)}
                   >
                     {`<<`}
                   </button>

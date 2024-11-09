@@ -3,6 +3,7 @@ import statusCards from "../../../assets/JsonData/status-card-data.json";
 import StatusCard from "../status-card/StatusCard";
 import Chart from "react-apexcharts";
 import { Link, NavLink } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import {
   reportByProduct,
   reportAmountYear,
@@ -21,9 +22,9 @@ const Dashboard = () => {
   const [countPro, setCountPro] = useState();
   const [seri, setSeri] = useState([]);
   const [option, setOption] = useState({});
-
+  const history = useHistory();
   useEffect(() => {
-    reportByProduct(1, 8)
+    reportByProduct(0, 8)
       .then((resp) => {
         setProduct(resp.data.content);
       })
@@ -72,21 +73,34 @@ const Dashboard = () => {
                 icon={statusCards[0].icon}
                 count={countAcc}
                 title={`Khách hàng`}
+                onClick={() => {
+                  console.log("Nhấn vào sản phẩm");
+                  history.push("/admin/customer")
+                }}
               />
               <StatusCard
                 icon={statusCards[1].icon}
                 count={countPro}
                 title={`Sản phẩm`}
+                onClick={() => {
+                  console.log("Nhấn vào sản phẩm");
+                  history.push("/admin/products")
+                }}
               />
               <StatusCard
                 icon={statusCards[3].icon}
                 count={countOr}
                 title={`Đơn hàng`}
+                onClick={() => {
+                  console.log("Nhấn vào sản phẩm");
+                  history.push("/admin/orders")
+                }}
               />
               <StatusCard
                 icon={statusCards[2].icon}
                 count={total && total.toLocaleString()}
                 title={`Tổng doanh thu`}
+
               />
             </div>
           </div>
@@ -116,7 +130,7 @@ const Dashboard = () => {
                     product.map((item, index) => (
                       <tr key={index}>
                         <th scope="row">
-                          <NavLink to={`admin/order-product/${item.id}`} exact>
+                          <NavLink to={`/admin/order-product/${item.id}`} exact>
                             {" "}
                             {item.id}
                           </NavLink>
@@ -130,7 +144,7 @@ const Dashboard = () => {
               </table>
             </div>
             <div className="card__footer">
-              <Link to="/report-product">Xem chi tiết</Link>
+              <Link to="/admin/report-product">Xem chi tiết</Link>
             </div>
           </div>
         </div>
@@ -154,7 +168,7 @@ const Dashboard = () => {
                     year.map((item, index) => (
                       <tr key={index}>
                         <th scope="row">
-                          <NavLink exact to={`admin/report-month/${item.year}`}>
+                          <NavLink exact to={`/admin/report-month/${item.year}`}>
                             {index + 1}
                           </NavLink>
                         </th>
@@ -167,7 +181,7 @@ const Dashboard = () => {
               </table>
             </div>
             <div className="card__footer">
-              <NavLink exact to={`admin/report-month/2022`}>
+              <NavLink exact to={`/admin/report-month/2024`}>
                 Xem chi tiết
               </NavLink>
             </div>

@@ -74,7 +74,7 @@ export const updateCancel = (data) => {
 }
 
 export const updateProcess = (data) => {
-    const url = `/api/v1/order/update-process`;
+    const url = `/api/v1/order/admin/update-process`;
     return Instance.post(url, data);
 }
 export const updateShip = (data) => {

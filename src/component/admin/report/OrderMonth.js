@@ -7,7 +7,7 @@ const OrderMonth = (props) => {
   const history = useHistory();
 
   const [order, setOrder] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [total, setTotal] = useState();
 
   var rows = new Array(total).fill(0).map((zero, index) => (
@@ -85,11 +85,11 @@ const OrderMonth = (props) => {
           </table>
           <nav aria-label="navigation">
             <ul className="pagination mt-3">
-              <li className={page === 1 ? "page-item disabled" : "page-item"}>
+              <li className={page === 0 ? "page-item disabled" : "page-item"}>
                 <button
                   className="page-link"
                   style={{ borderRadius: 50 }}
-                  onClick={() => onChangePage(1)}
+                  onClick={() => onChangePage(0)}
                 >
                   {`<<`}
                 </button>

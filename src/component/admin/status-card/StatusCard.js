@@ -3,7 +3,7 @@ import "./status-card.css";
 
 const StatusCard = (props) => {
   return (
-    <div className="status-card">
+    <div className="status-card" onClick={props.onClick} style={{ cursor: 'pointer' }}>
       <div className="status-card__icon">
         <i className={props.icon}></i>
       </div>

@@ -211,8 +211,8 @@ const Order = () => {
     updateProcess(data)
       .then((resp) => {
         setStatus(obj.statusId);
-        setPage(1);
-        getAllOrderAndPagination(obj.statusId, 1, 20)
+        setPage(0);
+        getAllOrderAndPagination(obj.statusId, 0, 20)
           .then((res) => {
             setOrders(res.data.content);
             setTotal(res.data.totalPages);
@@ -239,8 +239,8 @@ const Order = () => {
     updateShip(data)
       .then((resp) => {
         setStatus(obj.statusId);
-        setPage(1);
-        getAllOrderAndPagination(obj.statusId, 1, 20)
+        setPage(0);
+        getAllOrderAndPagination(obj.statusId, 0, 20)
           .then((res) => {
             setOrders(res.data.content);
             setTotal(res.data.totalPages);
@@ -268,8 +268,8 @@ const Order = () => {
     updateSuccess(data)
       .then((resp) => {
         setStatus(obj.statusId);
-        setPage(1);
-        getAllOrderAndPagination(obj.statusId, 1, 20)
+        setPage(0);
+        getAllOrderAndPagination(obj.statusId, 0, 20)
           .then((res) => {
             setOrders(res.data.content);
             setTotal(res.data.totalPages);
@@ -296,8 +296,8 @@ const Order = () => {
     updateCancel(data)
       .then((resp) => {
         setStatus(obj.statusId);
-        setPage(1);
-        getAllOrderAndPagination(obj.statusId, 1, 20)
+        setPage(0);
+        getAllOrderAndPagination(obj.statusId, 0, 20)
           .then((res) => {
             setOrders(res.data.content);
             setTotal(res.data.totalPages);
@@ -314,7 +314,7 @@ const Order = () => {
 
   const getAllOrderByStatus = (value) => {
     setStatus(value);
-    setPage(1);
+    setPage(0);
     setYear("");
     setMonth("");
     getAllOrderAndPagination(value, page, 20)
@@ -402,9 +402,9 @@ const Order = () => {
               <option value="">
                 Chọn năm
               </option>
-              <option value="2019">2019</option>
-              <option value="2021">2021</option>
               <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
             </select>
           </div>
           <div className="col-sm-4 mt-2">
@@ -449,12 +449,12 @@ const Order = () => {
               value={to}
             />
           </div>
-          <button
+          <div
             className="btn btn-primary mt-2"
             onClick={() => searchHandler()}
           >
             Tìm kiếm
-          </button>
+          </div>
         </div>
         <div className="row"></div>
         <div className="card__body">
@@ -605,7 +605,7 @@ const Order = () => {
                             {item.orderStatusId !== 4 &&
                               item.orderStatusId !== 3 &&
                               item.orderStatusId !== 5 ? (
-                              <NavLink to={`/order-detail/${item.id}`} exact>
+                              <NavLink to={`/admin/order-detail/${item.id}`} exact>
                                 <i
                                   className="fa fa-pencil-square-o"
                                   aria-hidden="true"
