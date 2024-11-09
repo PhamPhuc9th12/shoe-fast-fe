@@ -12,58 +12,58 @@ const sidebar_items_1 = [
   {
     "display_name": "Tài khoản",
     "route": "/admin/accounts",
-    "add": "/add-account",
-    "modify": "/account-detail",
+    "add": "admin/add-account",
+    "modify": "admin/account-detail",
     "icon": "bx bx-user-pin"
   },
   {
     "display_name": "Sản phẩm",
     "route": "/admin/products",
-    "add": "/add-product",
-    "modify": "/product-detail",
+    "add": "admin/add-product",
+    "modify": "admin/product-detail",
     "icon": "bx bx-package"
   },
   {
     "display_name": "Đơn hàng",
     "route": "/admin/orders",
-    "add": "/add-order",
-    "modify": "/order-detail",
-    "sub": "/detail-order",
+    "add": "admin/add-order",
+    "modify": "admin/order-detail",
+    "sub": "admin/detail-order",
     "icon": "bx bx-cart"
   },
   {
     "display_name": "Voucher",
     "route": "/admin/vouchers",
-    "add": "/add-voucher",
-    "modify": "/voucher-detail",
+    "add": "admin/add-voucher",
+    "modify": "admin/voucher-detail",
     "icon": "bx bx-bar-chart-alt"
   },
   {
     "display_name": "Loại sản phẩm",
     "route": "/admin/categories",
-    "add": "/add-category",
-    "modify": "/category-detail",
+    "add": "admin/add-category",
+    "modify": "admin/category-detail",
     "icon": "bx bx-list-ol"
   },
   {
     "display_name": "Khuyến mãi",
     "route": "/admin/sale",
-    "add": "/add-sale",
-    "modify": "/sale-detail",
+    "add": "admin/add-sale",
+    "modify": "admin/sale-detail",
     "icon": "bx bx-gift"
   },
   {
     "display_name": "Thương hiệu",
     "route": "/admin/brand",
-    "add": "/add-brand",
-    "modify": "/brand-detail",
+    "add": "admin/add-brand",
+    "modify": "admin/brand-detail",
     "icon": "bx bx-store-alt"
   },
   {
     "display_name": "Hộp thoại",
     "route": "/admin/chat",
-    "add": "/chat",
-    "modify": "/chat",
+    "add": "admin/chat",
+    "modify": "admin/chat",
     "icon": "bx bx-user-pin"
   }
 ]
@@ -72,16 +72,16 @@ const sidebar_items_2 = [
   {
     "display_name": "Đơn hàng",
     "route": "/admin/orders",
-    "add": "/add-order",
-    "modify": "/order-detail",
-    "sub": "/detail-order",
+    "add": "admin/add-order",
+    "modify": "admin/order-detail",
+    "sub": "admin/detail-order",
     "icon": "bx bx-cart"
   },
   {
     "display_name": "Hộp thoại",
     "route": "/admin/chat",
-    "add": "/chat",
-    "modify": "/chat",
+    "add": "admin/chat",
+    "modify": "admin/chat",
     "icon": "bx bx-user-pin"
   }
 ]

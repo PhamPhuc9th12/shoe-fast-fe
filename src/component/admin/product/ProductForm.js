@@ -160,11 +160,11 @@ const ProductForm = () => {
   };
 
   return (
-    <div className="pb-3 container-fluid card">
+    <div className="pb-3 container-fluid card" >
       <div className="col-10 offset-1 text-center">
         <h1 className="text-danger">Sản phẩm</h1>
       </div>
-      <div className="row card">
+      <div className="row card" >
         <form
           className="needs-validation pro-form"
           onSubmit={handleSubmit(submitHandler)}

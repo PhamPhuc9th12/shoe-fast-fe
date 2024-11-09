@@ -4,7 +4,7 @@ import { getCategory } from "../../../api/CategoryApi";
 
 const Category = () => {
   const [category, setCategory] = useState();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [total, setTotal] = useState();
 
   var rows = new Array(total).fill(0).map((zero, index) => (
@@ -39,7 +39,7 @@ const Category = () => {
 
   return (
     <div className="card">
-      <div className="card__header mb-5">
+      <div className="card__header mb-5" style={{ marginTop: '90px' }}>
         <NavLink
           to="/add-category"
           className="btn btn-primary"
@@ -79,11 +79,11 @@ const Category = () => {
       </table>
       <nav aria-label="Page navigation">
         <ul className="pagination offset-5 mt-3">
-          <li className={page === 1 ? "page-item disabled" : "page-item"}>
+          <li className={page === 0 ? "page-item disabled" : "page-item"}>
             <button
               className="page-link"
               style={{ borderRadius: 50 }}
-              onClick={() => onChangePage(1)}
+              onClick={() => onChangePage(0)}
             >
               {`<<`}
             </button>

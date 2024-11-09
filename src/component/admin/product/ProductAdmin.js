@@ -7,7 +7,7 @@ import { getBrands } from "../../../api/BrandApi";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [total, setTotal] = useState({});
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -23,7 +23,7 @@ const Product = () => {
       setTotal(response.data.totalPages);
     });
 
-    getBrands(1, 20)
+    getBrands(0, 20)
       .then((resp) => setBrand(resp.data.content))
       .catch((error) => console.log(error));
   };
@@ -51,7 +51,7 @@ const Product = () => {
     if (value == 0) {
       onLoad();
     } else {
-      getAllProductsByBrand(value, 1, 10)
+      getAllProductsByBrand(value, 0, 10)
         .then((resp) => {
           setProducts(resp.data.content);
           setTotal(resp.data.totalPages);
@@ -62,9 +62,9 @@ const Product = () => {
   return (
     <div className="col-12">
       <div className="card">
-        <div className="card__header">
+        <div className="card__header" style={{ marginTop: '60px' }}>
           <NavLink
-            to="/add-product"
+            to="/admin/add-product"
             className="btn btn-primary"
             style={{ borderRadius: 50 }}
           >
@@ -107,7 +107,7 @@ const Product = () => {
                     products.map((item, index) => (
                       <tr key={index}>
                         <th scope="row">
-                          <NavLink to={`/product-view/${item.id}`} exact>
+                          <NavLink to={`/admin/product-view/${item.id}`} exact>
                             #{index + 1}
                           </NavLink>
                         </th>
@@ -123,9 +123,9 @@ const Product = () => {
                             alt=""
                           />
                         </th>
-                        <th>{item.active ? "Đang bán" : "Dừng bán"}</th>
+                        <th>{item.isActive ? "Đang bán" : "Dừng bán"}</th>
                         <th>
-                          <NavLink to={`/product-detail/${item.id}`} exact>
+                          <NavLink to={`admin/product-detail/${item.id}`} exact>
                             <i
                               className="fa fa-pencil-square-o"
                               aria-hidden="true"
@@ -141,11 +141,11 @@ const Product = () => {
         </div>
         <nav aria-label="Page navigation">
           <ul className="pagination offset-5 mt-3">
-            <li className={page === 1 ? "page-item disabled" : "page-item"}>
+            <li className={page === 0 ? "page-item disabled" : "page-item"}>
               <button
                 className="page-link"
                 style={{ borderRadius: 50 }}
-                onClick={() => onChangePage(1)}
+                onClick={() => onChangePage(0)}
               >
                 {`<<`}
               </button>

@@ -116,7 +116,7 @@ const Dashboard = () => {
                     product.map((item, index) => (
                       <tr key={index}>
                         <th scope="row">
-                          <NavLink to={`/order-product/${item.id}`} exact>
+                          <NavLink to={`admin/order-product/${item.id}`} exact>
                             {" "}
                             {item.id}
                           </NavLink>
@@ -154,7 +154,7 @@ const Dashboard = () => {
                     year.map((item, index) => (
                       <tr key={index}>
                         <th scope="row">
-                          <NavLink exact to={`/report-month/${item.year}`}>
+                          <NavLink exact to={`admin/report-month/${item.year}`}>
                             {index + 1}
                           </NavLink>
                         </th>
@@ -167,7 +167,7 @@ const Dashboard = () => {
               </table>
             </div>
             <div className="card__footer">
-              <NavLink exact to={`/report-month/2022`}>
+              <NavLink exact to={`admin/report-month/2022`}>
                 Xem chi tiết
               </NavLink>
             </div>

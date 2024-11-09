@@ -140,7 +140,7 @@ const Order = () => {
   const [orderStatuses, setOrderStatuses] = useState([]);
   const [obj, setObj] = useState({});
   const [total, setTotal] = useState();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [from, setFrom] = useState("");
@@ -179,7 +179,7 @@ const Order = () => {
       .catch((error) => console.log(error));
     getAllOrderStatus()
       .then((resp) => setOrderStatuses(resp.data))
-      .catch((error) => console.log(error.response.data.Errors));
+      .catch((error) => console.log(error.response.data));
   };
 
   const updateStatusHandlerFirst = (orderId, statusId) => {
@@ -220,7 +220,7 @@ const Order = () => {
           .catch((error) => console.log(error));
         toast.success("Cập nhật thành công.");
       })
-      .catch((error) => toast.error(error.response.data.Errors));
+      .catch((error) => toast.error(error.response.data));
 
     setFlagProcess(false);
     setShowFirst(false);
@@ -248,7 +248,7 @@ const Order = () => {
           .catch((error) => console.log(error));
         toast.success("Cập nhật thành công.");
       })
-      .catch((error) => toast.error(error.response.data.Errors));
+      .catch((error) => toast.error(error.response.data));
     setShipment(null);
     setCode(null);
     setShipDate(null);
@@ -277,7 +277,7 @@ const Order = () => {
           .catch((error) => console.log(error));
         toast.success("Cập nhật thành công.");
       })
-      .catch((error) => toast.error(error.response.data.Errors));
+      .catch((error) => toast.error(error.response.data));
 
     setFlagSuccess(null);
     setShowThird(false);
@@ -305,7 +305,7 @@ const Order = () => {
           .catch((error) => console.log(error));
         toast.success("Cập nhật thành công.");
       })
-      .catch((error) => toast.error(error.response.data.Errors));
+      .catch((error) => toast.error(error.response.data));
 
     setReason(null);
     setDescription(null);
@@ -322,7 +322,7 @@ const Order = () => {
         setOrders(res.data.content);
         setTotal(res.data.totalPages);
       })
-      .catch((error) => console.log(error.response.data.Errors));
+      .catch((error) => console.log(error.response.data));
   };
 
   const getAllOrderByOrderStatusAndYearAndMonth = (value) => {
@@ -334,7 +334,7 @@ const Order = () => {
         setOrders(res.data.content);
         setTotal(res.data.totalPages);
       })
-      .catch((error) => console.log(error.response.data.Errors));
+      .catch((error) => console.log(error.response.data));
   };
 
   const changeYearHandler = (value) => {
@@ -358,7 +358,7 @@ const Order = () => {
             setOrders(res.data.content);
             setTotal(res.data.totalPages);
           })
-          .catch((error) => console.log(error.response.data.Errors));
+          .catch((error) => console.log(error.response.data));
       }
     }
   };
@@ -528,7 +528,7 @@ const Order = () => {
                                 className="form-check-input"
                                 type="radio"
                                 name={index}
-                                checked={item.orderStatus.id === 1}
+                                checked={item.orderStatusId === 1}
                                 value="1"
                               />
                             </div>
@@ -539,7 +539,7 @@ const Order = () => {
                                 className="form-check-input"
                                 type="radio"
                                 name={index}
-                                checked={item.orderStatus.id === 2}
+                                checked={item.orderStatusId === 2}
                                 value="2"
                                 onChange={(e) =>
                                   updateStatusHandlerFirst(
@@ -556,7 +556,7 @@ const Order = () => {
                                 className="form-check-input"
                                 type="radio"
                                 name={index}
-                                checked={item.orderStatus.id === 3}
+                                checked={item.orderStatusId === 3}
                                 value="3"
                                 onChange={(e) =>
                                   updateStatusHandlerSecond(
@@ -573,7 +573,7 @@ const Order = () => {
                                 className="form-check-input"
                                 type="radio"
                                 name={index}
-                                checked={item.orderStatus.id === 4}
+                                checked={item.orderStatusId === 4}
                                 value="4"
                                 onChange={(e) =>
                                   updateStatusHandlerThird(
@@ -590,7 +590,7 @@ const Order = () => {
                                 className="form-check-input"
                                 type="radio"
                                 name={index}
-                                checked={item.orderStatus.id === 5}
+                                checked={item.orderStatusId === 5}
                                 value="5"
                                 onChange={(e) =>
                                   updateStatusHandlerFouth(
@@ -602,9 +602,9 @@ const Order = () => {
                             </div>
                           </th>
                           <th>
-                            {item.orderStatus.id !== 4 &&
-                              item.orderStatus.id !== 3 &&
-                              item.orderStatus.id !== 5 ? (
+                            {item.orderStatusId !== 4 &&
+                              item.orderStatusId !== 3 &&
+                              item.orderStatusId !== 5 ? (
                               <NavLink to={`/order-detail/${item.id}`} exact>
                                 <i
                                   className="fa fa-pencil-square-o"
@@ -625,11 +625,11 @@ const Order = () => {
         </div>
         <nav aria-label="Page navigation">
           <ul className="pagination offset-5 mt-3">
-            <li className={page === 1 ? "page-item disabled" : "page-item"}>
+            <li className={page === 0 ? "page-item disabled" : "page-item"}>
               <button
                 className="page-link"
                 style={{ borderRadius: 50 }}
-                onClick={() => onChangePage(1)}
+                onClick={() => onChangePage(0)}
               >
                 {`<<`}
               </button>

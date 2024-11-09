@@ -29,6 +29,34 @@ import DashboardAdmin from "../component/admin/dashboard/DashboardAdmin";
 import ProductForm from "../component/admin/product/ProductForm";
 import Sidebar from "../component/admin/sidebar/Sidebar";
 import TopNav from "../component/admin/topnav/TopNav"
+import OrderAdmin from "../component/admin/order/OrderAdmin";
+import Category from "../component/admin/category/Category";
+import NewCategory from "../component/admin/category/NewCategory";
+import Sale from "../component/admin/sale/Sale";
+import NewSale from "../component/admin/sale/NewSale";
+import Voucher from "../component/admin/voucher/Voucher";
+import NewVoucher from "../component/admin/voucher/NewVoucher";
+import Brand from "../component/admin/brand/Brand";
+import NewBrand from "../component/admin/brand/NewBrand";
+import OrderForm from "../component/admin/order/OrderForm";
+import OrderDetailAdmin from "../component/admin/order/OrderDetailAdmin";
+import EditProduct from "../component/admin/product/EditProduct";
+import EditBrand from "../component/admin/brand/EditBrand";
+import EditSale from "../component/admin/sale/EditSale";
+import EditCategory from "../component/admin/category/EditCategory";
+import EditVoucher from "../component/admin/voucher/EditVoucher";
+import ReportMonth from "../component/admin/report/ReportMonth";
+import ReportProduct from "../component/admin/report/ReportProduct";
+import OrderMonth from "../component/admin/report/OrderMonth";
+import OrderProduct from "../component/admin/report/OrderProduct";
+import Detail from "../component/admin/product/Detail";
+import SearchOrder from "../component/admin/order/SearchOrder";
+import Error from "../component/admin/error/Error";
+import Upload from "../component/admin/Upload";
+import ProductAdmin from "../component/admin/product/ProductAdmin";
+import { styled } from "@mui/material";
+
+
 const UserLayout = () => {
     const [user, setUser] = useState(null);
     const [temp, setTemp] = useState(true);
@@ -37,9 +65,13 @@ const UserLayout = () => {
     const [outStock, setOutStock] = useState([]);
     const [buy, setBuy] = useState([]);
     const [size, setSize] = useState("");
-
     const location = useLocation();
     const isAdminRoute = location.pathname.startsWith("/admin");
+
+    const [year, setYear] = useState();
+    const yearHandler = (value) => {
+        setYear(value);
+    };
 
     const userHandler = (user) => {
         setUser(user);
@@ -185,14 +217,91 @@ const UserLayout = () => {
                         <Blog></Blog>
                     </Route>
 
-                    <>
-                        <Route path="/admin/dashboard" exact>
-                            <DashboardAdmin className="dashboard-content" ></DashboardAdmin>
-                        </Route>
-                        <Route path="/admin/add-product" exact>
-                            <ProductForm></ProductForm>
-                        </Route>
-                    </>
+
+                    <Route path="/admin/dashboard" exact>
+                        <DashboardAdmin className="dashboard-content" ></DashboardAdmin>
+                    </Route>
+                    <Route path="/admin/products" exact>
+                        <ProductAdmin></ProductAdmin>
+                    </Route>
+                    <Route path="/admin/add-product" exact>
+                        <ProductForm className="add-product"></ProductForm>
+                    </Route>
+                    <Route path="/admin/orders" exact>
+                        <OrderAdmin></OrderAdmin>
+                    </Route>
+                    <Route path="/admin/categories" exact>
+                        <Category></Category>
+                    </Route>
+                    <Route path="/admin/add-category" exact>
+                        <NewCategory></NewCategory>
+                    </Route>
+                    <Route path="/admin/sale" exact>
+                        <Sale></Sale>
+                    </Route>
+                    <Route path="/admin/add-sale" exact>
+                        <NewSale></NewSale>
+                    </Route>
+                    <Route path="/admin/vouchers" exact>
+                        <Voucher></Voucher>
+                    </Route>
+                    <Route path="/admin/add-voucher" exact>
+                        <NewVoucher></NewVoucher>
+                    </Route>
+                    <Route path="/admin/brand" exact>
+                        <Brand></Brand>
+                    </Route>
+                    <Route path="/admin/add-brand" exact>
+                        <NewBrand></NewBrand>
+                    </Route>
+                    <Route path={`/admin/order-detail/:id`} exact>
+                        <OrderForm></OrderForm>
+                    </Route>
+                    <Route path={`/admin/product-detail/:id`} exact>
+                        <EditProduct></EditProduct>
+                    </Route>
+                    <Route path={`/admin/detail-order/:id`} exact>
+                        <OrderDetailAdmin></OrderDetailAdmin>
+                    </Route>
+                    {/* <Route path={`admin/account-detail/:id`} exact>
+                            <EditAccount></EditAccount>
+                        </Route> */}
+                    <Route path={`/admin/voucher-detail/:id`} exact>
+                        <EditVoucher></EditVoucher>
+                    </Route>
+                    <Route path={`/admin/brand-detail/:id`} exact>
+                        <EditBrand></EditBrand>
+                    </Route>
+                    <Route path={`/admin/category-detail/:id`} exact>
+                        <EditCategory></EditCategory>
+                    </Route>
+                    <Route path={`/admin/sale-detail/:id`} exact>
+                        <EditSale></EditSale>
+                    </Route>
+                    <Route path={`/admin/report-product`} exact>
+                        <ReportProduct></ReportProduct>
+                    </Route>
+                    <Route path={`/admin/order-product/:id`} exact>
+                        <OrderProduct></OrderProduct>
+                    </Route>
+                    <Route path={`/admin/report-month/:id`} exact>
+                        <ReportMonth yearHandler={yearHandler}></ReportMonth>
+                    </Route>
+                    <Route path={`/admin/order-month/:id`} exact>
+                        <OrderMonth year={year}></OrderMonth>
+                    </Route>
+                    <Route path={`/admin/upload`} exact>
+                        <Upload></Upload>
+                    </Route>
+                    <Route path={`/admin/product-view/:id`} exact>
+                        <Detail></Detail>
+                    </Route>
+                    <Route path={`/admin/search/:id`} exact>
+                        <SearchOrder></SearchOrder>
+                    </Route>
+                    <Route path={`/admin/error-page`} exact>
+                        <Error></Error>
+                    </Route>
                 </Switch>
             </div>
 

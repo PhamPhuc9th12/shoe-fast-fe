@@ -6,7 +6,7 @@ import { getAttribute } from "../../../api/AttributeApi";
 const Detail = () => {
   const { id } = useParams();
   const [item, setItem] = useState();
-  const [attributes, setAttributes] = useState();
+  const [attributes, setAttributes] = useState([]);
   const [price, setPrice] = useState();
   const [stock, setStock] = useState();
   const [flag, setFlag] = useState();
@@ -20,6 +20,7 @@ const Detail = () => {
     getProductById(id)
       .then((res) => {
         setItem(res.data);
+        console.log(res.data.attributes);
         setAttributes(res.data.attributes);
       })
       .catch((error) => console.log(error));
@@ -57,7 +58,7 @@ const Detail = () => {
 
                 <div className="col-md-4">
                   <img
-                    src={require(`../../static/images/${item.main}`)}
+                    // src={require(`../../static/images/${item.main}`)}
                     className="img-fluid rounded-start"
                     style={{ width: "600px", height: "400px" }}
                     alt=""
@@ -111,7 +112,7 @@ const Detail = () => {
                     <hr />
                   </div>
                 </div>
-                <div className="container row offset-3 mt-5">
+                {/* <div className="container row offset-3 mt-5">
                   <img
                     src={require(`../../static/images/${item.images[0]}`)}
                     alt="..."
@@ -142,7 +143,7 @@ const Detail = () => {
                     className="img-thumbnail mr-3"
                     style={{ width: "200px", height: "200px" }}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="col-8 offset-2">

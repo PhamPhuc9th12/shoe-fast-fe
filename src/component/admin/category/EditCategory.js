@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
-import { updateCategory, getCategoryDetail } from "../../api/CategoryApi";
+import { updateCategory, getCategoryDetail } from "../../../api/CategoryApi";
 import { toast } from "react-toastify";
 
 const EditCategory = () => {
@@ -60,7 +60,7 @@ const EditCategory = () => {
                 />
                 {errors.name && (
                   <div className="alert alert-danger" role="alert">
-                   Tên không hợp lệ!
+                    Tên không hợp lệ!
                   </div>
                 )}
               </div>
@@ -80,7 +80,7 @@ const EditCategory = () => {
                     Mô tả không hợp lệ!
                   </div>
                 )}
-              </div>         
+              </div>
               <div className="col-sm-6 mt-5">
                 <label className="form-label">Trạng thái hoạt động</label>
                 <select
@@ -90,7 +90,7 @@ const EditCategory = () => {
                   <option value="false">Không hoạt động</option>
                   <option value="true">Hoạt động</option>
                 </select>
-              </div>           
+              </div>
             </div>
             <button
               className="btn btn-primary btn-lg mt-5 mb-5"

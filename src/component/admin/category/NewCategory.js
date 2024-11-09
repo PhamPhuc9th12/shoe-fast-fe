@@ -1,7 +1,7 @@
-import React  from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { useHistory} from "react-router-dom";
-import { createCategory } from "../../api/CategoryApi";
+import { useHistory } from "react-router-dom";
+import { createCategory } from "../../../api/CategoryApi";
 import { toast } from "react-toastify";
 
 const NewCategory = () => {
@@ -51,7 +51,7 @@ const NewCategory = () => {
                 />
                 {errors.name && (
                   <div className="alert alert-danger" role="alert">
-                   Tên không hợp lệ!
+                    Tên không hợp lệ!
                   </div>
                 )}
               </div>
@@ -71,7 +71,7 @@ const NewCategory = () => {
                     Mô tả không hợp lệ!
                   </div>
                 )}
-              </div>         
+              </div>
               <div className="col-sm-6 mt-5">
                 <label className="form-label">Trạng thái hoạt động</label>
                 <select
@@ -81,7 +81,7 @@ const NewCategory = () => {
                   <option value="false">Không hoạt động</option>
                   <option value="true">Hoạt động</option>
                 </select>
-              </div>           
+              </div>
             </div>
             <button
               className="btn btn-primary btn-lg mt-5 mb-5"

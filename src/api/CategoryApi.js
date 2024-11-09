@@ -4,6 +4,10 @@ export const getCategory = (page, size) => {
     const url = `/api/v1/category/list?page=${page}&size=${size}`;
     return Instance.get(url);
 }
+export const getCategoryDetail = (id) => {
+    const url = `/api/v1/category/detail/${id}`;
+    return Instance.get(url);
+}
 
 export const createCategory = (data) => {
     const url = `/api/v1/category/create`;
