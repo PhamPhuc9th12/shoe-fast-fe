@@ -13,7 +13,7 @@ const Order = (props) => {
   const [show, setShow] = useState(false);
   const [obj, setObj] = useState({});
   const [total, setTotal] = useState();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [showFouth, setShowFouth] = useState(false);
   const [description, setDescription] = useState(null);
   const [reason, setReason] = useState(null);
@@ -65,7 +65,7 @@ const Order = (props) => {
       .then(() => {
         toast.success("Cập nhật thành công.");
         setStatus(obj.statusId);
-        setPage(1);
+        setPage(0);
         getAllOrderByStatus(obj.statusId)
           .then((res) => {
             setOrder(res.data.content);
@@ -225,11 +225,11 @@ const Order = (props) => {
             </table>
             <nav aria-label="navigation" className="col-4 offset-5">
               <ul className="pagination">
-                <li className={page == 1 ? "page-item disabled" : "page-item"}>
+                <li className={page == 0 ? "page-item disabled" : "page-item"}>
                   <button
                     className="page-link"
                     style={{ borderRadius: 50 }}
-                    onClick={() => onChangePage(1)}
+                    onClick={() => onChangePage(0)}
                   >{`<<`}</button>
                 </li>
                 {rows}

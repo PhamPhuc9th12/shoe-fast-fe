@@ -163,7 +163,7 @@ const ProductDetail = (props) => {
               <div className="row g-0">
                 <div className="col-md-4">
                   <img
-                    src={require(`../static/images/${item.main}`)}
+                    src={item.main}
                     className="img-fluid rounded-start"
                     style={{ width: "600px", height: "400px" }}
                     alt=""
@@ -261,10 +261,10 @@ const ProductDetail = (props) => {
                   </div>
                 </div>
                 <div className="container row offset-3 mt-5">
-                  {item.images.map((image, index) => (
+                  {item.images.map((item, index) => (
                     <img
                       key={index}
-                      src={require(`../static/images/${image}`)}
+                      src={item}
                       alt={`Image ${index + 1}`}
                       className="img-thumbnail mr-3"
                       style={{ width: "200px", height: "200px" }}
@@ -314,7 +314,7 @@ const ProductDetail = (props) => {
                         </div>
                         <NavLink to={`/product-detail/${item.id}`}>
                           <img
-                            src={require(`../static/images/${item.image}`)}
+                            src={item.image}
                             style={{ width: 150, height: 150 }}
                             alt="Product"
                             className="mini-card"

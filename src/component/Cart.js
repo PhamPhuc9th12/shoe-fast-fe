@@ -191,7 +191,7 @@ const Cart = (props) => {
                       <img
                         className="img-fluid"
                         style={{ width: "100px", height: "100px" }}
-                        src={require(`../static/images/${item.image}`)}
+                        src={item.image}
                         alt=""
                       />
                     </th>
@@ -274,12 +274,12 @@ const Cart = (props) => {
           </table>
           <hr className="my-4" />
           <div className="row container-fluid">
-            <button
+            <div
               className="btn btn-primary mb-3 btn-lg"
               onClick={checkOutHandler}
             >
               Mua hàng
-            </button>
+            </div>
           </div>
         </div>
       </div>

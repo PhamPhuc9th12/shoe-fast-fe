@@ -4,6 +4,17 @@ export const getAllProducts = (page, size, active) => {
     const url = `/api/v1/product/get-all?page=${page}&size=${size}&active=${active}`;
     return Instance.get(url);
 }
+export const toggleLikeProduct = (productId, liked, token) => {
+    return axios.post(
+        `/api/products/${productId}/like`,
+        { liked },
+        {
+            headers: {
+                'Authorization': `Bearer ${token}` // Gửi token trong header
+            }
+        }
+    );
+};
 
 export const filterProducts = (data) => {
     const url = `/api/v1/product/get-all/filter`;
@@ -35,10 +46,20 @@ export const getAllProductsByBrand = (brand, page, size) => {
     return Instance.get(url);
 }
 
-export const createProduct = (data) => {
+// export const createProduct = (data) => {
+//     const url = `/api/v1/product/create`;
+//     return Instance.post(url, data);
+
+// }
+
+export const createProduct = (formData) => {
     const url = `/api/v1/product/create`;
-    return Instance.post(url, data);
-}
+    return Instance.post(url, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        }
+    });
+};
 
 export const modifyProduct = (data) => {
     const url = `/api/v1/product/modify`;

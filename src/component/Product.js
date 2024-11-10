@@ -126,7 +126,7 @@ const defaultCategory = [1, 2, 3, 4, 5, 6, 7];
 
 const Product = (props) => {
   const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [total, setTotal] = useState({});
 
   const [categoryIds, setCategory] = useState([]);
@@ -179,7 +179,7 @@ const Product = (props) => {
     } else {
       setCategory([...categoryIds, value]);
     }
-    onChangePage(1);
+    onChangePage(0);
   };
 
   const chooseBrandHandler = (value) => {
@@ -189,7 +189,7 @@ const Product = (props) => {
     } else {
       setBrand([...brandIds, value]);
     }
-    onChangePage(1);
+    onChangePage(0);
   };
   const choosePriceHandler = (value) => {
     const index = price.indexOf(value);
@@ -202,7 +202,7 @@ const Product = (props) => {
       setMin(prices[value].min);
       setMax(prices[value].max);
     }
-    onChangePage(1);
+    onChangePage(0);
   };
   return (
     <div>
@@ -296,7 +296,7 @@ const Product = (props) => {
                         </div>
                         <NavLink to={`/product-detail/${item.id}`}>
                           <img
-                            src={require(`../static/images/${item.image}`)}
+                            src={item.image}
                             style={{ width: 150, height: 150 }}
                             alt={item.name}
                           />
@@ -343,9 +343,9 @@ const Product = (props) => {
                               </p>
                               <p className="mb-0 small text-danger">
                                 <span className="font-weight-bold">
-                                  Tiết kiệm:{" "}
+                                  Tiết kiệm:{(item.discount * item.price) / 100}
                                 </span>{" "}
-                                0 đ (0%)
+                                ({item.discount}%)
                               </p>
                             </div>
                           </div>

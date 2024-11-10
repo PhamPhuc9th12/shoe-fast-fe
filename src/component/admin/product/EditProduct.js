@@ -139,7 +139,7 @@ const EditProduct = () => {
       modifyProduct(flag)
         .then(() => {
           toast.success("Cập nhật thành công!");
-          history.push("/products");
+          history.push("/admin/products");
         })
         .catch((error) => console.log(error.response.data));
     }
