@@ -23,7 +23,7 @@ const NewVoucher = () => {
     createVoucher(result)
       .then(() => {
         toast.success("Thêm voucher thành công.");
-        history.push('/vouchers');
+        history.push('/admin/vouchers');
       })
       .catch((error) => toast.error(error.response.data.Errors));
   }

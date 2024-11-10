@@ -41,7 +41,7 @@ const Category = () => {
     <div className="card">
       <div className="card__header mb-5" style={{ marginTop: '90px' }}>
         <NavLink
-          to="/add-category"
+          to="/admin/add-category"
           className="btn btn-primary"
           style={{ borderRadius: 50 }}
         >
@@ -69,7 +69,7 @@ const Category = () => {
                 <td>{item.createDate}</td>
                 <td>{item.isActive ? "Hoạt động" : "Không hoạt động"}</td>
                 <td>
-                  <NavLink to={`/category-detail/${item.id}`} exact>
+                  <NavLink to={`/admin/category-detail/${item.id}`} exact>
                     <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
                   </NavLink>
                 </td>

@@ -20,7 +20,7 @@ const NewBrand = () => {
     createBrand(result)
       .then(() => {
         toast.success("Thêm mới brand thành công.");
-        history.push("/brand");
+        history.push("/admin/brand");
       })
       .catch((error) => toast.error(error.response.data.Errors));
   };

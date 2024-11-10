@@ -13,7 +13,7 @@ import { upload } from "../../../api/UploadApi";
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const ProductForm = () => {
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
   const [brand, setBrand] = useState([]);
   const [sale, setSale] = useState([]);
   const [category, setCategory] = useState([]);
@@ -22,15 +22,15 @@ const ProductForm = () => {
   const history = useHistory();
 
   useEffect(() => {
-    getBrands(1, 20)
+    getBrands(0, 20)
       .then((resp) => setBrand(resp.data.content))
       .catch((error) => console.log(error));
 
-    getSale(1, 8)
+    getSale(0, 8)
       .then((resp) => setSale(resp.data.content))
       .catch((error) => console.log(error));
 
-    getCategory(1, 20)
+    getCategory(0, 20)
       .then((resp) => setCategory(resp.data.content))
       .catch((error) => console.log(error));
   }, []);
@@ -148,7 +148,7 @@ const ProductForm = () => {
                 .catch((error) => console.log(error.response.data));
             });
             toast.success("Thêm mới sản phẩm thành công");
-            history.push("/products");
+            history.push("/admin/products");
           })
           .catch((error) => toast.error(error.response.data.Errors));
       }

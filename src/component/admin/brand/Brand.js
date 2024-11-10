@@ -41,7 +41,7 @@ const Brand = () => {
     <div className="card">
       <div className="card__header mb-5" style={{ marginTop: '90px' }}>
         <NavLink
-          to="/add-brand"
+          to="/admin/add-brand"
           className="btn btn-primary"
           style={{ borderRadius: 50 }}
         >
@@ -70,7 +70,7 @@ const Brand = () => {
                 <td>{item.isActive ? "Hoạt động" : "Không hoạt động"}</td>{" "}
                 <td>
                   {" "}
-                  <NavLink to={`/brand-detail/${item.id}`} exact>
+                  <NavLink to={`/admin/brand-detail/${item.id}`} exact>
                     <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
                   </NavLink>{" "}
                 </td>

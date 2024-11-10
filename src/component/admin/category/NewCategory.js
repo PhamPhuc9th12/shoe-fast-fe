@@ -22,7 +22,7 @@ const NewCategory = () => {
     createCategory(result)
       .then(() => {
         toast.success("Thêm mới loại sản phẩm thành công.");
-        history.push("/categories");
+        history.push("/admin/categories");
       })
       .catch((error) => toast.error(error.response.data.Errors));
   };

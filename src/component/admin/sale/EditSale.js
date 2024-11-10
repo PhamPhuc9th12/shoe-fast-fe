@@ -31,7 +31,7 @@ const EditSale = () => {
     updateSale(result)
       .then(() => {
         toast.success("Cập nhật khuyến mãi thành công.");
-        history.push("/sale");
+        history.push("/admin/sale");
       })
       .catch((error) => toast.error(error.response.data.Errors));
   };

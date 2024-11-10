@@ -22,7 +22,7 @@ const NewSale = () => {
     createSale(result)
       .then(() => {
         toast.success("Thêm mới khuyến mãi thành công.");
-        history.push("/sale");
+        history.push("/admin/sale");
       })
       .catch((error) => toast.error(error.response.data.Errors));
   };

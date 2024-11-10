@@ -31,7 +31,7 @@ const EditBrand = () => {
     updateBrand(result)
       .then(() => {
         toast.success("Cập nhật brand thành công.");
-        history.push("/brand");
+        history.push("/admin/brand");
       })
       .catch((error) => toast.error(error.response.data.Errors));
   };

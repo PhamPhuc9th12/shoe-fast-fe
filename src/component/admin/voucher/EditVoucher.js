@@ -30,7 +30,7 @@ const EditVoucher = () => {
     updateVoucher(result)
       .then(() => {
         toast.success("Cập nhật voucher thành công.");
-        history.push("/vouchers");
+        history.push("/admin/vouchers");
       })
       .catch((error) => toast.error(error.response.data.Errors));
   };
