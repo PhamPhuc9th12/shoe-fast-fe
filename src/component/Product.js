@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAllProducts, filterProducts } from "../api/ProductApi";
+import { getBrands } from "../api/BrandApi";
+import { getCategory } from "../api/CategoryApi";
 import { NavLink } from "react-router-dom";
 import { Collapse } from "antd";
 import "./sidebar/sidebar.css";
@@ -7,43 +9,6 @@ import "./sidebar/sidebar.css";
 
 const { Panel } = Collapse;
 
-const brands = [
-  {
-    display_name: "PUMA",
-    value: "1",
-    icon: "bx bx-category-alt",
-  },
-  {
-    display_name: "REEBOK",
-    value: "2",
-    icon: "bx bx-category-alt",
-  },
-  {
-    display_name: "NIKE",
-    value: "3",
-    icon: "bx bx-category-alt",
-  },
-  {
-    display_name: "ADIDAS",
-    value: "4",
-    icon: "bx bx-category-alt",
-  },
-  {
-    display_name: "FILA",
-    value: "5",
-    icon: "bx bx-category-alt",
-  },
-  {
-    display_name: "CONVERSE",
-    value: "6",
-    icon: "bx bx-category-alt",
-  },
-  {
-    display_name: "LI-NING",
-    value: "7",
-    icon: "bx bx-category-alt",
-  },
-];
 const categories = [
   {
     display_name: "Giày nam",
@@ -126,14 +91,27 @@ const defaultCategory = [1, 2, 3, 4, 5, 6, 7];
 
 const Product = (props) => {
   const [products, setProducts] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState({});
-
+  const [categories, setCategories] = useState([])
   const [categoryIds, setCategory] = useState([]);
   const [brandIds, setBrand] = useState([]);
   const [price, setPrice] = useState([]);
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(10000000);
+
+  useEffect(() => {
+    getBrands(0, 100).then((response) => {
+      setBrands(response.data.content);
+    });
+  }, []);
+
+  useEffect(() => {
+    getCategory(0, 100).then((response) => {
+      setCategories(response.data.content);
+    });
+  }, []);
 
   var rows = new Array(total).fill(0).map((zero, index) => (
     <li
@@ -213,20 +191,10 @@ const Product = (props) => {
               <Panel header="Thương hiệu" key="1">
                 <ul className="list-group">
                   {brands.map((item, index) => (
-                    <div
-                      className="sidebar__item"
-                      key={index}
-                      onClick={() => chooseBrandHandler(item.value)}
-                    >
-                      <div
-                        className={
-                          brandIds.includes(item.value)
-                            ? `sidebar__item-inner active`
-                            : `sidebar__item-inner`
-                        }
-                      >
-                        <i className={item.icon}></i>
-                        <span>{item.display_name}</span>
+                    <div className="sidebar__item" key={index} onClick={() => chooseBrandHandler(item.id)}>
+                      <div className={brandIds.includes(item.id) ? `sidebar__item-inner active` : `sidebar__item-inner`}>
+                        <i className="bx bx-category-alt"></i>
+                        <span>{item.name}</span>
                       </div>
                     </div>
                   ))}
@@ -242,13 +210,13 @@ const Product = (props) => {
                     >
                       <div
                         className={
-                          categoryIds.includes(item.value)
+                          categoryIds.includes(item.id)
                             ? `sidebar__item-inner active`
                             : `sidebar__item-inner`
                         }
                       >
-                        <i className={item.icon}></i>
-                        <span>{item.display_name}</span>
+                        <i className="bx bx-category-alt"></i>
+                        <span>{item.name}</span>
                       </div>
                     </div>
                   ))}

@@ -1,19 +1,35 @@
 import Instance from "../axios/Instance";
 
-export const getAllProducts = (page, size, active) => {
+export const getAllProducts = async (page, size, active, token) => {
     const url = `/api/v1/product/get-all?page=${page}&size=${size}&active=${active}`;
-    return Instance.get(url);
-}
-export const toggleLikeProduct = (productId, liked, token) => {
-    return axios.post(
-        `/api/products/${productId}/like`,
-        { liked },
-        {
-            headers: {
-                'Authorization': `Bearer ${token}` // Gửi token trong header
+    try {
+        const response = await Instance.get(
+            url,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             }
-        }
-    );
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+export const toggleLikeProduct = async (productId, likeStatus, token) => {
+    try {
+        const response = await Instance.put(
+            `/api/v1/product/like?productId=${productId}&liked=${likeStatus}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 };
 
 export const filterProducts = (data) => {
