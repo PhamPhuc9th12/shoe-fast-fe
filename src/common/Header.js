@@ -77,6 +77,7 @@ const Header = (props) => {
     props.refresh(false);
     toast.success("Tài khoản đã được đăng xuất.");
     localStorage.removeItem("token");
+    console.log("TOKEN: " + localStorage.getItem("token"))
     localStorage.removeItem("username");
     localStorage.removeItem("password");
     props.userHandler(null);

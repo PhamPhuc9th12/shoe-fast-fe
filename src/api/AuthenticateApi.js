@@ -1,18 +1,18 @@
 import Instance from '../axios/Instance'
 
-export const registerAccount = (data) => {
+export const registerAccount = async (data) => {
     const url = `/api/v1/user/create`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
-export const signIn = (data) => {
+export const signIn = async (data) => {
     const url = '/api/v1/user/login';
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
-export const forgotPassword = (data) => {
+export const forgotPassword = async (data) => {
     const url = '/api/v1/user/forgot-password';
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
-export const updatepProfile = (data) => {
+export const updatepProfile = async (data) => {
     const url = `/api/v1/user/update-profile`;
-    return Instance.put(url, data);
+    return await Instance.put(url, data);
 }

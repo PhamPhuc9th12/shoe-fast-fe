@@ -9,6 +9,7 @@ import { createProduct } from "../../../api/ProductApi";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import { upload } from "../../../api/UploadApi";
+import { error } from "jquery";
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -57,167 +58,6 @@ const ProductForm = () => {
       setImage(images);
     }
   };
-
-  // const submitHandler = (data) => {
-  //   if (image.length !== 6) {
-  //     toast.warning("Cần tải lên 6 bức ảnh");
-  //   } else {
-  //     const nums = [
-  //       data.size1,
-  //       data.size2,
-  //       data.size3,
-  //       data.size4,
-  //       data.size5,
-  //       data.size6,
-  //       data.size7,
-  //       data.size8,
-  //       data.size9,
-  //       data.size10,
-  //     ];
-  //     const newNums = nums.slice(0, count);
-  //     const hasDuplicate = newNums.some(x => newNums.indexOf(x) !== newNums.lastIndexOf(x));
-  //     if (hasDuplicate) {
-  //       toast.warning("Nhập trùng size. Vui lòng nhập lại!");
-  //     } else {
-  //       const flag = {
-  //         name: data.name,
-  //         code: data.code,
-  //         description: data.description,
-  //         brandId: data.brand,
-  //         saleId: data.sale,
-  //         categoryId: data.category,
-  //         imageUrl: image.map((item) => item.name),
-  //         attribute: [
-  //           {
-  //             size: data.size1,
-  //             price: data.price1,
-  //             stock: data.quantity1,
-  //           },
-  //           {
-  //             size: data.size2,
-  //             price: data.price2,
-  //             stock: data.quantity2,
-  //           },
-  //           {
-  //             size: data.size3,
-  //             price: data.price3,
-  //             stock: data.quantity3,
-  //           },
-  //           {
-  //             size: data.size4,
-  //             price: data.price4,
-  //             stock: data.quantity4,
-  //           },
-  //           {
-  //             size: data.size5,
-  //             price: data.price5,
-  //             stock: data.quantity5,
-  //           },
-  //           {
-  //             size: data.size6,
-  //             price: data.price6,
-  //             stock: data.quantity6,
-  //           },
-  //           {
-  //             size: data.size7,
-  //             price: data.price7,
-  //             stock: data.quantity7,
-  //           },
-  //           {
-  //             size: data.size8,
-  //             price: data.price8,
-  //             stock: data.quantity8,
-  //           },
-  //           {
-  //             size: data.size9,
-  //             price: data.price9,
-  //             stock: data.quantity9,
-  //           },
-  //           {
-  //             size: data.size10,
-  //             price: data.price10,
-  //             stock: data.quantity10,
-  //           },
-  //         ].slice(0, count),
-  //       };
-  //       createProduct(flag)
-  //         .then(() => {
-  //           image.forEach((item) => {
-  //             upload(item)
-  //               .then((resp) => console.log(resp.data))
-  //               .catch((error) => console.log(error.response.data));
-  //           });
-  //           toast.success("Thêm mới sản phẩm thành công");
-  //           history.push("/products");
-  //         })
-  //         .catch((error) => toast.error(error.response.data.Errors));
-  //     }
-  //   }
-  // };
-
-
-  // const submitHandler = (data) => {
-  //   if (image.length !== 6) {
-  //     toast.warning("Cần tải lên 6 bức ảnh");
-  //   } else {
-  //     const nums = [
-  //       data.size1,
-  //       data.size2,
-  //       data.size3,
-  //       data.size4,
-  //       data.size5,
-  //       data.size6,
-  //       data.size7,
-  //       data.size8,
-  //       data.size9,
-  //       data.size10,
-  //     ];
-  //     const newNums = nums.slice(0, count);
-  //     const hasDuplicate = newNums.some(x => newNums.indexOf(x) !== newNums.lastIndexOf(x));
-  //     if (hasDuplicate) {
-  //       toast.warning("Nhập trùng size. Vui lòng nhập lại!");
-  //     } else {
-  //       const formData = new FormData();
-
-  //       // Thêm các thông tin sản phẩm vào FormData
-  //       formData.append("name", data.name);
-  //       formData.append("code", data.code);
-  //       formData.append("description", data.description);
-  //       formData.append("brandId", data.brand);
-  //       formData.append("saleId", data.sale);
-  //       formData.append("categoryId", data.category);
-
-  //       // Thêm từng hình ảnh vào FormData
-  //       image.forEach((img, index) => {
-  //         formData.append("files", img);
-  //       });
-
-  //       // Thêm các thuộc tính sản phẩm vào FormData
-  //       const attributes = [
-  //         { size: data.size1, price: data.price1, stock: data.quantity1 },
-  //         { size: data.size2, price: data.price2, stock: data.quantity2 },
-  //         { size: data.size3, price: data.price3, stock: data.quantity3 },
-  //         { size: data.size4, price: data.price4, stock: data.quantity4 },
-  //         { size: data.size5, price: data.price5, stock: data.quantity5 },
-  //         { size: data.size6, price: data.price6, stock: data.quantity6 },
-  //         { size: data.size7, price: data.price7, stock: data.quantity7 },
-  //         { size: data.size8, price: data.price8, stock: data.quantity8 },
-  //         { size: data.size9, price: data.price9, stock: data.quantity9 },
-  //         { size: data.size10, price: data.price10, stock: data.quantity10 },
-  //       ].slice(0, count);
-
-  //       formData.append("attribute", JSON.stringify(attributes));
-
-  //       // Gửi yêu cầu tạo sản phẩm
-  //       createProduct(formData)
-  //         .then(() => {
-  //           toast.success("Thêm mới sản phẩm thành công");
-  //           history.push("/admin/products");
-  //         })
-  //         .catch((error) => toast.error(error.response.data.Errors));
-  //     }
-  //   }
-  // };
 
   const submitHandler = (data) => {
     if (image.length !== 6) {
@@ -281,7 +121,7 @@ const ProductForm = () => {
             toast.success("Thêm mới sản phẩm thành công");
             history.push("/admin/products");
           })
-          .catch((error) => toast.error(error.response.data.Errors));
+          .catch((error) => toast.error(error.response.data.message))
       }
     }
   };

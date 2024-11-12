@@ -1,20 +1,20 @@
 import Instance from '../axios/Instance';
 
-export const getCategory = (page, size) => {
+export const getCategory = async (page, size) => {
     const url = `/api/v1/category/list?page=${page}&size=${size}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
-export const getCategoryDetail = (id) => {
+export const getCategoryDetail = async (id) => {
     const url = `/api/v1/category/detail/${id}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const createCategory = (data) => {
+export const createCategory = async (data) => {
     const url = `/api/v1/category/create`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
 
-export const updateCategory = (data) => {
+export const updateCategory = async (data) => {
     const url = `/api/v1/category/update`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }

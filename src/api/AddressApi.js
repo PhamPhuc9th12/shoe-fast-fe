@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-export const getAllProvince = () => {
-    return axios.create({
+export const getAllProvince = async () => {
+    return await axios.create({
         baseURL: "https://provinces.open-api.vn",
         headers: {
             "Content-Type": "application/json"

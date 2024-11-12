@@ -1,23 +1,23 @@
 import Instance from '../axios/Instance'
 
-export const getVoucherByCode = (code) => {
+export const getVoucherByCode = async (code) => {
     const url = `/api/v1/voucher/by-code?code=${code}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const getVouchers = (page, size) => {
+export const getVouchers = async (page, size) => {
     const url = `/api/v1/voucher/list?page=${page}&size=${size}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
-export const createVoucher = (data) => {
+export const createVoucher = async (data) => {
     const url = `/api/v1/voucher/create`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
-export const getVoucherDetail = (id) => {
+export const getVoucherDetail = async (id) => {
     const url = `/api/v1/voucher/detail/${id}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
-export const updateVoucher = (data) => {
+export const updateVoucher = async (data) => {
     const url = `/api/v1/voucher/update`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }

@@ -125,10 +125,12 @@ const Product = (props) => {
   ));
 
   useEffect(() => {
+    const token = localStorage.getItem("token") || null;
     if (categoryIds.length === 0 && brandIds.length === 0 && price.length === 0) {
-      getAllProducts(page, count, true).then((response) => {
-        setProducts(response.data.content);
-        setTotal(response.data.totalPages);
+      console.log("TOKEN HOME:", token);
+      getAllProducts(page, 12, true, token).then((response) => {
+        setProducts(response.content);  // Lưu các sản phẩm vào state
+        setTotal(response.totalPages);
       });
     } else {
       const data = {
@@ -144,7 +146,7 @@ const Product = (props) => {
         setTotal(resp.data.totalPages);
       });
     }
-  }, [page, categoryIds, brandIds, price]);
+  }, [page, categoryIds, brandIds, price, localStorage.getItem("token")]);
 
   const onChangePage = (page) => {
     setPage(page);

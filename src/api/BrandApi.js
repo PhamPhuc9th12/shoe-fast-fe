@@ -1,18 +1,18 @@
 import Instance from "../axios/Instance";
-export const getBrands = (page, size) => {
+export const getBrands = async (page, size) => {
     const url = `/api/v1/brand/list?page=${page}&size=${size}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
-export const createBrand = (data) => {
+export const createBrand = async (data) => {
     const url = `/api/v1/brand/create`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
 
-export const getBrandDetail = (id) => {
+export const getBrandDetail = async (id) => {
     const url = `/api/v1/brand/detail/${id}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
-export const updateBrand = (data) => {
+export const updateBrand = async (data) => {
     const url = `/api/v1/brand/update`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }

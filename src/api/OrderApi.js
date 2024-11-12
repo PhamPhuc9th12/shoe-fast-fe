@@ -1,97 +1,97 @@
 import Instance from "../axios/Instance";
-export const createOrder = (data) => {
+export const createOrder = async (data) => {
     const url = `/api/v1/order/create`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
 
-export const getOrderById = (id) => {
+export const getOrderById = async (id) => {
     const url = `/api/v1/order?id=${id}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const getOrderDetailByOrderId = (id) => {
+export const getOrderDetailByOrderId = async (id) => {
     const url = `/api/v1/order/order-detail?orderId=${id}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const getAllOrderStatus = () => {
+export const getAllOrderStatus = async () => {
     const url = `/api/v1/order/order-status`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const getAllOrder = (id, status, page, size) => {
+export const getAllOrder = async (id, status, page, size) => {
     const url = `/api/v1/order/list?accountId=${id}&orderStatusId=${status}&page=${page}&size=${size}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const cancelOrder = (data) => {
+export const cancelOrder = async (data) => {
     const url = `/api/v1/order/cancel`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
 
 //admin
-export const countOrderByName = () => {
+export const countOrderByName = async () => {
     const url = `/api/v1/order/list/count`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const countOrder = () => {
+export const countOrder = async () => {
     const url = `/api/v1/order/count`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const reportAmountYear = () => {
+export const reportAmountYear = async () => {
     const url = `/api/v1/order/synthesis/year`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const reportByProduct = (page, size) => {
+export const reportByProduct = async (page, size) => {
     const url = `/api/v1/order/synthesis/product?page=${page}&size=${size}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const getOrderByOrderStatusAndYearAndMonth = (status, year, month, page, size) => {
+export const getOrderByOrderStatusAndYearAndMonth = async (status, year, month, page, size) => {
     const url = `/api/v1/order/synthesis/order-by-year-month?id=${status}&year=${year}&month=${month}&page=${page}&size=${size}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const getOrderByProduct = (id, page, size) => {
+export const getOrderByProduct = async (id, page, size) => {
     const url = `/api/v1/order/synthesis/order-by-product?id=${id}&page=${page}&size=${size}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const reportAmountMonth = (year) => {
+export const reportAmountMonth = async (year) => {
     const url = `/api/v1/order/synthesis/amount-month?year=${year}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
-export const updateOrder = (data) => {
+export const updateOrder = async (data) => {
     const url = `/api/v1/order/update`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
-export const updateCancel = (data) => {
+export const updateCancel = async (data) => {
     const url = `/api/v1/order/admin/cancel-order`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
 
-export const updateProcess = (data) => {
+export const updateProcess = async (data) => {
     const url = `/api/v1/order/admin/update-process`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
-export const updateShip = (data) => {
+export const updateShip = async (data) => {
     const url = `/api/v1/order/admin/update-shipment`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
 
-export const updateSuccess = (data) => {
+export const updateSuccess = async (data) => {
     const url = `/api/v1/order/admin/update-success`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
 
-export const getAllOrderAndPagination = (status, page, size) => {
+export const getAllOrderAndPagination = async (status, page, size) => {
     const url = `/api/v1/order/page-admin?page=${page}&size=${size}&status=${status}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
-export const getOrderByOrderStatusBetweenDate = (status, from, to, page, size) => {
+export const getOrderByOrderStatusBetweenDate = async (status, from, to, page, size) => {
     const url = `/api/v1/order/admin/page-orders-between-date?id=${status}&from=${from}&to=${to}&page=${page}&size=${size}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }

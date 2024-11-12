@@ -1,21 +1,21 @@
 import Instance from '../axios/Instance'
 
-export const getInformation = (token) => {
+export const getInformation = async (token) => {
     const url = `/api/v1/user/detail`;
     const headers = {
         Authorization: `Bearer ${token}`,
     };
-    return Instance.get(url, { headers });
+    return await Instance.get(url, { headers });
 }
 
-export const getAccountDetailByAccountId = (id) => {
+export const getAccountDetailByAccountId = async (id) => {
     const url = `/api/v1/user/detail?id=${id}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const countAccount = () => {
+export const countAccount = async () => {
     const url = `/api/v1/user/admin/count`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
 

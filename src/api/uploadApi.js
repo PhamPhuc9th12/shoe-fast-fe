@@ -1,9 +1,9 @@
 import Instance from "../axios/Instance"
 
-export const upload = (file) => {
+export const upload = async (file) => {
     let formData = new FormData();
     formData.append("file", file);
-    return Instance.post("/api/v1/upload-image", formData, {
+    return await Instance.post("/api/v1/upload-image", formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         }

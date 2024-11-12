@@ -1,22 +1,22 @@
 import Instance from "../axios/Instance";
 
-export const modifyCartItem = (data) => {
+export const modifyCartItem = async (data) => {
     const url = `/api/v1/cart/modify`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
 
 
-export const isEnoughCartItem = (id, quantity) => {
+export const isEnoughCartItem = async (id, quantity) => {
     const url = `/api/v1/cart/check-stock?id=${id}&quantity=${quantity}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const getCartItemByAccountId = (id) => {
+export const getCartItemByAccountId = async (id) => {
     const url = `/api/v1/cart/by-account?id=${id}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const removeCartItem = (data) => {
+export const removeCartItem = async (data) => {
     const url = `/api/v1/cart/remove`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }

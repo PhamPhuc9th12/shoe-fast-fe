@@ -15,30 +15,6 @@ const SignIn = (props) => {
     formState: { errors },
   } = useForm();
 
-  // const signInHandler = (data) => {
-  //   const userFlag = {
-  //     ...data,
-  //     admin: false,
-  //   };
-  //   signIn(userFlag)
-  //     .then((res) => {
-  //       const accessToken = res.data.accessToken;
-  //       if (!accessToken) {
-  //         throw new Error("Token không hợp lệ");
-  //       }
-  //       localStorage.setItem("token", accessToken);
-  //       return getInformation(accessToken);
-  //     })
-  //     .then((res) => {
-  //       props.userHandler(res.data);
-  //       history.push("/");
-  //       toast.success("Đăng nhập thành công!");
-  //     })
-  //     .catch((error) => {
-  //       toast.error(error.response?.data?.Errors || "Đã xảy ra lỗi. Vui lòng thử lại.");
-  //     });
-  // };
-
   const signInHandler = (data) => {
     const userFlag = {
       ...data,

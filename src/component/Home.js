@@ -36,18 +36,13 @@ const Home = (props) => {
   ));
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      alert("Vui lòng đăng nhập trước khi yêu thích sản phẩm");
-      return;
-    }
-
+    const token = localStorage.getItem("token") || null; // Nếu token không tồn tại, gán giá trị rỗng
+    console.log("TOKEN HOME:", token);
     getAllProducts(page, 12, active, token).then((response) => {
       setProducts(response.content);  // Lưu các sản phẩm vào state
       setTotal(response.totalPages);
     });
-  }, [page]);
+  }, [page, localStorage.getItem("token")]);
 
   const onChangePage = (page) => {
     setPage(page);

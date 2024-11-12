@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { getAllProductsByBrand } from "../../../api/ProductApi";
 import { NavLink } from "react-router-dom";
 import { getBrands } from "../../../api/BrandApi";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -25,7 +26,9 @@ const Product = () => {
 
     getBrands(0, 20)
       .then((resp) => setBrand(resp.data.content))
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        toast.warning(error.response.message);
+      })
   };
 
   const onChangePage = (page) => {
@@ -97,7 +100,7 @@ const Product = () => {
                     <th scope="col">Tên sản phẩm</th>
                     <th scope="col">Mã sản phẩm</th>
                     <th scope="col">Thương hiệu</th>
-                    <th scope="col">Mô tả</th>
+                    <th scope="col">Hình ảnh</th>
                     <th scope="col">Trạng thái</th>
                     <th scope="col">Cập nhật</th>
                   </tr>
@@ -119,7 +122,7 @@ const Product = () => {
                           <img
                             className="img-fluid"
                             style={{ width: "100px", height: "100px" }}
-                            // src={require(`../../static/images/${item.image}`)}
+                            src={item.image}
                             alt=""
                           />
                         </th>

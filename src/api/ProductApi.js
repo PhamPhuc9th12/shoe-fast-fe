@@ -32,52 +32,46 @@ export const toggleLikeProduct = async (productId, likeStatus, token) => {
     }
 };
 
-export const filterProducts = (data) => {
+export const filterProducts = async (data) => {
     const url = `/api/v1/product/get-all/filter`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
 
-export const getProductById = (id) => {
+export const getProductById = async (id) => {
     const url = `/api/v1/product?id=${id}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const relateProduct = (id, brandId) => {
+export const relateProduct = async (id, brandId) => {
     const url = `/api/v1/product/relate?brandId=${brandId}&id=${id}&page=0&size=20`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const searchByKeyword = (page, size, keyword) => {
+export const searchByKeyword = async (page, size, keyword) => {
     const url = `/api/v1/product/search?page=${page}&size=${size}&search=${keyword}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const countProduct = () => {
+export const countProduct = async () => {
     const url = `/api/v1/product/count`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-export const getAllProductsByBrand = (brand, page, size) => {
+export const getAllProductsByBrand = async (brand, page, size) => {
     const url = `/api/v1/product/by-brand?brandId=${brand}&page=${page}&size=${size}`;
-    return Instance.get(url);
+    return await Instance.get(url);
 }
 
-// export const createProduct = (data) => {
-//     const url = `/api/v1/product/create`;
-//     return Instance.post(url, data);
-
-// }
-
-export const createProduct = (formData) => {
+export const createProduct = async (formData) => {
     const url = `/api/v1/product/create`;
-    return Instance.post(url, formData, {
+    return await Instance.post(url, formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         }
     });
 };
 
-export const modifyProduct = (data) => {
+export const modifyProduct = async (data) => {
     const url = `/api/v1/product/modify`;
-    return Instance.post(url, data);
+    return await Instance.post(url, data);
 }
