@@ -16,6 +16,23 @@ export const getAllProducts = async (page, size, active, token) => {
         throw error;
     }
 }
+export const getAllProductWishList = async (token, page, size) => {
+    const url = `/api/v1/product/wish-list?page=${page}&size=${size}`;
+    try {
+        const response = await Instance.get(
+            url,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const toggleLikeProduct = async (productId, likeStatus, token) => {
     try {
         const response = await Instance.put(

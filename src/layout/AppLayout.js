@@ -55,6 +55,7 @@ import Error from "../component/admin/error/Error";
 import Upload from "../component/admin/Upload";
 import ProductAdmin from "../component/admin/product/ProductAdmin";
 import { styled } from "@mui/material";
+import WishList from "../component/WishList";
 
 
 const UserLayout = () => {
@@ -156,6 +157,9 @@ const UserLayout = () => {
 
                     <Route path="/sign-in" exact>
                         <SignIn userHandler={userHandler}></SignIn>
+                    </Route>
+                    <Route path="/wish-list" exact>
+                        <WishList></WishList>
                     </Route>
 
                     <Route path="/register" exact>

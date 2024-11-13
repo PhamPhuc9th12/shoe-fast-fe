@@ -133,16 +133,15 @@ const Header = (props) => {
                 Chính sách
               </NavLink>
             </li>
-            {props.user && (
-              <li
-                className={`nav-item mr-2 mini-item ${props.header === 6 ? "active" : ""
-                  }`}
-              >
-                <NavLink className="nav-link" to="/chat" exact>
-                  Hỏi đáp
-                </NavLink>
-              </li>
-            )}
+            <li
+              className={`nav-item mr-2 mini-item ${props.header === 4 ? "active" : ""
+                }`}
+            >
+              <NavLink className="nav-link" to="/wish-list" exact>
+                Yêu thích
+              </NavLink>
+            </li>
+
           </ul>
           <form className="form-inline d-flex my-2 my-lg-0 mr-3" onSubmit={submitHandler}>
             <input
