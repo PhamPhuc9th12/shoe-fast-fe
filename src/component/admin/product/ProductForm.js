@@ -8,7 +8,6 @@ import { getCategory } from "../../../api/CategoryApi";
 import { createProduct } from "../../../api/ProductApi";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
-import { upload } from "../../../api/UploadApi";
 import { error } from "jquery";
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
