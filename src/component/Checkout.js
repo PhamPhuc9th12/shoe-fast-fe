@@ -158,7 +158,10 @@ const Checkout = (props) => {
               props.clearHandler();
               history.push(`/order/detail/${resp.data.encodeUrl}`);
             })
-            .catch(() => history.push("/out-of-stock"));
+            .catch(() => {
+              toast.success("Sản phẩm không tồn tại hoặc số lượng không đủ");
+              history.push("/cart")
+            });
         })
         .catch((error) => {
           handleCloseFirst();
@@ -196,7 +199,10 @@ const Checkout = (props) => {
           props.clearHandler();
           history.push(`/order/detail/${resp.data.id}`);
         })
-        .catch(() => history.push("/out-of-stock"));
+        .catch(() => {
+          toast.success("Sản phẩm không tồn tại hoặc số lượng không đủ");
+          history.push("/cart")
+        });
     }
   };
 

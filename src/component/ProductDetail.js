@@ -71,7 +71,7 @@ const ProductDetail = (props) => {
 
   const onModify = (price, stock, flag) => {
     setCount(1);
-    setStatus(stock > count);
+    setStatus(stock >= count);
     setPrice(price);
     setStock(stock);
     setFlag(flag);

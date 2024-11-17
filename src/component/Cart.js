@@ -43,7 +43,7 @@ const Cart = (props) => {
 
         modifyCartItem(data)
           .then(() => onLoad())
-          .catch((error) => toast.warning(error.response.data.Errors));
+          .catch((error) => toast.warning(error.response.data.message));
       } else {
         isEnoughCartItem(attr, quantity)
           .then(() => {
@@ -61,7 +61,7 @@ const Cart = (props) => {
             const flag = res.filter((item) => item.quantity > 0);
             setCart(flag);
             props.cartHandler(flag);
-            toast.warning(error.response.data.Errors);
+            toast.warning(error.response.data.message);
           });
       }
     }
@@ -81,7 +81,7 @@ const Cart = (props) => {
 
         modifyCartItem(data)
           .then(() => onLoad())
-          .catch((error) => toast.warning(error.response.data.Errors));
+          .catch((error) => toast.warning(error.response.data.message));
       } else {
         isEnoughCartItem(attr, quantity)
           .then(() => {
@@ -93,7 +93,7 @@ const Cart = (props) => {
             props.cartHandler(flag);
           })
           .catch((error) => {
-            toast.warning(error.response.data.Errors);
+            toast.warning(error.response.data.message);
           });
       }
     }
@@ -109,7 +109,7 @@ const Cart = (props) => {
 
       removeCartItem(data)
         .then(() => onLoad())
-        .catch((error) => toast.warning(error.response.data.Errors));
+        .catch((error) => toast.warning(error.response.data.message));
     } else {
       const res = cart.filter((item) => item.id !== attr);
       setCart(res);
@@ -126,7 +126,10 @@ const Cart = (props) => {
           if (props.buy[j] == cart[i].id) {
             isEnoughCartItem(cart[i].id, cart[i].quantity)
               .then((resp) => console.log(resp.data))
-              .catch(() => history.push("/out-of-stock"));
+              .catch((error) => {
+                toast.warn(error.response.data.message)
+                history.push("/cart");
+              });
           }
         }
       }
