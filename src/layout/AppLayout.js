@@ -52,7 +52,6 @@ import OrderProduct from "../component/admin/report/OrderProduct";
 import Detail from "../component/admin/product/Detail";
 import SearchOrder from "../component/admin/order/SearchOrder";
 import Error from "../component/admin/error/Error";
-import Upload from "../component/admin/Upload";
 import ProductAdmin from "../component/admin/product/ProductAdmin";
 import { styled } from "@mui/material";
 import WishList from "../component/WishList";
@@ -293,9 +292,6 @@ const UserLayout = () => {
                     </Route>
                     <Route path={`/admin/order-month/:id`} exact>
                         <OrderMonth year={year}></OrderMonth>
-                    </Route>
-                    <Route path={`/admin/upload`} exact>
-                        <Upload></Upload>
                     </Route>
                     <Route path={`/admin/product-view/:id`} exact>
                         <Detail></Detail>
