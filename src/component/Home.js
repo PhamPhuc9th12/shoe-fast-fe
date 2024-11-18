@@ -13,6 +13,7 @@ import third from "../static/images/slider_4_image.jpg";
 import fourth from "../static/images/slider_5_image.jpg";
 import React, { useState, useEffect } from "react";
 import { getAllProducts, toggleLikeProduct } from "../api/ProductApi";
+import ChatAI from "./ChatAI";
 
 const Home = (props) => {
   const [products, setProducts] = useState([]);
@@ -239,8 +240,12 @@ const Home = (props) => {
           </li>
         </ul>
       </nav>
+      <div>
+        <ChatAI></ChatAI>
+      </div>
     </div>
   );
+
 };
 
 export default Home;

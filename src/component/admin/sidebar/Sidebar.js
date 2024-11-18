@@ -11,7 +11,7 @@ const sidebar_items_1 = [
   },
   {
     "display_name": "Tài khoản",
-    "route": "/admin/accounts",
+    "route": "/admin/account",
     "add": "admin/add-account",
     "modify": "admin/account-detail",
     "icon": "bx bx-user-pin"

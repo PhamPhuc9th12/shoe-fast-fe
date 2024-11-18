@@ -19,3 +19,18 @@ export const countAccount = async () => {
 }
 
 
+export const getTotalPage = async () => {
+    const url = `/api/v1/user/admin/total-page`;
+    return await Instance.get(url);
+}
+
+export const getAccountByRole = async (page, size, role) => {
+    const url = `/api/v1/user/admin/account/by-role?page=${page}&size=${size}&roleName=${role}`;
+    return await Instance.get(url);
+}
+
+export const getAccounts = async (page, size) => {
+    const url = `/api/v1/user/admin/account/find-all?page=${page}&size=${size}`;
+    return await Instance.get(url);
+}
+

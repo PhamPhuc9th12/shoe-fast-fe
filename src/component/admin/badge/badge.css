@@ -24,3 +24,7 @@
 .badge-secondary {
     background-color: purple;
 }
+
+.badge-CUS {
+    background-color: var(--main-color-green);
+}

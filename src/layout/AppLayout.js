@@ -55,6 +55,8 @@ import Error from "../component/admin/error/Error";
 import ProductAdmin from "../component/admin/product/ProductAdmin";
 import { styled } from "@mui/material";
 import WishList from "../component/WishList";
+import Account from "../component/admin/account/Account";
+// import ChatAI from "../component/ChatAI";
 
 
 const UserLayout = () => {
@@ -219,11 +221,13 @@ const UserLayout = () => {
                     <Route path="/blog" exact>
                         <Blog></Blog>
                     </Route>
-
-
                     <Route path="/admin/dashboard" exact>
                         <DashboardAdmin className="dashboard-content" ></DashboardAdmin>
                     </Route>
+                    <Route path="/admin/account" exact>
+                        <Account></Account>
+                    </Route>
+
                     <Route path="/admin/products" exact>
                         <ProductAdmin></ProductAdmin>
                     </Route>
@@ -302,6 +306,9 @@ const UserLayout = () => {
                     <Route path={`/admin/error-page`} exact>
                         <Error></Error>
                     </Route>
+                    {/* <Route path={`/chat/ai`} exact>
+                        <ChatAI></ChatAI>
+                    </Route> */}
                 </Switch>
             </div>
 
