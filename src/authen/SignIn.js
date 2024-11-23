@@ -27,6 +27,7 @@ const SignIn = (props) => {
           throw new Error("Token không hợp lệ");
         }
         localStorage.setItem("token", accessToken);
+        localStorage.setItem("user",)
         return getInformation(accessToken);
       })
       .then((res) => {

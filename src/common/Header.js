@@ -19,6 +19,7 @@ const user_menu = [
     url: "/",
   },
 ];
+const token = localStorage.getItem('token')
 
 const not_menu = [
   {
@@ -85,6 +86,17 @@ const Header = (props) => {
 
   return (
     <div className="mini-card">
+      {/* {token !== null ? (
+          <div>
+           Signed up
+          </div>
+        ) : (
+          <>
+            Signed in
+          </>
+
+        )} */}
+
       <nav className="navbar navbar-expand-md col-12">
         <div className="navbar-brand ml-1 col">
           <img src={logo} width={50} height={50} alt="logo" />
@@ -165,7 +177,7 @@ const Header = (props) => {
           />
         </div>
       </nav>
-    </div>
+    </div >
   );
 };
 

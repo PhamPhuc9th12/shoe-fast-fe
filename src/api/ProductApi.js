@@ -64,6 +64,11 @@ export const relateProduct = async (id, brandId) => {
     return await Instance.get(url);
 }
 
+export const getRecommendation = async (id) => {
+    const url = `/api/v1/product/recommendation?id=${id}&page=0&size=3`;
+    return await Instance.get(url);
+}
+
 export const searchByKeyword = async (page, size, keyword) => {
     const url = `/api/v1/product/search?page=${page}&size=${size}&search=${keyword}`;
     return await Instance.get(url);
