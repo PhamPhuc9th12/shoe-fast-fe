@@ -75,9 +75,22 @@ const UserLayout = () => {
         setYear(value);
     };
 
+    useEffect(() => {
+        const savedUser = localStorage.getItem("user");
+        if (savedUser) {
+            setUser(JSON.parse(savedUser));
+        }
+    }, []);
+
     const userHandler = (user) => {
         setUser(user);
+        if (user) {
+            localStorage.setItem("user", JSON.stringify(user));
+        } else {
+            localStorage.removeItem("user");
+        }
     };
+
     const refresh = (data) => {
         setTemp(data);
     };
@@ -132,14 +145,18 @@ const UserLayout = () => {
 
     return (
         <div className={`${isAdminRoute ? "layout" : ""} col-10 offset-1`}>
-            {!isAdminRoute && (
-                <Header
-                    searchHandler={searchHandler}
-                    user={user}
-                    userHandler={userHandler}
-                    refresh={refresh}
-                />
-            )}
+            <div >
+                {!isAdminRoute && (
+                    <Header
+                        className="header-content"
+                        searchHandler={searchHandler}
+                        user={user}
+                        userHandler={userHandler}
+                        refresh={refresh}
+                    />
+                )}
+
+            </div>
             {isAdminRoute && (<Sidebar className="sidebar" user={user} />)}
             {isAdminRoute && (<div className="topnav">
                 <TopNav user={user} userHandler={userHandler} />
@@ -270,9 +287,6 @@ const UserLayout = () => {
                     <Route path={`/admin/detail-order/:id`} exact>
                         <OrderDetailAdmin></OrderDetailAdmin>
                     </Route>
-                    {/* <Route path={`admin/account-detail/:id`} exact>
-                            <EditAccount></EditAccount>
-                        </Route> */}
                     <Route path={`/admin/voucher-detail/:id`} exact>
                         <EditVoucher></EditVoucher>
                     </Route>

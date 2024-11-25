@@ -6,6 +6,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import user_image from "../static/images/puma.jpg";
 import Dropdown from "../component/admin/dropdown/Dropdown";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
 const user_menu = [
   {
@@ -46,34 +47,21 @@ const Header = (props) => {
     }
   };
 
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+      props.userHandler(storedUser);
+    }
+  }, []);
+
   const curr_user = {
-    display_name: props.user ? props.user.fullName : "Tài khoản",
-    image: user_image,
+    display_name: user ? user.fullName : "Tài khoản",
+    image: user ? user.image : user_image,
   };
-
-  const renderUserToggle = (user) => (
-    <div className="topnav__right-user">
-      <div className="topnav__right-user__image">
-        <img style={{ width: "50px" }} src={user.image} alt="user avatar" />
-      </div>
-      <div className="topnav__right-user__name">{user.display_name}</div>
-    </div>
-  );
-
-  const renderUserMenu = (item, index) => (
-    <NavLink
-      to={item.url}
-      key={index}
-      exact
-      onClick={item.url === "/" ? signOutHandler : null}
-    >
-      <div className="notification-item">
-        <i className={item.icon}></i>
-        <span>{item.content}</span>
-      </div>
-    </NavLink>
-  );
-
   const signOutHandler = () => {
     props.refresh(false);
     toast.success("Tài khoản đã được đăng xuất.");
@@ -83,7 +71,6 @@ const Header = (props) => {
     localStorage.removeItem("password");
     props.userHandler(null);
   };
-
   return (
     <div className="mini-card">
       <nav className="navbar navbar-expand-md col-12">
@@ -93,24 +80,21 @@ const Header = (props) => {
         <div className="collapse navbar-collapse col">
           <ul className="navbar-nav mini-ul">
             <li
-              className={`nav-item mr-2 mini-item ${props.header === 1 ? "active" : ""
-                }`}
+              className={`nav-item mr-2 mini-item ${props.header === 1 ? "active" : ""}`}
             >
               <NavLink className="nav-link" to="/" exact>
                 Trang chủ
               </NavLink>
             </li>
             <li
-              className={`nav-item mr-2 mini-item ${props.header === 2 ? "active" : ""
-                }`}
+              className={`nav-item mr-2 mini-item ${props.header === 2 ? "active" : ""}`}
             >
               <NavLink className="nav-link" to="/store" exact>
                 Sản phẩm
               </NavLink>
             </li>
             <li
-              className={`nav-item mr-2 mini-item ${props.header === 3 ? "active" : ""
-                }`}
+              className={`nav-item mr-2 mini-item ${props.header === 3 ? "active" : ""}`}
             >
               <NavLink className="nav-link" to="/cart" exact>
                 Giỏ hàng
@@ -118,8 +102,7 @@ const Header = (props) => {
             </li>
             {props.user && (
               <li
-                className={`nav-item mr-2 mini-item ${props.header === 5 ? "active" : ""
-                  }`}
+                className={`nav-item mr-2 mini-item ${props.header === 5 ? "active" : ""}`}
               >
                 <NavLink className="nav-link" to="/order" exact>
                   Đơn hàng
@@ -127,47 +110,70 @@ const Header = (props) => {
               </li>
             )}
             <li
-              className={`nav-item mr-2 mini-item ${props.header === 4 ? "active" : ""
-                }`}
+              className={`nav-item mr-2 mini-item ${props.header === 4 ? "active" : ""}`}
             >
               <NavLink className="nav-link" to="/blog" exact>
                 Chính sách
               </NavLink>
             </li>
             <li
-              className={`nav-item mr-2 mini-item ${props.header === 4 ? "active" : ""
-                }`}
+              className={`nav-item mr-2 mini-item ${props.header === 4 ? "active" : ""}`}
             >
               <NavLink className="nav-link" to="/wish-list" exact>
                 Yêu thích
               </NavLink>
             </li>
+            <div className="d-flex align-items-center">
+              {/* Tìm kiếm */}
+              <form className="form-inline d-flex my-2 my-lg-0 mr-3" onSubmit={submitHandler}>
+                <input
+                  className="form-control mr-sm-2"
+                  type="search"
+                  aria-label="Search"
+                  name="keyword"
+                />
+                <button type="submit">
+                  <i
+                    className="fa fa-search ml-1"
+                    aria-hidden="true"
+                    style={{ fontSize: "12px" }}
+                  ></i>
+                </button>
+              </form>
 
+              {/* Dropdown Tên Tài Khoản */}
+              <Dropdown
+                customToggle={() => (
+                  <div className="topnav__right-user">
+                    <div className="topnav__right-user__image">
+                      <img style={{ width: "50px" }} src={curr_user.image} alt="user avatar" />
+                    </div>
+                    <div className="topnav__right-user__name">{curr_user.display_name}</div>
+                  </div>
+                )}
+                contentData={user ? user_menu : not_menu}
+                renderItems={(item, index) => (
+                  <NavLink
+                    to={item.url}
+                    key={index}
+                    exact
+                    onClick={item.url === "/" ? signOutHandler : null}
+                  >
+                    <div className="notification-item">
+                      <i className={item.icon}></i>
+                      <span>{item.content}</span>
+                    </div>
+                  </NavLink>
+                )}
+              />
+            </div>
           </ul>
-          <form className="form-inline d-flex my-2 my-lg-0 mr-3" onSubmit={submitHandler}>
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              aria-label="Search"
-              name="keyword"
-            />
-            <button type="submit">
-              <i
-                className="fa fa-search ml-1"
-                aria-hidden="true"
-                style={{ fontSize: "12px" }}
-              ></i>
-            </button>
-          </form>
-          <Dropdown
-            customToggle={() => renderUserToggle(curr_user)}
-            contentData={props.user ? user_menu : not_menu}
-            renderItems={(item, index) => renderUserMenu(item, index)}
-          />
+
         </div>
       </nav>
-    </div >
+    </div>
   );
+
 };
 
 export default Header;

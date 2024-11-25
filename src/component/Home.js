@@ -14,6 +14,7 @@ import fourth from "../static/images/slider_5_image.jpg";
 import React, { useState, useEffect } from "react";
 import { getAllProducts, toggleLikeProduct } from "../api/ProductApi";
 import ChatAI from "./ChatAI";
+import "../static/css/home.css";
 
 const Home = (props) => {
   const [products, setProducts] = useState([]);
@@ -37,7 +38,7 @@ const Home = (props) => {
   ));
 
   useEffect(() => {
-    const token = localStorage.getItem("token") || null; // Nếu token không tồn tại, gán giá trị rỗng
+    const token = localStorage.getItem("token") || null;
     console.log("TOKEN HOME:", token);
     getAllProducts(page, 12, active, token).then((response) => {
       setProducts(response.content);  // Lưu các sản phẩm vào state
@@ -57,12 +58,11 @@ const Home = (props) => {
       return;
     }
 
-    // Gọi API toggleLikeProduct và truyền token vào header
     toggleLikeProduct(productId, !currentLikeStatus, token)
       .then((response) => {
-        // Sau khi like/unlike, gọi lại API getAllProducts để lấy dữ liệu mới
+
         getAllProducts(page, 12, active, token).then((response) => {
-          // Cập nhật lại state với dữ liệu mới từ API
+
           setProducts(response.content);
           setTotal(response.totalPages);
         });
@@ -74,7 +74,7 @@ const Home = (props) => {
 
   return (
     <div>
-      <Carousel autoplay autoplaySpeed={3000}>
+      <Carousel autoplay autoplaySpeed={3000} style={{ width: "100%" }}>
         <div>
           <img
             src={second}
@@ -245,6 +245,7 @@ const Home = (props) => {
       </div>
     </div>
   );
+
 
 };
 
