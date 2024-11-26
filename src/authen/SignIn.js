@@ -27,6 +27,7 @@ const SignIn = (props) => {
           throw new Error("Token không hợp lệ");
         }
         localStorage.setItem("token", accessToken);
+        localStorage.setItem("user", res.data);
         return getInformation(accessToken);
       })
       .then((res) => {
@@ -37,6 +38,7 @@ const SignIn = (props) => {
           history.push("/admin/dashboard");
         } else if (user.roleName === "CUSTOMER") {
           history.push("/");
+          window.location.reload();
         } else {
           throw new Error("Role không hợp lệ");
         }

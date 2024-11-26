@@ -120,14 +120,16 @@ const Home = (props) => {
                       </span>
                     </div>
                   </div>
-                  <NavLink to={`/product-detail/${item.id}`}>
+
+                  <NavLink to={`/product-detail/${item.id}`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '150px', height: '150px', overflow: 'hidden' }}>
                     <img
                       src={item.image}
-                      style={{ width: 150, height: 150 }}
                       alt="Product"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       className="mini-card"
                     />
                   </NavLink>
+
                   <div className="card-body px-2 pb-2 pt-1">
                     <div className="d-flex justify-content-between">
                       <div>

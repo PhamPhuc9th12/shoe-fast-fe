@@ -1,9 +1,10 @@
+
+
 import React, { useState, useEffect } from "react";
-import {
-  reportAmountMonth,
-  getOrderByOrderStatusAndYearAndMonth,
-} from "../../../api/OrderApi";
+import { reportAmountMonth } from "../../../api/OrderApi";
 import { NavLink, useHistory, useParams } from "react-router-dom";
+
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const ReportMonth = (props) => {
   const { id } = useParams();
@@ -14,29 +15,27 @@ const ReportMonth = (props) => {
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState();
   const [select, setSelect] = useState();
-
-  var rows = new Array(total).fill(0).map((zero, index) => (
-    <li
-      className={page === index + 1 ? "page-item active" : "page-item"}
-      key={index}
-    >
-      <button
-        className="page-link"
-        style={{ borderRadius: 50 }}
-        onClick={() => onChangePage(index + 1)}
-      >
-        {index + 1}
-      </button>
-    </li>
-  ));
-
+  const maxValue = Math.max(...month.map(item => item.total));
+  console.log("MAX" + maxValue)
   useEffect(() => {
     setYear(id);
     reportAmountMonth(id)
-      .then((resp) => setMonth(resp.data))
+      .then((resp) => {
+        // Lấy dữ liệu doanh thu của từng tháng
+        const data = resp.data;
+        // Tạo mảng doanh thu cho tất cả 12 tháng
+        const fullYearData = Array.from({ length: 12 }, (_, index) => {
+          const monthData = data.find(item => item.month === index + 1);
+          return {
+            month: index + 1,
+            total: monthData ? monthData.total : 0  // Nếu không có dữ liệu thì gán total = 0
+          };
+        });
+        setMonth(fullYearData);
+      })
       .catch((error) => console.log(error));
     props.yearHandler(id);
-  }, []);
+  }, [id]);
 
   const goBack = () => {
     history.goBack();
@@ -46,9 +45,20 @@ const ReportMonth = (props) => {
     setYear(value);
     setOrder([]);
     reportAmountMonth(value)
-      .then((resp) => setMonth(resp.data))
+      .then((resp) => {
+        // Tạo mảng doanh thu cho tất cả 12 tháng
+        const data = resp.data;
+        const fullYearData = Array.from({ length: 12 }, (_, index) => {
+          const monthData = data.find(item => item.month === index + 1);
+          return {
+            month: index + 1,
+            total: monthData ? monthData.total : 0
+          };
+        });
+        setMonth(fullYearData);
+      })
       .catch((error) => console.log(error));
-    props.yearHandler(id);
+    props.yearHandler(value);
   };
 
   const onChangePage = (page) => {
@@ -57,13 +67,10 @@ const ReportMonth = (props) => {
 
   const clickHandler = (value) => {
     setSelect(value);
-    getOrderByOrderStatusAndYearAndMonth(4, year, value, page, 8)
-      .then((resp) => {
-        setOrder(resp.data.content);
-        setTotal(resp.data.totalPages);
-      })
-      .catch((error) => console.log(error));
+    // Fetch data for the selected month (orders, etc.)
+    // Example: getOrderByOrderStatusAndYearAndMonth(4, year, value, page, 8)
   };
+
   return (
     <div className="col-12">
       <div className="card">
@@ -90,36 +97,23 @@ const ReportMonth = (props) => {
           </select>
         </div>
         <div className="card__body">
-          <table className="table table-bordered">
-            <thead>
-              <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Tháng</th>
-                <th scope="col">Số lượng đơn</th>
-                <th scope="col">Doanh thu</th>
-              </tr>
-            </thead>
-            <tbody>
-              {month &&
-                month.map((item, index) => (
-                  <tr key={index} className={select === item.month ? "table-danger" : ""}>
-                    <th scope="row">
-                      <button
-                        style={{ margin: 0, borderRadius: 0, padding: 0, backgroundColor: select === item.month ? '#f5c6cb' : 'white', width: 100 }}
-                        onClick={() => clickHandler(item.month)}
-                      >
-                        #000{index + 1}
-                      </button>
-                    </th>
-                    <td>{item.month}</td>
-                    <td>{item.count}</td>
-                    <td>{item.total && item.total.toLocaleString()} đ</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+          <ResponsiveContainer width="100%" height={500}>
+            <BarChart data={month}
+              margin={{ top: 20, right: 5, left: 50, bottom: 5 }}
+              style={{ width: "100%", height: "100%" }} >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              {/* Cách điều chỉnh phạm vi trục Y */}
+              <YAxis domain={[0, maxValue + (maxValue)]} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="total" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+
         </div>
       </div>
+
       {order.length > 0 && (
         <div className="card">
           <div className="card__header text-center">
@@ -157,29 +151,7 @@ const ReportMonth = (props) => {
             </table>
             <nav aria-label="navigation">
               <ul className="pagination mt-3">
-                <li className={page === 0 ? "page-item disabled" : "page-item"}>
-                  <button
-                    className="page-link"
-                    style={{ borderRadius: 50 }}
-                    onClick={() => onChangePage(0)}
-                  >
-                    {`<<`}
-                  </button>
-                </li>
-                {rows}
-                <li
-                  className={
-                    page === total ? "page-item disabled" : "page-item"
-                  }
-                >
-                  <button
-                    className="page-link"
-                    style={{ borderRadius: 50 }}
-                    onClick={() => onChangePage(total)}
-                  >
-                    {`>>`}
-                  </button>
-                </li>
+                {/* Pagination controls */}
               </ul>
             </nav>
           </div>
