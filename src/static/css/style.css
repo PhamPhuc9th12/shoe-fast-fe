@@ -5,6 +5,10 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   width: 100%;
@@ -12,7 +16,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Header Styles */
 .mini-card {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #f8f9fa;
@@ -27,12 +30,12 @@ body {
 
 .navbar-brand img {
   border-radius: 50%;
-  transition: transform 0.3s ease;
+  /* transition: transform 0.3s ease; */
 }
 
-.navbar-brand img:hover {
-  transform: scale(1.1);
-}
+/* .navbar-brand img:hover {
+  transform: scale(0.5);
+} */
 
 .navbar-nav .nav-item {
   margin-right: 15px;
@@ -42,7 +45,7 @@ body {
   font-weight: bold;
   color: #333;
   text-transform: uppercase;
-  transition: color 0.3s ease;
+  /* transition: color 0.3s ease; */
 }
 
 .navbar-nav .nav-item .nav-link:hover {
@@ -55,6 +58,7 @@ body {
 }
 
 .form-inline .form-control {
+  box-sizing: border-box;
   border-radius: 5px;
   border: 1px solid #ddd;
   padding: 5px 10px;
@@ -69,10 +73,13 @@ body {
   border-radius: 5px;
   margin-left: 5px;
   cursor: pointer;
+  width: auto;
+  box-sizing: border-box;
 }
 
 .form-inline button:hover {
-  background-color: #ff4a3b;
+  background-color: blue;
+
 }
 
 .topnav__right-user {
@@ -100,7 +107,7 @@ body {
   align-items: center;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  /* transition: background-color 0.3s ease; */
 }
 
 .notification-item:hover {
@@ -115,7 +122,7 @@ body {
 .topnav__right-user__image img {
   border: 2px solid #ddd;
   border-radius: 50%;
-  transition: border-color 0.3s ease;
+  /* transition: border-color 0.3s ease; */
 }
 
 .topnav__right-user__image img:hover {
@@ -281,6 +288,7 @@ hr.light {
 }
 
 .form-inline .form-control {
+  box-sizing: border-box;
   margin-right: 10px;
   width: auto;
 }
