@@ -148,6 +148,7 @@ const Checkout = (props) => {
               originPrice: item.price,
               sellPrice: (item.price * (100 - item.discount)) / 100,
               attributeId: item.id,
+
             })),
           };
           console.log(order);
@@ -444,7 +445,7 @@ const Checkout = (props) => {
                 />
               </div>
             </div>
-            <label htmlFor="lastName" className="form-label mt-3">
+            {/* <label htmlFor="lastName" className="form-label mt-3">
               <strong>Phương thức thanh toán</strong>
             </label>
             <div className="form-check">
@@ -490,7 +491,7 @@ const Checkout = (props) => {
                   </p>
                 </div>
               )}
-            </div>
+            </div> */}
             <button
               className="btn btn-primary btn-lg mt-5 mb-5"
               type="submit"

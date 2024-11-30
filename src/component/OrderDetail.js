@@ -1,9 +1,11 @@
 
 import React, { useState, useEffect } from "react";
 import { getOrderById, getOrderDetailByOrderId } from "../api/OrderApi";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Modal } from "react-bootstrap";
 import { FaTruck, FaMoneyCheckAlt, FaCheckCircle, FaTimesCircle } from "react-icons/fa"; // Icons
-import '../index.css'; // Custom CSS
+import { toast } from "react-toastify";
+import axios from 'axios';
+import '../index.css';
 
 const OrderDetail = (props) => {
   const [orderDetail, setOrderDetail] = useState([]);
@@ -11,9 +13,62 @@ const OrderDetail = (props) => {
   const [amount, setAmount] = useState();
   const [sale, setSale] = useState();
   const [total, setTotal] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const url = new URL(window.location.href);
-  const orderId = url.pathname.split("/").pop(); // Get order ID from URL
+  const orderId = url.pathname.split("/").pop();
+
+  const handlePayment = async (orderId, amount) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8086/api/v1/payment/vn-pay?amount=${amount}&orderId=${orderId}`,
+        {
+          method: "GET",
+        }
+      );
+      const result = await response.json();
+      if (response.ok) {
+        window.location.href = result.data.paymentUrl;
+      } else {
+        toast.error(result.message || "Thanh toán thất bại.");
+      }
+    } catch (error) {
+      toast.error("Có lỗi xảy ra khi thanh toán.");
+    }
+  };
+
+  const handleShipCodePayment = async (orderId) => {
+    setLoading(true);
+
+    try {
+      const response = await axios.put(`http://localhost:8086/api/v1/payment/ship-code?orderId=${orderId}`);
+      // Hiển thị thông báo thành công
+      if (response.status === 200) {
+        toast.success('Thanh toán thành công');
+        window.location.reload();
+      } else {
+        toast.error('Thanh toán thất bại');
+      }
+    } catch (error) {
+      toast.error('Failed to update payment method');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+  const handlePaymentMethod = (method) => {
+    setPaymentMethod(method);
+    if (method === "COD") {
+      handleShipCodePayment(orderId);
+    } else {
+      handlePayment(orderId, total);
+    }
+    handleCloseModal();
+  };
 
   useEffect(() => {
     onLoad();
@@ -75,7 +130,6 @@ const OrderDetail = (props) => {
             </Card.Body>
           </Card>
 
-          {/* Order Status and Payment */}
           <div className="row">
             <div className="col-md-6">
               <Card className="mb-4 order-card">
@@ -91,6 +145,16 @@ const OrderDetail = (props) => {
                     ) : (
                       <>
                         <FaTimesCircle className="mr-2" /> Chưa thanh toán
+                        {/* <button
+                          className="btn btn-success"
+                          onClick={() => handlePayment(orderId, total)}
+                        > */}
+                        <button
+                          className="btn btn-success"
+                          onClick={handleShowModal} // Show modal when clicking payment button
+                        >
+                          Thanh toán
+                        </button>
                       </>
                     )}
                   </p>
@@ -115,7 +179,7 @@ const OrderDetail = (props) => {
           <Card className="mb-4 order-card">
             <Card.Body>
               <h5 className="text-primary">
-                Phương thức giao hàng
+                Phương thức thanh toán
               </h5>
               <p className="text-info">{order.payment}</p>
             </Card.Body>
@@ -150,6 +214,19 @@ const OrderDetail = (props) => {
           </div>
         </div>
       </div>
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Chọn phương thức thanh toán</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Button variant="primary" onClick={() => handlePaymentMethod("COD")}>
+            Thanh toán khi giao hàng
+          </Button>
+          <Button variant="secondary" onClick={() => handlePaymentMethod("TRANSFER")}>
+            Chuyển khoản
+          </Button>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
