@@ -27,7 +27,7 @@ import { useLocation } from "react-router-dom";
 
 import DashboardAdmin from "../component/admin/dashboard/DashboardAdmin";
 import ProductForm from "../component/admin/product/ProductForm";
-import Sidebar from "../component/admin/sidebar/Sidebar";
+import Sidebar from "../component/admin/sidebar/SidebarAdmin";
 import TopNav from "../component/admin/topnav/TopNav"
 import OrderAdmin from "../component/admin/order/OrderAdmin";
 import Category from "../component/admin/category/Category";
@@ -56,6 +56,7 @@ import ProductAdmin from "../component/admin/product/ProductAdmin";
 import { styled } from "@mui/material";
 import WishList from "../component/WishList";
 import Account from "../component/admin/account/Account";
+import NewAccount from "../component/admin/account/NewAccount";
 // import ChatAI from "../component/ChatAI";
 
 
@@ -77,6 +78,7 @@ const UserLayout = () => {
 
     useEffect(() => {
         const savedUser = localStorage.getItem("user");
+        console.log(savedUser)
         if (savedUser) {
             setUser(JSON.parse(savedUser));
         }
@@ -319,6 +321,9 @@ const UserLayout = () => {
                     </Route>
                     <Route path={`/admin/error-page`} exact>
                         <Error></Error>
+                    </Route>
+                    <Route path={`/admin/add-account`} exact>
+                        <NewAccount></NewAccount>
                     </Route>
                     {/* <Route path={`/chat/ai`} exact>
                         <ChatAI></ChatAI>

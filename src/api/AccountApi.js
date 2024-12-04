@@ -34,3 +34,7 @@ export const getAccounts = async (page, size) => {
     return await Instance.get(url);
 }
 
+export const createAccount = async (data) => {
+    const url = `/api/v1/user/admin/create`;
+    return await Instance.post(url, data);
+}

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./topnav.css";
 import Dropdown from "../dropdown/Dropdown";
+import avt from "../../../static/images/default-avatar-2.png";
 import { Link, NavLink, useHistory } from "react-router-dom";
-// import user_image from "../../assets/images/tan.jpg";
+
 import user_menu from "../../../assets/JsonData/user_menus.json";
 // import { loadNotification, readNotification, pushNotification } from "../../api/NotificationApi";
 import { toast } from "react-toastify";
@@ -10,22 +11,17 @@ import { toast } from "react-toastify";
 const TopNav = (props) => {
   const [notifications, setNotifications] = useState([]);
   const [key, setKey] = useState("");
-
+  const [user, setUser] = useState(null);
+  const [curr_user, setCurrUser] = useState({
+    display_name: "Tài khoản",
+    // image: user_image,
+  });
   const history = useHistory();
-
-  // const renderNotificationItem = (item, index) => (
-  //   <NavLink to={item.type == 3 ? `/product-detail/${item.product.id}` : `/search/${item.order.id}`} exact key={index} onClick={() => readHandler(item.id)}>
-  //     <div className="notification-item" >
-  //       <i className="bx bx-package"></i>
-  //       <span className={item.type === 1 ? "text-primary" : "text-danger"}>{item.content}</span>
-  //     </div>
-  //   </NavLink>
-  // );
 
   const renderUserToggle = (user) => (
     <div className="topnav__right-user">
       <div className="topnav__right-user__image">
-        <img src={user.image} alt="" />
+        <img src={avt} alt="avt" />
       </div>
       <div className="topnav__right-user__name">{user.display_name}</div>
     </div>
@@ -50,7 +46,7 @@ const TopNav = (props) => {
   // }, []);
 
   const renderUserMenu = (item, index) => (
-    <Link to={item.url} key={index} onClick={signOutHandler}>
+    <Link to={'/sign-in'} key={index} onClick={signOutHandler}>
       <div className="notification-item">
         <i className={item.icon}></i>
         <span>{item.content}</span>
@@ -63,6 +59,7 @@ const TopNav = (props) => {
     localStorage.removeItem("username");
     localStorage.removeItem("password");
     props.userHandler(null);
+    history.push('/sign-in')
   };
 
   // const readHandler = (id) => {
@@ -70,10 +67,24 @@ const TopNav = (props) => {
   //     .then(() => console.log(id))
   //     .catch((error) => console.log(error));
   // }
-  const curr_user = {
-    display_name: props.user.fullName,
-    // image: user_image,
-  };
+  // const curr_user = {
+  //   display_name: props.user.fullName,
+  //   image: user_image,
+  // };
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    console.log(storedUser);
+    if (storedUser) {
+      console.log("TEN" + storedUser.display_name)
+      setUser(storedUser); // Cập nhật trạng thái `user` một lần.
+      props.userHandler(storedUser);
+      setCurrUser({
+        display_name: storedUser.fullName || "Tài khoản",
+        // image: storedUser.image || user_image,
+      });
+
+    }
+  }, []); // Chỉ chạy một lần khi component được mount.
 
   const searchHandler = (key) => {
     history.push(`/search/${key}`);
@@ -85,7 +96,7 @@ const TopNav = (props) => {
 
   return (
     <div className="topnav">
-      <div className="topnav__search" style={{ left: '-190px' }}>
+      <div className="topnav__search" style={{ left: '-70px' }}>
         <input type="text" placeholder="Search here..." onChange={(e) => keyHanlder(e.target.value)} />
         <i className="bx bx-search" onClick={() => searchHandler(key)}></i>
       </div>

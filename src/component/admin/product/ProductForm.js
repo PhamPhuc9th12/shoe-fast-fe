@@ -59,8 +59,8 @@ const ProductForm = () => {
   };
 
   const submitHandler = (data) => {
-    if (image.length !== 6) {
-      toast.warning("Cần tải lên 6 bức ảnh");
+    if (image.length < 1) {
+      toast.warning("Cần tải lên ảnh của sản phẩm");
     } else {
       const nums = [
         data.size1,

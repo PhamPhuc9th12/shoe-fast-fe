@@ -128,7 +128,7 @@ const Product = () => {
                         </th>
                         <th>{item.isActive ? "Đang bán" : "Dừng bán"}</th>
                         <th>
-                          <NavLink to={`admin/product-detail/${item.id}`} exact>
+                          <NavLink to={`/admin/product-detail/${item.id}`} exact>
                             <i
                               className="fa fa-pencil-square-o"
                               aria-hidden="true"

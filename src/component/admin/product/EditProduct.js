@@ -35,21 +35,21 @@ const EditProduct = () => {
   };
 
   const onLoad = () => {
-    getBrands(1, 20)
+    getBrands(0, 20)
       .then((resp) => setBrand(resp.data.content))
       .catch((error) => console.log(error));
 
-    getSale(1, 8)
+    getSale(0, 8)
       .then((resp) => setSale(resp.data.content))
       .catch((error) => console.log(error));
 
     getProductById(id)
       .then((res) => {
         setItem(res.data);
-        setFlag(res.data.category);
+        setFlag(res.data.categories);
         setAttributes(res.data.attributes);
         setCount(res.data.attributes.length);
-        getCategory(1, 20)
+        getCategory(0, 20)
           .then((resp) => setCate(resp.data.content))
           .catch((error) => console.log(error));
 

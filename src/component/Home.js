@@ -15,6 +15,7 @@ import React, { useState, useEffect } from "react";
 import { getAllProducts, toggleLikeProduct } from "../api/ProductApi";
 import ChatAI from "./ChatAI";
 import "../static/css/home.css";
+import { toast } from "react-toastify";
 
 const Home = (props) => {
   const [products, setProducts] = useState([]);
@@ -43,7 +44,7 @@ const Home = (props) => {
     getAllProducts(page, 12, active, token).then((response) => {
       setProducts(response.content);  // Lưu các sản phẩm vào state
       setTotal(response.totalPages);
-    });
+    }).catch(() => toast.warning("Không có sản phẩm!!"));
   }, [page, localStorage.getItem("token")]);
 
   const onChangePage = (page) => {

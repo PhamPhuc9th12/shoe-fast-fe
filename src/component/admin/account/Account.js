@@ -68,10 +68,10 @@ const Account = () => {
     }
   };
   return (
-    <div className="card">
+    <div className="card" style={{ margin: "60px" }}>
       <div className="card__header">
         <NavLink
-          to="/add-account"
+          to="/admin/add-account"
           className="btn btn-primary"
           style={{ borderRadius: 50 }}
         >
@@ -131,7 +131,7 @@ const Account = () => {
             account.map((item, index) => (
               <tr key={index}>
                 <th scope="row">{item.username}</th>
-                <td>{item.fullName}</td>
+                <td style={{ width: "200px" }}>{item.fullName}</td>
                 <td>{item.gender}</td>
                 <td>{item.phone}</td>
                 <td>{item.email}</td>

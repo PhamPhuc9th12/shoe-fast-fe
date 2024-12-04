@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "./sidebar.css";
-// import logo from "../../assets/images/logo-sneaker.png";
 import { Link, useLocation } from "react-router-dom";
 
 const sidebar_items_1 = [
@@ -68,23 +67,6 @@ const sidebar_items_1 = [
   }
 ]
 
-const sidebar_items_2 = [
-  {
-    "display_name": "Đơn hàng",
-    "route": "/admin/orders",
-    "add": "admin/add-order",
-    "modify": "admin/order-detail",
-    "sub": "admin/detail-order",
-    "icon": "bx bx-cart"
-  },
-  {
-    "display_name": "Hộp thoại",
-    "route": "/admin/chat",
-    "add": "admin/chat",
-    "modify": "admin/chat",
-    "icon": "bx bx-user-pin"
-  }
-]
 const SidebarItem = ({ title, icon, active }) => {
   const activeClass = active ? "active" : "";
   return (
@@ -98,11 +80,11 @@ const SidebarItem = ({ title, icon, active }) => {
 };
 
 const Sidebar = (props) => {
-  const location = useLocation(); // Lấy đối tượng location
-  const sidebar_items = props.user.roleName === "ADMIN" ? sidebar_items_1 : sidebar_items_2;
+  const location = useLocation();
+  const sidebar_items = sidebar_items_1
 
   useEffect(() => {
-    console.log(props.user);
+    console.log("USER++++++=" + props.user);
   }, []);
 
   const activeItem = sidebar_items.findIndex(
