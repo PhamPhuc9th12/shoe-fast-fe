@@ -342,25 +342,25 @@ const Order = () => {
   };
 
   const searchHandler = () => {
-    if (from.length === 0 || to.length === 0) {
-      toast.warning("Chọn ngày cần tìm kiếm.");
+    // if (from.length === 0 || to.length === 0) {
+    //   toast.warning("Chọn ngày cần tìm kiếm.");
+    // } else {
+    if (from > to) {
+      toast.warning("Chọn ngày tìm kiếm không hợp lệ.");
     } else {
-      if (from > to) {
-        toast.warning("Chọn ngày tìm kiếm không hợp lệ.");
-      } else {
-        let a = from.split("-");
-        let strFrom = a[2] + "-" + a[1] + "-" + a[0];
-        let b = to.split("-");
-        let strTo = b[2] + "-" + b[1] + "-" + b[0];
-        console.log(strFrom + " " + strTo);
-        getOrderByOrderStatusBetweenDate(status, strFrom, strTo, page, 8)
-          .then((res) => {
-            setOrders(res.data.content);
-            setTotal(res.data.totalPages);
-          })
-          .catch((error) => console.log(error.response.data));
-      }
+      let a = from.split("-");
+      let strFrom = a[2] + "-" + a[1] + "-" + a[0];
+      let b = to.split("-");
+      let strTo = b[2] + "-" + b[1] + "-" + b[0];
+      console.log(strFrom + " " + strTo);
+      getOrderByOrderStatusBetweenDate(status, strFrom, strTo, page, 8)
+        .then((res) => {
+          setOrders(res.data.content);
+          setTotal(res.data.totalPages);
+        })
+        .catch((error) => console.log(error.response.data));
     }
+    // }
   };
 
   const flagProcessHandler = (e) => {
