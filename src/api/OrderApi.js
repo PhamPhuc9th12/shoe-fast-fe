@@ -95,3 +95,7 @@ export const getOrderByOrderStatusBetweenDate = async (status, from, to, page, s
     const url = `/api/v1/order/admin/page-orders-between-date?id=${status}&from=${from}&to=${to}&page=${page}&size=${size}`;
     return await Instance.get(url);
 }
+export const getAllOrdersByPayment = async (paymentMethod, page, size) => {
+    const url = `/api/v1/order/payment?page=${page}&size=${size}&payment=${paymentMethod}`;
+    return await Instance.get(url);
+}

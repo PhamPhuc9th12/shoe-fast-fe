@@ -10,7 +10,8 @@ import {
   updateProcess,
   updateShip,
   updateSuccess,
-  getAllOrderStatus
+  getAllOrderStatus,
+  getAllOrdersByPayment
 } from "../../../api/OrderApi";
 import "../table/table.css";
 import Badge from "../badge/Badge";
@@ -46,6 +47,7 @@ const Order = () => {
   const [description, setDescription] = useState(null);
   const [reason, setReason] = useState(null);
   const [shipDate, setShipDate] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   const shipmentHandler = (value) => {
     console.log(value);
@@ -325,6 +327,21 @@ const Order = () => {
       .catch((error) => console.log(error.response.data));
   };
 
+  const getAllOrdersByPaymentStatus = (paymentMethod) => {
+    setPaymentMethod(paymentMethod);
+    setPage(0);
+    const sanitizedPaymentMethod = paymentMethod === "null" ? null : paymentMethod;
+    getAllOrdersByPayment(sanitizedPaymentMethod, 0, 20)
+      .then((res) => {
+        if (res.data) {
+          setOrders(res.data.content || []);
+          setTotal(res.data.totalPages || 0);
+        }
+      })
+      .catch((error) => {
+        console.error("Lỗi khi tải dữ liệu:", error);
+      });
+  };
   const getAllOrderByOrderStatusAndYearAndMonth = (value) => {
     setMonth(value);
     setFrom("");
@@ -449,6 +466,17 @@ const Order = () => {
               value={to}
             />
           </div>
+          <div className="col-sm-4 mt-2">
+            <select
+              className="form-control"
+              onChange={(event) => getAllOrdersByPaymentStatus(event.target.value)}
+            >
+              <option value="null">Chọn phương thức thanh toán</option>
+              <option value="Thanh toán khi giao hàng(COD)">Thanh toán khi giao hàng (COD)</option>
+              <option value="CHUYỂN KHOẢN QUA VNPAY">Chuyển khoản qua VNPay</option>
+            </select>
+          </div>
+
           <div
             className="btn btn-primary mt-2"
             onClick={() => searchHandler()}
@@ -468,12 +496,14 @@ const Order = () => {
                       <th scope="col">Ngày mua</th>
                       <th scope="col">Thanh toán</th>
                       <th scope="col">Tổng tiền</th>
-                      <th scope="col">
-                        <Badge
-                          type={orderStatus["Chờ xác nhận"]}
-                          content={"Chờ xác nhận"}
-                        />
-                      </th>
+                      {paymentMethod !== "CHUYỂN KHOẢN QUA VNPAY" && (
+                        <th scope="col">
+                          <Badge
+                            type={orderStatus["Chờ xác nhận"]}
+                            content={"Chờ xác nhận"}
+                          />
+                        </th>
+                      )}
                       <th scope="col">
                         <Badge
                           type={orderStatus["Đang xử lí"]}
@@ -503,120 +533,132 @@ const Order = () => {
                   </thead>
                   <tbody>
                     {orders &&
-                      orders.map((item, index) => (
-                        <tr key={index}>
-                          <th scope="row">
-                            <NavLink to={`/detail-order/${item.id}`} exact>
-                              #OD{item.id}
-                            </NavLink>
-                          </th>
-                          <th>{item.createDate}</th>
-                          <th>
-                            <Badge
-                              type={pendingStatus[item.isPending]}
-                              content={
-                                item.isPending
-                                  ? "Đã thanh toán"
-                                  : "Chưa thanh toán"
-                              }
-                            />
-                          </th>
-                          <th> {item.total.toLocaleString()} ₫</th>
-                          <th>
-                            <div className="form-check mb-4">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                name={index}
-                                checked={item.orderStatusId === 1}
-                                value="1"
-                              />
-                            </div>
-                          </th>
-                          <th>
-                            <div className="form-check mb-4">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                name={index}
-                                checked={item.orderStatusId === 2}
-                                value="2"
-                                onChange={(e) =>
-                                  updateStatusHandlerFirst(
-                                    item.id,
-                                    e.target.value
-                                  )
-                                }
-                              />
-                            </div>
-                          </th>
-                          <th>
-                            <div className="form-check mb-4">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                name={index}
-                                checked={item.orderStatusId === 3}
-                                value="3"
-                                onChange={(e) =>
-                                  updateStatusHandlerSecond(
-                                    item.id,
-                                    e.target.value
-                                  )
-                                }
-                              />
-                            </div>
-                          </th>
-                          <th>
-                            <div className="form-check mb-4">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                name={index}
-                                checked={item.orderStatusId === 4}
-                                value="4"
-                                onChange={(e) =>
-                                  updateStatusHandlerThird(
-                                    item.id,
-                                    e.target.value
-                                  )
-                                }
-                              />
-                            </div>
-                          </th>
-                          <th>
-                            <div className="form-check mb-4">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                name={index}
-                                checked={item.orderStatusId === 5}
-                                value="5"
-                                onChange={(e) =>
-                                  updateStatusHandlerFouth(
-                                    item.id,
-                                    e.target.value
-                                  )
-                                }
-                              />
-                            </div>
-                          </th>
-                          <th>
-                            {item.orderStatusId !== 4 &&
-                              item.orderStatusId !== 3 &&
-                              item.orderStatusId !== 5 ? (
-                              <NavLink to={`/admin/order-detail/${item.id}`} exact>
-                                <i
-                                  className="fa fa-pencil-square-o"
-                                  aria-hidden="true"
-                                ></i>
+                      orders
+                        .filter((order) => {
+                          // Lọc theo phương thức thanh toán "CHUYỂN KHOẢN QUA VNPAY"
+                          if (paymentMethod === "CHUYỂN KHOẢN QUA VNPAY") {
+                            return (
+                              ["Đang xử lí", "Đang vận chuyển", "Đã giao", "Đã hủy"].includes(
+                                order.orderStatusName
+                              )
+                            );
+                          }
+                          return true; // Hiển thị tất cả trạng thái nếu không chọn VNPAY
+                        })
+                        .map((item, index) => (
+                          <tr key={index}>
+                            <th scope="row">
+                              <NavLink to={`/detail-order/${item.id}`} exact>
+                                #OD{item.id}
                               </NavLink>
-                            ) : (
-                              ""
-                            )}
-                          </th>
-                        </tr>
-                      ))}
+                            </th>
+                            <th>{item.createDate}</th>
+                            <th>
+                              <Badge
+                                type={pendingStatus[item.isPending]}
+                                content={
+                                  item.isPending
+                                    ? "Đã thanh toán"
+                                    : "Chưa thanh toán"
+                                }
+                              />
+                            </th>
+                            <th> {item.total.toLocaleString()} ₫</th>
+                            <th>
+                              <div className="form-check mb-4">
+                                <input
+                                  className="form-check-input"
+                                  type="radio"
+                                  name={index}
+                                  checked={item.orderStatusId === 1}
+                                  value="1"
+                                />
+                              </div>
+                            </th>
+                            <th>
+                              <div className="form-check mb-4">
+                                <input
+                                  className="form-check-input"
+                                  type="radio"
+                                  name={index}
+                                  checked={item.orderStatusId === 2}
+                                  value="2"
+                                  onChange={(e) =>
+                                    updateStatusHandlerFirst(
+                                      item.id,
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </div>
+                            </th>
+                            <th>
+                              <div className="form-check mb-4">
+                                <input
+                                  className="form-check-input"
+                                  type="radio"
+                                  name={index}
+                                  checked={item.orderStatusId === 3}
+                                  value="3"
+                                  onChange={(e) =>
+                                    updateStatusHandlerSecond(
+                                      item.id,
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </div>
+                            </th>
+                            <th>
+                              <div className="form-check mb-4">
+                                <input
+                                  className="form-check-input"
+                                  type="radio"
+                                  name={index}
+                                  checked={item.orderStatusId === 4}
+                                  value="4"
+                                  onChange={(e) =>
+                                    updateStatusHandlerThird(
+                                      item.id,
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </div>
+                            </th>
+                            <th>
+                              <div className="form-check mb-4">
+                                <input
+                                  className="form-check-input"
+                                  type="radio"
+                                  name={index}
+                                  checked={item.orderStatusId === 5}
+                                  value="5"
+                                  onChange={(e) =>
+                                    updateStatusHandlerFouth(
+                                      item.id,
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </div>
+                            </th>
+                            <th>
+                              {item.orderStatusId !== 4 &&
+                                item.orderStatusId !== 3 &&
+                                item.orderStatusId !== 5 ? (
+                                <NavLink to={`/admin/order-detail/${item.id}`} exact>
+                                  <i
+                                    className="fa fa-pencil-square-o"
+                                    aria-hidden="true"
+                                  ></i>
+                                </NavLink>
+                              ) : (
+                                ""
+                              )}
+                            </th>
+                          </tr>
+                        ))}
                   </tbody>
                 </table>
               </div>

@@ -145,17 +145,16 @@ const OrderDetail = (props) => {
                     ) : (
                       <>
                         <FaTimesCircle className="mr-2" /> Chưa thanh toán
-                        {/* <button
-                          className="btn btn-success"
-                          onClick={() => handlePayment(orderId, total)}
-                        > */}
-                        <button
-                          className="btn btn-success"
-                          onClick={handleShowModal} // Show modal when clicking payment button
-                        >
-                          Thanh toán
-                        </button>
+                        {order.payment === null && (
+                          <button
+                            className="btn btn-success"
+                            onClick={handleShowModal} // Show modal when clicking payment button
+                          >
+                            Thanh toán
+                          </button>
+                        )}
                       </>
+
                     )}
                   </p>
                 </Card.Body>
