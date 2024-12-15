@@ -92,8 +92,8 @@ const NewVoucher = () => {
                 <label className="form-label">Ngày hết hạn</label>
                 <input
                   type="date"
-                  min="2022-01-01"
-                  max="2023-01-01"
+                  min="2024-01-01"
+                  max="2028-01-01"
                   className="form-control"
                   id="lastName"
                   {...register("expireDate", {

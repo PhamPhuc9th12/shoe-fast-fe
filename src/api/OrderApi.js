@@ -87,8 +87,8 @@ export const updateSuccess = async (data) => {
     return await Instance.post(url, data);
 }
 
-export const getAllOrderAndPagination = async (status, page, size) => {
-    const url = `/api/v1/order/page-admin?page=${page}&size=${size}&status=${status}`;
+export const getAllOrderAndPagination = async (status, payment, page, size) => {
+    const url = `/api/v1/order/page-admin?page=${page}&size=${size}&status=${status}&payment=${payment}`;
     return await Instance.get(url);
 }
 export const getOrderByOrderStatusBetweenDate = async (status, from, to, page, size) => {

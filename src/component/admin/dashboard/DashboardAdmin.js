@@ -165,6 +165,7 @@ const Dashboard = () => {
               series={productChartSeries}
               type="bar"
               height="400"
+
             />
           </div>
         </div>

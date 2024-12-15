@@ -58,7 +58,7 @@ const OrderDetail = () => {
               Thông tin mua hàng
             </p>
             <p>Ngày tạo: {order && order.createDate}</p>
-            <p>Người nhận: {order && order.fullname}</p>
+            <p>Người nhận: {order && order.fullName}</p>
             <p>Email: {order && order.email}</p>
           </div>
           <div className="col-6 text ">
@@ -132,7 +132,7 @@ const OrderDetail = () => {
                 Trạng thái đơn hàng
               </p>
               <p className="text-danger" style={{ fontWeight: "bolder" }}>
-                {order.orderStatus && order.orderStatus.name}
+                {order && order.orderStatusName}
               </p>
             </div>
           </div>

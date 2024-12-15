@@ -73,7 +73,8 @@ const Order = (props) => {
           })
           .catch((error) => console.log(error));
       })
-      .catch((error) => toast.error(error.response.data.Errors));
+      .catch((error) => toast.error(error.response.data.message));
+
 
     setReason(null);
     setDescription(null);

@@ -173,7 +173,7 @@ const Order = () => {
   }, [page]);
 
   const onLoad = () => {
-    getAllOrderAndPagination(status, page, 20)
+    getAllOrderAndPagination(status, paymentMethod, page, 20)
       .then((res) => {
         setOrders(res.data.content);
         setTotal(res.data.totalPages);
@@ -205,6 +205,7 @@ const Order = () => {
       id: obj.orderId,
       status: obj.statusId,
       shipment: shipment,
+      payment: paymentMethod,
       code: code,
       description: `${reason} - ${description}`,
       shipDate: shipDate,
@@ -214,7 +215,7 @@ const Order = () => {
       .then((resp) => {
         setStatus(obj.statusId);
         setPage(0);
-        getAllOrderAndPagination(obj.statusId, 0, 20)
+        getAllOrderAndPagination(obj.statusId, paymentMethod, 0, 20)
           .then((res) => {
             setOrders(res.data.content);
             setTotal(res.data.totalPages);
@@ -242,7 +243,7 @@ const Order = () => {
       .then((resp) => {
         setStatus(obj.statusId);
         setPage(0);
-        getAllOrderAndPagination(obj.statusId, 0, 20)
+        getAllOrderAndPagination(obj.statusId, paymentMethod, 0, 20)
           .then((res) => {
             setOrders(res.data.content);
             setTotal(res.data.totalPages);
@@ -271,7 +272,7 @@ const Order = () => {
       .then((resp) => {
         setStatus(obj.statusId);
         setPage(0);
-        getAllOrderAndPagination(obj.statusId, 0, 20)
+        getAllOrderAndPagination(obj.statusId, paymentMethod, 0, 20)
           .then((res) => {
             setOrders(res.data.content);
             setTotal(res.data.totalPages);
@@ -299,7 +300,7 @@ const Order = () => {
       .then((resp) => {
         setStatus(obj.statusId);
         setPage(0);
-        getAllOrderAndPagination(obj.statusId, 0, 20)
+        getAllOrderAndPagination(obj.statusId, paymentMethod, 0, 20)
           .then((res) => {
             setOrders(res.data.content);
             setTotal(res.data.totalPages);
@@ -319,7 +320,7 @@ const Order = () => {
     setPage(0);
     setYear("");
     setMonth("");
-    getAllOrderAndPagination(value, page, 20)
+    getAllOrderAndPagination(value, paymentMethod, page, 20)
       .then((res) => {
         setOrders(res.data.content);
         setTotal(res.data.totalPages);
@@ -528,7 +529,7 @@ const Order = () => {
                           content={"Đã hủy"}
                         />
                       </th>
-                      <th scope="col">#</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -548,8 +549,8 @@ const Order = () => {
                         .map((item, index) => (
                           <tr key={index}>
                             <th scope="row">
-                              <NavLink to={`/detail-order/${item.id}`} exact>
-                                #OD{item.id}
+                              <NavLink to={`/admin/detail-order/${item.id}`} exact>
+                                #{index + 1}
                               </NavLink>
                             </th>
                             <th>{item.createDate}</th>
@@ -564,7 +565,20 @@ const Order = () => {
                               />
                             </th>
                             <th> {item.total.toLocaleString()} ₫</th>
-                            <th>
+                            {paymentMethod !== "CHUYỂN KHOẢN QUA VNPAY" && (
+                              <th>
+                                <div className="form-check mb-4">
+                                  <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name={index}
+                                    checked={item.orderStatusId === 1}
+                                    value="1"
+                                  />
+                                </div>
+                              </th>
+                            )}
+                            {/* <th>
                               <div className="form-check mb-4">
                                 <input
                                   className="form-check-input"
@@ -574,7 +588,7 @@ const Order = () => {
                                   value="1"
                                 />
                               </div>
-                            </th>
+                            </th> */}
                             <th>
                               <div className="form-check mb-4">
                                 <input
@@ -642,20 +656,6 @@ const Order = () => {
                                   }
                                 />
                               </div>
-                            </th>
-                            <th>
-                              {item.orderStatusId !== 4 &&
-                                item.orderStatusId !== 3 &&
-                                item.orderStatusId !== 5 ? (
-                                <NavLink to={`/admin/order-detail/${item.id}`} exact>
-                                  <i
-                                    className="fa fa-pencil-square-o"
-                                    aria-hidden="true"
-                                  ></i>
-                                </NavLink>
-                              ) : (
-                                ""
-                              )}
                             </th>
                           </tr>
                         ))}
@@ -791,7 +791,7 @@ const Order = () => {
           <Button
             variant="danger"
             onClick={confirmUpdateShip}
-            disabled={!shipment || !code || !shipDate}
+            disabled={!code || !shipDate}
           >
             Xác nhận
           </Button>

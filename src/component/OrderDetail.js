@@ -46,10 +46,10 @@ const OrderDetail = (props) => {
       const response = await axios.put(`http://localhost:8086/api/v1/payment/ship-code?orderId=${orderId}`);
       // Hiển thị thông báo thành công
       if (response.status === 200) {
-        toast.success('Thanh toán thành công');
+        toast.success('Thành công! Đơn hàng chờ xác nhận');
         window.location.reload();
       } else {
-        toast.error('Thanh toán thất bại');
+        toast.error('Thất bại, kiểm tra lại');
       }
     } catch (error) {
       toast.error('Failed to update payment method');
@@ -77,7 +77,7 @@ const OrderDetail = (props) => {
   const onLoad = () => {
     getOrderById(orderId).then((resp) => {
       setOrder(resp.data);
-      setSale(resp.data.voucher ? resp.data.voucher.discount : 0);
+      setSale(resp.data.discount ? resp.data.discount : 0);
       setTotal(resp.data.total);
     });
     getOrderDetailByOrderId(orderId).then((resp) => {
@@ -103,7 +103,8 @@ const OrderDetail = (props) => {
               <table className="table table-striped table-hover">
                 <thead className="thead-dark">
                   <tr>
-                    <th>Mã sản phẩm</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Ảnh sản phẩm </th>
                     <th>Size</th>
                     <th>Giá</th>
                     <th>Số lượng</th>
@@ -113,11 +114,15 @@ const OrderDetail = (props) => {
                 <tbody>
                   {orderDetail.map((item, index) => (
                     <tr key={index} className="table-row">
-                      <td>{item.attributeId}</td>
-                      <td>{item.attributeSize}</td>
-                      <td>{item.sellPrice.toLocaleString()}₫</td>
-                      <td>{item.quantity}</td>
-                      <td>{(item.sellPrice * item.quantity).toLocaleString()}₫</td>
+                      <td style={{ textAlign: "center", verticalAlign: "middle", height: "100px" }}>{item.attribute.name}</td>
+                      <td style={{ textAlign: "center", verticalAlign: "middle", height: "100px" }}> <img
+                        src={item.image}
+                        style={{ width: 150, height: 150 }}
+                      /></td>
+                      <td style={{ textAlign: "center", verticalAlign: "middle", height: "100px" }}>{item.attributeSize}</td>
+                      <td style={{ textAlign: "center", verticalAlign: "middle", height: "100px" }}>{item.sellPrice.toLocaleString()}₫</td>
+                      <td style={{ textAlign: "center", verticalAlign: "middle", height: "100px" }}>{item.quantity}</td>
+                      <td style={{ textAlign: "center", verticalAlign: "middle", height: "100px" }}>{(item.sellPrice * item.quantity).toLocaleString()}₫</td>
                     </tr>
                   ))}
                 </tbody>
@@ -167,7 +172,7 @@ const OrderDetail = (props) => {
                     Trạng thái đơn hàng
                   </h5>
                   <p className="text-info">
-                    {order.orderStatus && order.orderStatus.name}
+                    {order && order.orderStatusName}
                   </p>
                 </Card.Body>
               </Card>

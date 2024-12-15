@@ -106,7 +106,7 @@ const WishList = () => {
                                         products.map((item, index) => (
                                             <tr key={index}>
                                                 <th scope="row">
-                                                    <NavLink to={`/admin/product-view/${item.id}`} exact>
+                                                    <NavLink to={`/product-detail/${item.id}`} exact>
                                                         #{index + 1}
                                                     </NavLink>
                                                 </th>

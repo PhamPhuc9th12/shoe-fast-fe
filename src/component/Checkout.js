@@ -157,7 +157,7 @@ const Checkout = (props) => {
             .then((resp) => {
               toast.success("Đặt hàng thành công");
               props.clearHandler();
-              history.push(`/order/detail/${resp.data.encodeUrl}`);
+              history.push(`/order/detail/${resp.data.id}`);
             })
             .catch(() => {
               toast.success("Sản phẩm không tồn tại hoặc số lượng không đủ");
