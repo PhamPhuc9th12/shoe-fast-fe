@@ -218,10 +218,11 @@ const Cart = (props) => {
                         <button
                           className="btn btn-outline-dark"
                           onClick={() =>
-                            addCartItemHandler(item.id, item.quantity + 1)
+                            modifyCartItemHandler(item.id, item.quantity - 1)
                           }
+                          disabled={item.quantity == 0}
                         >
-                          +
+                          -
                         </button>
                         <input
                           type="number"
@@ -237,11 +238,10 @@ const Cart = (props) => {
                         <button
                           className="btn btn-outline-dark"
                           onClick={() =>
-                            modifyCartItemHandler(item.id, item.quantity - 1)
+                            addCartItemHandler(item.id, item.quantity + 1)
                           }
-                          disabled={item.quantity == 0}
                         >
-                          -
+                          +
                         </button>
                       </div>
                     </td>

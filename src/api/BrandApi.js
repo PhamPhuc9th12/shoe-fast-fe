@@ -9,7 +9,7 @@ export const createBrand = async (data) => {
 }
 
 export const getBrandDetail = async (id) => {
-    const url = `/api/v1/brand/detail/${id}`;
+    const url = `/api/v1/brand/detail?id=${id}`;
     return await Instance.get(url);
 }
 export const updateBrand = async (data) => {

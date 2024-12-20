@@ -45,7 +45,7 @@ const SignIn = (props) => {
         toast.success("Đăng nhập thành công!");
       })
       .catch((error) => {
-        toast.error(error.response?.data?.Errors || "Đã xảy ra lỗi. Vui lòng thử lại.");
+        toast.error(error.response?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại.");
       });
   };
 
@@ -128,7 +128,6 @@ const SignIn = (props) => {
                   </a>
                 </div>
               </div>
-
               <div>
                 <p className="mb-0">
                   Chưa có tài khoản?{" "}

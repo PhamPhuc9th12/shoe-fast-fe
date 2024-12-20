@@ -95,5 +95,5 @@ export const createProduct = async (formData) => {
 
 export const modifyProduct = async (data) => {
     const url = `/api/v1/product/modify`;
-    return await Instance.post(url, data);
+    return await Instance.put(url, data);
 }

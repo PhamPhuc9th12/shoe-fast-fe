@@ -57,6 +57,7 @@ import { styled } from "@mui/material";
 import WishList from "../component/WishList";
 import Account from "../component/admin/account/Account";
 import NewAccount from "../component/admin/account/NewAccount";
+import EditAccount from "../component/admin/account/EditAccount";
 // import ChatAI from "../component/ChatAI";
 
 
@@ -324,6 +325,9 @@ const UserLayout = () => {
                     </Route>
                     <Route path={`/admin/add-account`} exact>
                         <NewAccount></NewAccount>
+                    </Route>
+                    <Route path={`/admin/account-detail/:id`} exact>
+                        <EditAccount></EditAccount>
                     </Route>
                     {/* <Route path={`/chat/ai`} exact>
                         <ChatAI></ChatAI>

@@ -11,7 +11,7 @@ export const createSale = async (data) => {
 }
 
 export const getSaleDetail = async (id) => {
-    const url = `/api/v1/sale/detail/${id}`;
+    const url = `/api/v1/sale/detail?id=${id}`;
     return await Instance.get(url);
 }
 export const updateSale = async (data) => {

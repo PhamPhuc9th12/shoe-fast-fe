@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { getCategory } from "../../../api/CategoryApi";
+import { getCategoryAdmin } from "../../../api/CategoryApi";
 
 const Category = () => {
   const [category, setCategory] = useState();
@@ -31,7 +31,7 @@ const Category = () => {
   }, [page]);
 
   const onLoad = () => {
-    getCategory(page, 9).then((resp) => {
+    getCategoryAdmin(page, 9).then((resp) => {
       setCategory(resp.data.content);
       setTotal(resp.data.totalPages);
     });

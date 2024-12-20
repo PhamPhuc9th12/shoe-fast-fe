@@ -83,6 +83,7 @@ const EditProduct = () => {
         brandId: data.brandId,
         saleId: data.saleId,
         categoryId: data.category,
+        isActive: data.isActive,
         attribute: [
           {
             size: data.size1,
@@ -253,9 +254,19 @@ const EditProduct = () => {
                     </div>
                   ))}
               </div>
+              <div className="col-sm-6 mt-5">
+                <label className="form-label">Trạng thái</label>
+                <select
+                  className="form-control"
+                  {...register("isActive", { required: false })}
+                >
+                  <option value="false">Dừng bán</option>
+                  <option value="true">Đang bán</option>
+                </select>
+              </div>
             </div>
           </div>
-          <div className="col-10 row">
+          <div className="col-10 row" style={{ marginTop: "15px" }}>
             <div className="card mr-5 col-10">
               <h4 className="d-flex justify-content-between align-items-center mb-1">
                 <span className="text-dark">Chi tiết sản phẩm</span> <br />

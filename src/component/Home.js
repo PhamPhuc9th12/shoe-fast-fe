@@ -25,13 +25,13 @@ const Home = (props) => {
 
   var rows = new Array(total).fill(0).map((zero, index) => (
     <li
-      className={page === index + 1 ? "page-item active" : "page-item"}
+      className={page === index ? "page-item active" : "page-item"}
       key={index}
     >
       <button
         className="page-link"
         style={{ borderRadius: 50 }}
-        onClick={() => onChangePage(index + 1)}
+        onClick={() => onChangePage(index)}
       >
         {index + 1}
       </button>

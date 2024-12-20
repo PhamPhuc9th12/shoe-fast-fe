@@ -14,7 +14,7 @@ export const createVoucher = async (data) => {
     return await Instance.post(url, data);
 }
 export const getVoucherDetail = async (id) => {
-    const url = `/api/v1/voucher/detail/${id}`;
+    const url = `/api/v1/voucher/detail?id=${id}`;
     return await Instance.get(url);
 }
 export const updateVoucher = async (data) => {

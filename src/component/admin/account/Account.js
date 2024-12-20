@@ -149,7 +149,7 @@ const Account = () => {
                   />
                 </td>
                 <td>
-                  <NavLink to={`/account-detail/${item.id}`} exact>
+                  <NavLink to={`/admin/account-detail/${item.id}`} exact>
                     <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
                   </NavLink>
                 </td>

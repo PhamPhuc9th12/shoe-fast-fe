@@ -45,12 +45,12 @@ const Search = (props) => {
                     </div>
                   </div>
                   <NavLink to={`/product-detail/${item.id}`}>
-                    {/* <img
-                      src={require(`../static/images/${item.image}`)}
+                    <img
+                      src={item.image}
                       style={{ width: 150, height: 150 }}
                       alt="Product"
                       className="mini-card"
-                    /> */}
+                    />
                   </NavLink>
                   <div className="card-body px-2 pb-2 pt-1">
                     <div className="d-flex justify-content-between">

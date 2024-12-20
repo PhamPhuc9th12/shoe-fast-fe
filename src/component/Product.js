@@ -8,45 +8,6 @@ import "./sidebar/sidebar.css";
 
 
 const { Panel } = Collapse;
-
-const categories = [
-  {
-    display_name: "Giày nam",
-    value: "1",
-    icon: "bx bx-category-alt",
-  },
-  {
-    display_name: "Giày nữ",
-    value: "2",
-    icon: "bx bx-category-alt",
-  },
-  {
-    display_name: "Giày trẻ em",
-    value: "3",
-    icon: "bx bx-category-alt",
-  },
-  {
-    display_name: "Giày đá bóng",
-    value: "4",
-    icon: "bx bx-category-alt",
-  },
-  {
-    display_name: "Giày thời trang",
-    value: "5",
-    icon: "bx bx-category-alt",
-  },
-  {
-    display_name: "Giày bóng rổ",
-    value: "6",
-    icon: "bx bx-category-alt",
-  },
-  {
-    display_name: "Giày chạy bộ",
-    value: "7",
-    icon: "bx bx-category-alt",
-  },
-];
-
 const prices = [
   {
     display_name: "Dưới 1 triệu",
@@ -115,10 +76,10 @@ const Product = (props) => {
 
   var rows = new Array(total).fill(0).map((zero, index) => (
     <li
-      className={page === index + 1 ? "page-item active" : "page-item"}
+      className={page === index ? "page-item active" : "page-item"}
       key={index}
     >
-      <button className="page-link" onClick={() => onChangePage(index + 1)}>
+      <button className="page-link" onClick={() => onChangePage(index)}>
         {index + 1}
       </button>
     </li>
@@ -153,6 +114,7 @@ const Product = (props) => {
   };
 
   const chooseCategoryHandler = (value) => {
+    console.log("VALUEE" + value)
     const index = categoryIds.indexOf(value);
     if (index > -1) {
       setCategory(categoryIds.filter((i) => i !== value));
@@ -208,7 +170,7 @@ const Product = (props) => {
                     <div
                       className="sidebar__item"
                       key={index}
-                      onClick={() => chooseCategoryHandler(item.value)}
+                      onClick={() => chooseCategoryHandler(item.id)}
                     >
                       <div
                         className={

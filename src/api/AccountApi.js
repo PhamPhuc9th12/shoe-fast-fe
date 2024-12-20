@@ -9,7 +9,7 @@ export const getInformation = async (token) => {
 }
 
 export const getAccountDetailByAccountId = async (id) => {
-    const url = `/api/v1/user/detail?id=${id}`;
+    const url = `/api/v1/user/detail/id?id=${id}`;
     return await Instance.get(url);
 }
 
@@ -37,4 +37,9 @@ export const getAccounts = async (page, size) => {
 export const createAccount = async (data) => {
     const url = `/api/v1/user/admin/create`;
     return await Instance.post(url, data);
+}
+
+export const updateAccount = async (data) => {
+    const url = `/api/v1/user/update-profile`;
+    return await Instance.put(url, data);
 }
