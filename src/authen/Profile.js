@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { getAccountDetailByAccountId, getInformation } from '../api/AccountApi';
 import { updatepProfile } from "../api/AuthenticateApi"
+import { NavLink } from "react-router-dom";
 
 const Profile = (props) => {
   const history = useHistory();
@@ -191,7 +192,13 @@ const Profile = (props) => {
                       <button className="btn btn-primary btn-lg" type="submit">
                         Cập nhật
                       </button>
+                      <button className="small mb-5 pb-lg-2">
+                        <NavLink className="text-100" to="/change-password">
+                          Đổi mật khẩu
+                        </NavLink>
+                      </button>
                     </div>
+
                   </form>
                 </div>
               </div>

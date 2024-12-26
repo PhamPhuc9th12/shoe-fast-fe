@@ -5,7 +5,7 @@ import avt from "../../../static/images/default-avatar-2.png";
 import { Link, NavLink, useHistory } from "react-router-dom";
 
 import user_menu from "../../../assets/JsonData/user_menus.json";
-// import { loadNotification, readNotification, pushNotification } from "../../api/NotificationApi";
+import { loadNotification, readNotification, pushNotification } from "../../../api/NotificationApi";
 import { toast } from "react-toastify";
 
 const TopNav = (props) => {
@@ -17,7 +17,36 @@ const TopNav = (props) => {
     // image: user_image,
   });
   const history = useHistory();
+  const renderNotificationItem = (item, index) => (
+    <NavLink to={item.type == 3 ? `/product-detail/${item.product.id}` : `/admin/search/${item.order.id}`} exact key={index} onClick={() => readHandler(item.id)}>
+      <div className="notification-item" >
+        <i className="bx bx-package"></i>
+        <span className={item.type === 1 ? "text-primary" : "text-danger"}>{item.content}</span>
+      </div>
+    </NavLink>
+  );
 
+  const loadData = async () => {
+    await loadNotification()
+      .then((resp) => setNotifications(resp.data))
+      .catch((error) => console.log(error));
+
+    await pushNotification()
+      .then((resp) => {
+        resp.data.map((item) => (
+          item.type == 1 ? toast.success(item.content) : toast.warning(item.content)
+        ))
+      })
+      .catch((error) => console.log(error));
+  };
+  useEffect(() => {
+    window.setInterval(loadData, 10000);
+  }, []);
+  const readHandler = (id) => {
+    readNotification(id)
+      .then(() => console.log(id))
+      .catch((error) => console.log(error));
+  }
   const renderUserToggle = (user) => (
     <div className="topnav__right-user">
       <div className="topnav__right-user__image">
@@ -114,7 +143,7 @@ const TopNav = (props) => {
             icon="bx bx-bell"
             badge={notifications.length}
             contentData={notifications}
-          // renderItems={(item, index) => renderNotificationItem(item, index)}
+            renderItems={(item, index) => renderNotificationItem(item, index)}
           />
           {/* dropdown here */}
         </div>

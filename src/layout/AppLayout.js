@@ -22,6 +22,7 @@ import Product from "../component/Product";
 import Blog from "../component/blog/Blog";
 import OrderDetail from "../component/OrderDetail";
 import Order from "../component/Order";
+import ChangePassword from "../authen/ChangePassword";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -179,6 +180,10 @@ const UserLayout = () => {
                     <Route path="/sign-in" exact>
                         <SignIn userHandler={userHandler}></SignIn>
                     </Route>
+                    <Route path="/change-password" exact>
+                        <ChangePassword userHandler={userHandler}></ChangePassword>
+                    </Route>
+
                     <Route path="/wish-list" exact>
                         <WishList></WishList>
                     </Route>

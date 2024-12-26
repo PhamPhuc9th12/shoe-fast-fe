@@ -15,7 +15,7 @@
 .status-card__icon {
     width: 30%;
     height: 100%;
-    font-size: 3rem;
+    font-size: 5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,7 +29,7 @@
     text-transform: capitalize;
 }
 
-.status-card__info > h4 {
+.status-card__info>h4 {
     font-size: 2.5rem;
     margin-bottom: 10px;
 }
@@ -39,11 +39,9 @@
     width: 100%;
     padding-top: 100%;
     border-radius: 50%;
-    background-image: linear-gradient(
-        to top right,
-        var(--main-color),
-        var(--second-color)
-    );
+    background-image: linear-gradient(to top right,
+            var(--main-color),
+            var(--second-color));
     position: absolute;
     left: -50%;
     top: 0;

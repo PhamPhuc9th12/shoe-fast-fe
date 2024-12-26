@@ -28,7 +28,7 @@ const NewVoucher = () => {
       .catch((error) => toast.error(error.response.data.Errors));
   }
   return (
-    <div className="container-fluid card">
+    <div className="container-fluid card" style={{ marginLeft: "25px" }}>
       <div className="col-10 offset-1 text-center">
         <h2 className="text-danger">Voucher</h2>
       </div>

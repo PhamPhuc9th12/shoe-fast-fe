@@ -39,7 +39,7 @@ const Brand = () => {
 
   return (
     <div className="card">
-      <div className="card__header mb-5" style={{ marginTop: '90px' }}>
+      <div className="card__header mb-5" style={{ marginTop: '90px', marginLeft: "25px" }}>
         <NavLink
           to="/admin/add-brand"
           className="btn btn-primary"

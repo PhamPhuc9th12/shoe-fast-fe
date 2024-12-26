@@ -26,7 +26,7 @@ const NewBrand = () => {
   };
 
   return (
-    <div className="container-fluid card">
+    <div className="container-fluid card" style={{ marginLeft: "25px" }}>
       <div className="col-10 offset-1 text-center">
         <h2 className="text-danger">Thương hiệu</h2>
       </div>

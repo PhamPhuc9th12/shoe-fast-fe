@@ -10,6 +10,7 @@ import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 import { getCartItemByAccountId } from "../api/CartApi";
+import { Flex } from "antd";
 
 const ProductDetail = (props) => {
   const { id } = useParams();
@@ -204,26 +205,29 @@ const ProductDetail = (props) => {
                       Remain: {stock}
                     </h6>
                     <hr />
-                    <div className="div">
-                      <label className="mr-5">Chọn size</label>
-                      {attributes.map((i, index) => (
-                        <div
-                          className="form-check form-check-inline"
-                          key={index}
-                        >
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="inlineRadioOptions"
-                            id="inlineRadio3"
-                            defaultValue="option3"
-                            onChange={() => onModify(i.price, i.stock, i.id)}
-                            disabled={i.stock === 0}
-                            checked={flag == i.id}
-                          />
-                          <label className="form-check-label">{i.size}</label>
-                        </div>
-                      ))}
+                    <div className="div d-flex gap-4 align-items-center">
+                      <label className="mr-5" >Chọn size</label>
+                      <div>
+                        {attributes.map((i, index) => (
+                          <div
+                            className="form-check form-check-inline"
+                            key={index}
+                          >
+                            <input
+                              className="form-check-input"
+                              type="radio"
+                              name="inlineRadioOptions"
+                              id="inlineRadio3"
+                              defaultValue="option3"
+                              onChange={() => onModify(i.price, i.stock, i.id)}
+                              disabled={i.stock === 0}
+                              checked={flag == i.id}
+                            />
+                            <label className="form-check-label">{i.size}</label>
+                          </div>
+                        ))}
+                      </div>
+
                     </div>
                     <div className="mt-5">
                       <button
@@ -427,7 +431,7 @@ const ProductDetail = (props) => {
                             </span>
                           </div>
                         </div>
-                        <NavLink to={`/product-detail/${item.id}`}>
+                        <NavLink to={`/product-detail/${item.id}`} >
                           <img
                             src={item.image}
                             style={{ width: 150, height: 150 }}

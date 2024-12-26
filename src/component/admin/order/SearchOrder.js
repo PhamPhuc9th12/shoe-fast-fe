@@ -366,8 +366,8 @@ const SearchOrder = () => {
                               type="radio"
                               name={orders}
                               checked={
-                                orders.orderStatus &&
-                                orders.orderStatus.id === 1
+
+                                orders.orderStatusId === 1
                               }
                               value="1"
                             />
@@ -380,8 +380,8 @@ const SearchOrder = () => {
                               type="radio"
                               name={orders}
                               checked={
-                                orders.orderStatus &&
-                                orders.orderStatus.id === 2
+
+                                orders.orderStatusId === 2
                               }
                               value="2"
                               onChange={(e) =>
@@ -400,8 +400,8 @@ const SearchOrder = () => {
                               type="radio"
                               name={orders}
                               checked={
-                                orders.orderStatus &&
-                                orders.orderStatus.id === 3
+
+                                orders.orderStatusId === 3
                               }
                               value="3"
                               onChange={(e) =>
@@ -420,8 +420,8 @@ const SearchOrder = () => {
                               type="radio"
                               name={orders}
                               checked={
-                                orders.orderStatus &&
-                                orders.orderStatus.id === 4
+
+                                orders.orderStatusId === 4
                               }
                               value="4"
                               onChange={(e) =>
@@ -440,8 +440,8 @@ const SearchOrder = () => {
                               type="radio"
                               name={orders}
                               checked={
-                                orders.orderStatus &&
-                                orders.orderStatus.id === 5
+
+                                orders.orderStatusId === 5
                               }
                               value="5"
                               onChange={(e) =>
@@ -454,21 +454,21 @@ const SearchOrder = () => {
                           </div>
                         </th>
                         <th>
-                          {orders.orderStatus &&
-                            orders.orderStatus.id !== 4 &&
-                            orders.orderStatus &&
-                            orders.orderStatus.id !== 3 &&
-                            orders.orderStatus &&
-                            orders.orderStatus.id !== 5 ? (
-                            <NavLink to={`/order-detail/${orders.id}`} exact>
-                              <i
-                                className="fa fa-pencil-square-o"
-                                aria-hidden="true"
-                              ></i>
-                            </NavLink>
-                          ) : (
-                            ""
-                          )}
+                          {
+                            orders.orderStatusId !== 4 &&
+
+                              orders.orderStatusId !== 3 &&
+
+                              orders.orderStatusId !== 5 ? (
+                              <NavLink to={`/admin/order-detail/${orders.id}`} exact>
+                                <i
+                                  className="fa fa-pencil-square-o"
+                                  aria-hidden="true"
+                                ></i>
+                              </NavLink>
+                            ) : (
+                              ""
+                            )}
                         </th>
                       </tr>
                     )}
@@ -492,7 +492,7 @@ const SearchOrder = () => {
             </Alert.Heading>
             <hr />
             <p className="font-weight-bold">
-              Tên khách hàng: {temp && temp.fullname}
+              Tên khách hàng: {temp && temp.fullName}
             </p>
             <p className="font-weight-bold">
               Số điện thoại: {temp && temp.phone}

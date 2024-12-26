@@ -6,6 +6,7 @@ import { FaTruck, FaMoneyCheckAlt, FaCheckCircle, FaTimesCircle } from "react-ic
 import { toast } from "react-toastify";
 import axios from 'axios';
 import '../index.css';
+import { blue } from "@mui/material/colors";
 
 const OrderDetail = (props) => {
   const [orderDetail, setOrderDetail] = useState([]);
@@ -226,7 +227,7 @@ const OrderDetail = (props) => {
           <Button variant="primary" onClick={() => handlePaymentMethod("COD")}>
             Thanh toán khi giao hàng
           </Button>
-          <Button variant="secondary" onClick={() => handlePaymentMethod("TRANSFER")}>
+          <Button variant="secondary" style={{ backgroundColor: blue }} onClick={() => handlePaymentMethod("TRANSFER")}>
             Chuyển khoản
           </Button>
         </Modal.Body>

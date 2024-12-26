@@ -24,7 +24,7 @@ const NewAccount = () => {
   };
 
   return (
-    <div className="pb-3 container-fluid card">
+    <div className="pb-3 container-fluid card" style={{ marginLeft: "25px" }}>
       <div className="py-3 col-10 offset-1 text-center">
         <h2 className="text-danger">Tài khoản</h2>
       </div>

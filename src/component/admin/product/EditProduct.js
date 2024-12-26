@@ -147,7 +147,7 @@ const EditProduct = () => {
 
   };
   return (
-    <div className="pb-3 container-fluid card">
+    <div className="pb-3 container-fluid card" style={{ marginLeft: "25px" }}>
       <div className="col-10 offset-1 text-center">
         <h1 className="text-danger">Sản phẩm</h1>
       </div>

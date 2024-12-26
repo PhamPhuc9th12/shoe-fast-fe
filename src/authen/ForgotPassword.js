@@ -10,11 +10,11 @@ const ForgotPassword = () => {
 
   const signInHandler = (data) => {
     const userFlag = {
-      username: data.username
+      email: data.email
     };
     forgotPassword(userFlag)
       .then((res) => {
-        toast.success(res.data);
+        toast.success(res.data.message);
         history.push("/sign-in");
       })
       .catch(() => toast.error("Đã xảy ra lỗi vui lòng quay lại sau!"));
@@ -45,21 +45,21 @@ const ForgotPassword = () => {
                       onSubmit={handleSubmit(signInHandler)}
                     >
                       <div className="form-outline form-white mb-4">
+                        <label className="form-label" htmlFor="typeEmailX">
+                          Vui lòng nhập Email
+                        </label>
                         <input
                           type="text"
                           id="typeEmailX"
                           className="form-control form-control-lg"
-                          {...register("username", {
+                          {...register("email", {
                             required: true,
                             pattern: /^\s*\S+.*/,
                           })}
                         />
-                        <label className="form-label" htmlFor="typeEmailX">
-                          Tài khoản
-                        </label>
-                        {errors.username && (
+                        {errors.email && (
                           <div className="alert alert-danger" role="alert">
-                            Tài khoản không hợp lệ!
+                            Email không hợp lệ!
                           </div>
                         )}
                       </div>

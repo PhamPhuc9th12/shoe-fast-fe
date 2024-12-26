@@ -1,18 +1,18 @@
 
 import React from 'react'
 import '../static/css/style.css'
-// import des from '../static/images/title-des.jpg'
+import des from '../static/images/title-des.jpg'
 import { NavLink } from 'react-router-dom'
-// import '../assets/css/index.css';
-// import '../assets/css/theme.css';
-// import "../assets/css/grid.css";
+import '../assets/css/index.css';
+import '../assets/css/theme.css';
+import "../assets/css/grid.css";
 const Footer = () => {
   return (
     <div>
       <div className="container-fluid padding mt-5 mb-5">
         <div className="row padding">
           <div className="col-lg-6 mx-auto d-block">
-            {/* <img src={des} className="img-fluid" alt=''/> */}
+            <img src={des} className="img-fluid" alt='' />
             <img src="" className="img-fluid" alt='' />
           </div>
         </div>
@@ -26,7 +26,6 @@ const Footer = () => {
           <div className="col-12 social padding">
             <NavLink to="#"><i className="fab fa-facebook" /></NavLink>
             <NavLink to="#"><i className="fab fa-google-plus-g" /></NavLink>
-            <NavLink to="#"><i className="fab fa-instagram" /></NavLink>
             <NavLink to="#"><i className="fab fa-youtube" /></NavLink>
           </div>
         </div>

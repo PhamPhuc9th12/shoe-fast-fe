@@ -14,5 +14,5 @@ export const getBrandDetail = async (id) => {
 }
 export const updateBrand = async (data) => {
     const url = `/api/v1/brand/update`;
-    return await Instance.post(url, data);
+    return await Instance.put(url, data);
 }

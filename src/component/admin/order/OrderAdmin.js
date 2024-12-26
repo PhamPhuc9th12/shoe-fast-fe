@@ -152,13 +152,13 @@ const Order = () => {
 
   var rows = new Array(total).fill(0).map((zero, index) => (
     <li
-      className={page === index + 1 ? "page-item active" : "page-item"}
+      className={page === index ? "page-item active" : "page-item"}
       key={index}
     >
       <button
         className="page-link"
         style={{ borderRadius: 50 }}
-        onClick={() => onChangePage(index + 1)}
+        onClick={() => onChangePage(index)}
       >
         {index + 1}
       </button>
@@ -330,10 +330,12 @@ const Order = () => {
 
   const getAllOrdersByPaymentStatus = (paymentMethod) => {
     setPaymentMethod(paymentMethod);
+    console.log(paymentMethod)
     setPage(0);
     const sanitizedPaymentMethod = paymentMethod === "null" ? null : paymentMethod;
     getAllOrdersByPayment(sanitizedPaymentMethod, 0, 20)
       .then((res) => {
+        console.log(res)
         if (res.data) {
           setOrders(res.data.content || []);
           setTotal(res.data.totalPages || 0);
@@ -535,17 +537,17 @@ const Order = () => {
                   <tbody>
                     {orders &&
                       orders
-                        .filter((order) => {
-                          // Lọc theo phương thức thanh toán "CHUYỂN KHOẢN QUA VNPAY"
-                          if (paymentMethod === "CHUYỂN KHOẢN QUA VNPAY") {
-                            return (
-                              ["Đang xử lí", "Đang vận chuyển", "Đã giao", "Đã hủy"].includes(
-                                order.orderStatusName
-                              )
-                            );
-                          }
-                          return true; // Hiển thị tất cả trạng thái nếu không chọn VNPAY
-                        })
+                        // .filter((order) => {
+                        //   // Lọc theo phương thức thanh toán "CHUYỂN KHOẢN QUA VNPAY"
+                        //   if (paymentMethod === "CHUYỂN KHOẢN QUA VNPAY") {
+                        //     return (
+                        //       ["Đang xử lí", "Đang vận chuyển", "Đã giao", "Đã hủy"].includes(
+                        //         order.orderStatusName
+                        //       )
+                        //     );
+                        //   }
+                        //   return true; // Hiển thị tất cả trạng thái nếu không chọn VNPAY
+                        // })
                         .map((item, index) => (
                           <tr key={index}>
                             <th scope="row">
@@ -681,7 +683,7 @@ const Order = () => {
               <button
                 className="page-link"
                 style={{ borderRadius: 50 }}
-                onClick={() => onChangePage(total)}
+                onClick={() => onChangePage(total - 1)}
               >
                 {`>>`}
               </button>
@@ -702,7 +704,7 @@ const Order = () => {
             </Alert.Heading>
             <hr />
             <p className="font-weight-bold">
-              Tên khách hàng: {temp && temp.fullname}
+              Tên khách hàng: {temp && temp.fullName}
             </p>
             <p className="font-weight-bold">
               Số điện thoại: {temp && temp.phone}

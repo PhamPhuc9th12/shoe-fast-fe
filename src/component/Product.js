@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAllProducts, filterProducts } from "../api/ProductApi";
+import { getAllProducts, filterProducts, toggleLikeProduct } from "../api/ProductApi";
 import { getBrands } from "../api/BrandApi";
 import { getCategory } from "../api/CategoryApi";
 import { NavLink } from "react-router-dom";
@@ -84,6 +84,26 @@ const Product = (props) => {
       </button>
     </li>
   ));
+  const handleLike = (productId, currentLikeStatus) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Vui lòng đăng nhập trước khi yêu thích sản phẩm");
+      return;
+    }
+
+    toggleLikeProduct(productId, !currentLikeStatus, token)
+      .then((response) => {
+        getAllProducts(page, 12, true, token).then((response) => {
+
+          setProducts(response.content);
+          setTotal(response.totalPages);
+        });
+      })
+      .catch((error) => {
+        console.error("Lỗi khi thực hiện thao tác like: ", error);
+      });
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token") || null;
@@ -237,7 +257,9 @@ const Product = (props) => {
                           <div className="d-flex justify-content-between">
                             <div>
                               <p className="h4 text-primary">
-                                {item.price.toLocaleString()} Đ
+                                {(
+                                  (item.price * (100 - item.discount)) / 100
+                                ).toLocaleString()} Đ
                               </p>
                             </div>
                           </div>
@@ -302,11 +324,9 @@ const Product = (props) => {
                                 data-toggle="tooltip"
                                 data-placement="left"
                                 title="Add to Wishlist"
+                                onClick={() => handleLike(item.id, item.liked)}
                               >
-                                <i
-                                  className="fa fa-heart"
-                                  aria-hidden="true"
-                                ></i>
+                                <i className={`fa fa-heart ${item.liked ? 'text-danger' : ''}`} aria-hidden="true"></i>
                               </NavLink>
                             </div>
                           </div>

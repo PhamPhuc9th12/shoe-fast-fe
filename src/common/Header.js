@@ -1,7 +1,7 @@
 
 import React from "react";
 import "../static/css/style.css";
-import logo from "../static/images/nike.jpg";
+import logo from "../static/images/logo-5.jpg";
 import avt from "../static/images/default-avatar-2.png";
 import { NavLink, useHistory } from "react-router-dom";
 import user_image from "../static/images/puma.jpg";
@@ -154,7 +154,7 @@ const Header = (props) => {
                 customToggle={() => (
                   <div className="topnav__right-user" style={{ width: "200%" }}>
                     <div className="topnav__right-user__image">
-                      <img style={{ width: "50px" }} src={curr_user.image} alt="user avatar" />
+                      <img style={{ width: "41px", height: "41px" }} src={avt} alt="user avatar" />
                     </div>
                     <div className="topnav__right-user__name">{curr_user.display_name}</div>
                   </div>

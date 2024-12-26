@@ -22,12 +22,15 @@ const Product = () => {
     getAllProductsByBrand(0, page, 10).then((response) => {
       setProducts(response.data.content);
       setTotal(response.data.totalPages);
-    });
+    })
+      .catch((error) => {
+        toast.warning(error.response.data.message);
+      });
 
     getBrands(0, 20)
       .then((resp) => setBrand(resp.data.content))
       .catch((error) => {
-        toast.warning(error.response.message);
+        toast.warning(error.response.data.message);
       })
   };
 
@@ -37,13 +40,13 @@ const Product = () => {
 
   var rows = new Array(total).fill(0).map((zero, index) => (
     <li
-      className={page === index + 1 ? "page-item active" : "page-item"}
+      className={page === index ? "page-item active" : "page-item"}
       key={index}
     >
       <button
         className="page-link"
         style={{ borderRadius: 50 }}
-        onClick={() => onChangePage(index + 1)}
+        onClick={() => onChangePage(index)}
       >
         {index + 1}
       </button>
@@ -63,7 +66,7 @@ const Product = () => {
     }
   };
   return (
-    <div className="col-12">
+    <div className="col-12" style={{ marginLeft: "25px" }}>
       <div className="card">
         <div className="card__header" style={{ marginTop: '60px' }}>
           <NavLink
@@ -158,7 +161,7 @@ const Product = () => {
               <button
                 className="page-link"
                 style={{ borderRadius: 50 }}
-                onClick={() => onChangePage(total)}
+                onClick={() => onChangePage(total - 1)}
               >
                 {`>>`}
               </button>
