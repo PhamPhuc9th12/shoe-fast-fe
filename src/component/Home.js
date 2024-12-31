@@ -224,7 +224,7 @@ const Home = (props) => {
             <button
               className="page-link"
               style={{ borderRadius: 50 }}
-              onClick={() => onChangePage(1)}
+              onClick={() => onChangePage(0)}
             >
               {"<<"}
             </button>

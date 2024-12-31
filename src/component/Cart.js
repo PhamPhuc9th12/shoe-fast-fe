@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { Modal, Button } from "antd";
 // import 'font-awesome/css/font-awesome.min.css';
 import {
   getCartItemByAccountId,
@@ -12,6 +13,25 @@ import { toast } from "react-toastify";
 const Cart = (props) => {
   const [cart, setCart] = useState([]);
   const history = useHistory();
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [itemToRemove, setItemToRemove] = useState(null);
+
+  const showModal = (item) => {
+    setItemToRemove(item);
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    if (itemToRemove) {
+      removeCartItemHandler(itemToRemove.id, itemToRemove.quantity);
+    }
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   useEffect(() => {
     onLoad();
@@ -108,7 +128,11 @@ const Cart = (props) => {
       };
 
       removeCartItem(data)
-        .then(() => onLoad())
+        .then(() => {
+          // Hiển thị thông báo thành công
+          toast.success("Xóa sản phẩm thành công!");
+          onLoad();
+        })
         .catch((error) => toast.warning(error.response.data.message));
     } else {
       const res = cart.filter((item) => item.id !== attr);
@@ -254,7 +278,7 @@ const Cart = (props) => {
                         đ
                       </h6>
                     </td>
-                    <td>
+                    {/* <td>
                       <button
                         className="border-0 pl-4"
                         style={{ backgroundColor: "white", backgroundColor: "inherit" }}
@@ -270,15 +294,43 @@ const Cart = (props) => {
                           }}
                         />
                       </button>
+                    </td> */}
+                    <td>
+                      <button
+                        className="border-0 pl-4"
+                        style={{ backgroundColor: 'white', backgroundColor: 'inherit' }}
+                        onClick={() => showModal(item)}  // Pass the current item to show the modal
+                      >
+                        <i
+                          className="fa fa-trash-o mt-5 text-danger"
+                          style={{
+                            fontSize: '24px', backgroundColor: 'transparent', margin: '0',
+                            padding: '0',
+                          }}
+                        />
+                      </button>
+
+                      {/* Modal Confirmation */}
+                      <Modal
+                        title="Xác nhận xóa"
+                        visible={isModalVisible}
+                        onOk={handleOk}
+                        onCancel={handleCancel}
+                        okText="Xác nhận"
+                        cancelText="Hủy"
+                      >
+                        <p>Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?</p>
+                      </Modal>
                     </td>
+
                   </tr>
                 ))}
             </tbody>
           </table>
           <hr className="my-4" />
-          <div className="row container-fluid">
+          <div className="row container-fluid d-flex justify-content-end">
             <div
-              className="btn btn-primary mb-3 btn-lg"
+              className="btn btn-primary mb-3 btn-lg" style={{ width: "145px" }}
               onClick={checkOutHandler}
             >
               Mua hàng

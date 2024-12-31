@@ -8,12 +8,11 @@ const Instance = axios.create({
     }
 });
 
-// Sử dụng interceptor để lấy token mỗi khi có yêu cầu
 Instance.interceptors.request.use(
     config => {
         const accessToken = localStorage.getItem('token'); // Lấy token từ localStorage
         if (accessToken) {
-            config.headers.Authorization = `Bearer ${accessToken}`; // Đảm bảo sử dụng đúng key 'Authorization'
+            config.headers.Authorization = `Bearer ${accessToken}`;
         }
         return config;
     },
