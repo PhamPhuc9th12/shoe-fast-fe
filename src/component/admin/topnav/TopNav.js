@@ -125,9 +125,9 @@ const TopNav = (props) => {
 
   return (
     <div className="topnav">
-      <div className="topnav__search" style={{ left: '-70px' }}>
+      <div className="topnav__search" style={{ left: '-50px' }}>
         <input type="text" placeholder="Search here..." onChange={(e) => keyHanlder(e.target.value)} />
-        <i className="bx bx-search" onClick={() => searchHandler(key)}></i>
+        <i className="bx bx-search"></i>
       </div>
       <div className="topnav__right">
         <div className="topnav__right-item">

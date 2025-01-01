@@ -1,7 +1,3 @@
-import addidas from "../static/images/adidas.jpg";
-import nike from "../static/images/nike.jpg";
-import puma from "../static/images/puma.jpg";
-import fila from "../static/images/fila.jpg";
 import { NavLink } from "react-router-dom";
 import { Carousel } from 'antd';
 import 'antd/dist/reset.css';
@@ -236,7 +232,7 @@ const Home = (props) => {
             <button
               className="page-link"
               style={{ borderRadius: 50 }}
-              onClick={() => onChangePage(total)}
+              onClick={() => onChangePage(total - 1)}
             >
               {`>>`}
             </button>

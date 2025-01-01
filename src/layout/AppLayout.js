@@ -27,7 +27,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import DashboardAdmin from "../component/admin/dashboard/DashboardAdmin";
-import ProductForm from "../component/admin/product/ProductForm";
+import ProductCreate from "../component/admin/product/ProductCreate";
 import Sidebar from "../component/admin/sidebar/SidebarAdmin";
 import TopNav from "../component/admin/topnav/TopNav"
 import OrderAdmin from "../component/admin/order/OrderAdmin";
@@ -257,7 +257,7 @@ const UserLayout = () => {
                         <ProductAdmin></ProductAdmin>
                     </Route>
                     <Route path="/admin/add-product" exact>
-                        <ProductForm className="add-product"></ProductForm>
+                        <ProductCreate className="add-product"></ProductCreate>
                     </Route>
                     <Route path="/admin/orders" exact>
                         <OrderAdmin></OrderAdmin>

@@ -8,6 +8,7 @@ import {
   updateShip,
   updateSuccess,
 } from "../../../api/OrderApi";
+import { useHistory } from "react-router-dom";
 import "../table/table.css";
 import Badge from "../badge/Badge";
 import { toast } from "react-toastify";
@@ -42,6 +43,7 @@ const SearchOrder = () => {
   const [description, setDescription] = useState(null);
   const [reason, setReason] = useState(null);
   const [shipDate, setShipDate] = useState(null);
+  const history = useHistory();
 
   const { id } = useParams();
 
@@ -287,7 +289,14 @@ const SearchOrder = () => {
     <div className="col-12">
       <div className="card">
         <div className="card__header">
-          <h3>Đơn hàng</h3>
+          <button style={{ width: 60 }} onClick={() => history.push('/admin/orders')}>
+            <i
+              className="fa fa-arrow-left"
+              style={{ fontSize: 18 }}
+              aria-hidden="true"
+            ></i>
+            <h3>Đơn hàng</h3>
+          </button>
         </div>
         {loading && (
           <div className="text-center">
@@ -343,7 +352,7 @@ const SearchOrder = () => {
                     {orders && (
                       <tr>
                         <th scope="row">
-                          <NavLink to={`/detail-order/${orders.id}`} exact>
+                          <NavLink to={`/admin/detail-order/${orders.id}`} exact>
                             #OD{orders.id}
                           </NavLink>
                         </th>

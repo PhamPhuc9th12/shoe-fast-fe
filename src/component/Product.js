@@ -5,6 +5,7 @@ import { getCategory } from "../api/CategoryApi";
 import { NavLink } from "react-router-dom";
 import { Collapse } from "antd";
 import "./sidebar/sidebar.css";
+import { toast } from "react-toastify";
 
 
 const { Panel } = Collapse;
@@ -125,7 +126,11 @@ const Product = (props) => {
       filterProducts(data).then((resp) => {
         setProducts(resp.data.content);
         setTotal(resp.data.totalPages);
-      });
+      }).catch((error) => {
+        setProducts([]);
+        setTotal(0);
+        toast.error("Không tìm thấy sản phẩm ");
+      });;
     }
   }, [page, categoryIds, brandIds, price, localStorage.getItem("token")]);
 
@@ -335,8 +340,30 @@ const Product = (props) => {
                     </div>
                   ))}
               </div>
-              <nav aria-label="Page navigation example">
-                <ul className="pagination justify-content-center">{rows}</ul>
+              <nav aria-label="Page navigation">
+                <ul className="pagination offset-5 mt-3">
+                  <li className={page === 0 ? "page-item disabled" : "page-item"}>
+                    <button
+                      className="page-link"
+                      style={{ borderRadius: 50 }}
+                      onClick={() => onChangePage(0)}
+                    >
+                      {"<<"}
+                    </button>
+                  </li>
+                  {rows}
+                  <li
+                    className={page === total ? "page-item disabled" : "page-item"}
+                  >
+                    <button
+                      className="page-link"
+                      style={{ borderRadius: 50 }}
+                      onClick={() => onChangePage(total - 1)}
+                    >
+                      {`>>`}
+                    </button>
+                  </li>
+                </ul>
               </nav>
             </div>
           </div>

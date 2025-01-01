@@ -93,7 +93,16 @@ export const createProduct = async (formData) => {
     });
 };
 
-export const modifyProduct = async (data) => {
+export const modifyProduct = async (formData) => {
     const url = `/api/v1/product/modify`;
-    return await Instance.put(url, data);
-}
+    return await Instance.put(url, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        }
+    });
+};
+
+// export const modifyProduct = async (data) => {
+//     const url = `/api/v1/product/modify`;
+//     return await Instance.put(url, data);
+// }

@@ -17,7 +17,10 @@ const EditProduct = () => {
   const [flag, setFlag] = useState([]);
   const { id } = useParams();
   const history = useHistory();
+  const [image, setImage] = useState([]);
   const [count, setCount] = useState(0);
+  const [currentImages, setCurrentImages] = useState([]); // Ảnh đã có (URL từ backend)
+  const [newImages, setNewImages] = useState([]); // Ảnh mới upload
   const [numbers, setNumbers] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const {
     register,
@@ -25,6 +28,36 @@ const EditProduct = () => {
     formState: { errors },
     reset,
   } = useForm();
+  const onFileChange = (event) => {
+    const files = Array.from(event.target.files);
+
+    const validImages = files.filter((file) =>
+      file.name.toLowerCase().endsWith(".jpg") || file.name.toLowerCase().endsWith(".png")
+    );
+
+    if (validImages.length !== files.length) {
+      toast.warning("Một số file không hợp lệ. Chỉ hỗ trợ file .jpg và .png.");
+    }
+
+    // Tạo URL tạm thời cho hình ảnh để hiển thị
+    const imagePreviews = validImages.map((file) => {
+      return {
+        file, // Giữ file để upload sau
+        preview: URL.createObjectURL(file), // URL để hiển thị trước
+      };
+    });
+
+    // Thêm ảnh mới vào danh sách
+    setNewImages((prev) => [...prev, ...imagePreviews]);
+  };
+
+  const handleRemoveCurrentImage = (index) => {
+    setCurrentImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleRemoveNewImage = (index) => {
+    setNewImages((prev) => prev.filter((_, i) => i !== index));
+  };
 
   useEffect(() => {
     onLoad();
@@ -48,6 +81,7 @@ const EditProduct = () => {
         setItem(res.data);
         setFlag(res.data.categories);
         setAttributes(res.data.attributes);
+        setCurrentImages(res.data.images);
         setCount(res.data.attributes.length);
         getCategory(0, 20)
           .then((resp) => setCate(resp.data.content))
@@ -75,74 +109,115 @@ const EditProduct = () => {
     if (hasDuplicate) {
       toast.warning("Nhập trùng size. Vui lòng nhập lại!");
     } else {
-      const flag = {
-        id: id,
-        name: data.name,
-        code: data.code,
-        description: data.description,
-        brandId: data.brandId,
-        saleId: data.saleId,
-        categoryId: data.category,
-        isActive: data.isActive,
-        attribute: [
-          {
-            size: data.size1,
-            price: data.price1,
-            stock: data.quantity1,
-          },
-          {
-            size: data.size2,
-            price: data.price2,
-            stock: data.quantity2,
-          },
-          {
-            size: data.size3,
-            price: data.price3,
-            stock: data.quantity3,
-          },
-          {
-            size: data.size4,
-            price: data.price4,
-            stock: data.quantity4,
-          },
-          {
-            size: data.size5,
-            price: data.price5,
-            stock: data.quantity5,
-          },
-          {
-            size: data.size6,
-            price: data.price6,
-            stock: data.quantity6,
-          },
-          {
-            size: data.size7,
-            price: data.price7,
-            stock: data.quantity7,
-          },
-          {
-            size: data.size8,
-            price: data.price8,
-            stock: data.quantity8,
-          },
-          {
-            size: data.size9,
-            price: data.price9,
-            stock: data.quantity9,
-          },
-          {
-            size: data.size10,
-            price: data.price10,
-            stock: data.quantity10,
-          }
-        ].slice(0, count),
-      };
-      modifyProduct(flag)
+      const formData = new FormData();
+
+      // Thêm các thông tin sản phẩm vào FormData
+      formData.append("id", id)
+      formData.append("name", data.name);
+      formData.append("code", data.code);
+      formData.append("description", data.description);
+      formData.append("brandId", data.brandId);
+      formData.append("saleId", data.saleId);
+      formData.append("categoryId", data.category);
+      formData.append("isActive", data.isActive)
+
+      // Thêm từng hình ảnh vào FormData
+      // currentImages.forEach((img, index) => {
+      //   formData.append("files", img);
+      // });
+      newImages.forEach((img, index) => {
+        formData.append("files", img.file);
+      });
+
+
+      // Thêm các thuộc tính sản phẩm vào FormData dưới dạng các cặp key-value
+      const attributes = [
+        { size: data.size1, price: data.price1, stock: data.quantity1 },
+        { size: data.size2, price: data.price2, stock: data.quantity2 },
+        { size: data.size3, price: data.price3, stock: data.quantity3 },
+        { size: data.size4, price: data.price4, stock: data.quantity4 },
+        { size: data.size5, price: data.price5, stock: data.quantity5 },
+        { size: data.size6, price: data.price6, stock: data.quantity6 },
+        { size: data.size7, price: data.price7, stock: data.quantity7 },
+        { size: data.size8, price: data.price8, stock: data.quantity8 },
+        { size: data.size9, price: data.price9, stock: data.quantity9 },
+        { size: data.size10, price: data.price10, stock: data.quantity10 },
+      ].slice(0, count);
+
+      attributes.forEach((attribute, index) => {
+        formData.append(`attribute[${index}].size`, attribute.size);
+        formData.append(`attribute[${index}].price`, attribute.price);
+        formData.append(`attribute[${index}].stock`, attribute.stock);
+      });
+
+      // const flag = {
+      //   id: id,
+      //   name: data.name,
+      //   code: data.code,
+      //   description: data.description,
+      //   brandId: data.brandId,
+      //   saleId: data.saleId,
+      //   categoryId: data.category,
+      //   isActive: data.isActive,
+      //   attribute: [
+      //     {
+      //       size: data.size1,
+      //       price: data.price1,
+      //       stock: data.quantity1,
+      //     },
+      //     {
+      //       size: data.size2,
+      //       price: data.price2,
+      //       stock: data.quantity2,
+      //     },
+      //     {
+      //       size: data.size3,
+      //       price: data.price3,
+      //       stock: data.quantity3,
+      //     },
+      //     {
+      //       size: data.size4,
+      //       price: data.price4,
+      //       stock: data.quantity4,
+      //     },
+      //     {
+      //       size: data.size5,
+      //       price: data.price5,
+      //       stock: data.quantity5,
+      //     },
+      //     {
+      //       size: data.size6,
+      //       price: data.price6,
+      //       stock: data.quantity6,
+      //     },
+      //     {
+      //       size: data.size7,
+      //       price: data.price7,
+      //       stock: data.quantity7,
+      //     },
+      //     {
+      //       size: data.size8,
+      //       price: data.price8,
+      //       stock: data.quantity8,
+      //     },
+      //     {
+      //       size: data.size9,
+      //       price: data.price9,
+      //       stock: data.quantity9,
+      //     },
+      //     {
+      //       size: data.size10,
+      //       price: data.price10,
+      //       stock: data.quantity10,
+      //     }
+      //   ].slice(0, count),
+      // };
+      modifyProduct(formData)
         .then(() => {
           toast.success("Cập nhật thành công!");
           history.push("/admin/products");
         })
-        .catch((error) => console.log(error.response.data));
+        .catch((error) => console.log(error.response.data.message));
     }
 
   };
@@ -253,6 +328,78 @@ const EditProduct = () => {
                       <label className="form-check-label">{i.name}</label>
                     </div>
                   ))}
+              </div>
+              <div style={{ marginTop: '20px' }}>
+                <label htmlFor="upload-images" style={{ cursor: 'pointer', padding: '10px 20px', backgroundColor: '#007bff', color: '#fff', borderRadius: '5px' }}>
+                  Chọn ảnh
+                </label>
+                <input
+                  type="file"
+                  id="upload-images"
+                  multiple
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  onChange={onFileChange}
+                />
+              </div>
+
+              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {/* Ảnh hiện tại */}
+                {currentImages.map((src, index) => (
+                  <div
+                    key={`current-${index}`}
+                    style={{
+                      position: 'relative',
+                      margin: '10px',
+                    }}
+                  >
+                    <img
+                      src={src}
+                      alt={`current-img-${index}`}
+                      style={{
+                        width: '120px',
+                        height: '120px',
+                        objectFit: 'cover',
+                        borderRadius: '8px',
+                        boxShadow: '0 0 5px rgba(0,0,0,0.1)',
+                      }}
+                    />
+                    <button
+                      onClick={() => handleRemoveCurrentImage(index)}
+
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+
+                {/* Ảnh mới */}
+                {newImages.map((src, index) => (
+                  <div
+                    key={`new-${index}`}
+                    style={{
+                      position: 'relative',
+                      margin: '10px',
+                    }}
+                  >
+                    <img
+                      src={src.preview}
+                      alt={`new-img-${index}`}
+                      style={{
+                        width: '120px',
+                        height: '120px',
+                        objectFit: 'cover',
+                        borderRadius: '8px',
+                        boxShadow: '0 0 5px rgba(0,0,0,0.1)',
+                      }}
+                    />
+                    <button
+                      onClick={() => handleRemoveNewImage(index)}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
               </div>
               <div className="col-sm-6 mt-5">
                 <label className="form-label">Trạng thái</label>

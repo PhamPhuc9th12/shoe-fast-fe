@@ -246,35 +246,90 @@ const ProductForm = () => {
                 )}
               </div>
               <div className="col-12 mt-5">
-                <label className="form-label mb-5">Hình ảnh sản phẩm</label>{" "}
-                <br />
+                <label className="form-label mb-5">Hình ảnh sản phẩm</label>
                 <div className="row">
                   <div
                     className="col-3 mr-5 ml-3 mb-5"
-                    style={{ paddingRight: 70 }}
+                    style={{
+                      paddingRight: '70px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
                   >
-                    <label className="custom-file-upload fas">
-                      <div className="img-wrap img-upload">
-                        {/* <img alt="" src={logo} /> */}
+                    <label
+                      className="custom-file-upload fas"
+                      style={{
+                        display: 'block',
+                        cursor: 'pointer',
+                        padding: '35x 2px', // Tăng padding để nút rộng hơn
+                        border: '2px solid #007bff',
+                        borderRadius: '8px',
+                        textAlign: 'center',
+                        backgroundColor: '#007bff',
+                        color: '#fff',
+                        fontSize: '18px', // Tăng cỡ chữ nếu muốn
+                        fontWeight: '600',
+                        transition: 'background-color 0.3s, transform 0.2s',
+                        minWidth: '180px', // Đảm bảo nút có chiều rộng tối thiểu
+                      }}
+                    >
+                      <div
+                        className="img-wrap img-upload"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <i
+                          className="fas fa-upload"
+                          style={{
+                            fontSize: '28px', // Tăng kích thước icon
+                            color: '#fff',
+                          }}
+                        ></i>
                       </div>
                       <input
                         id="photo-upload"
                         type="file"
                         multiple
                         onChange={(e) => onFileChange(e)}
+                        style={{ display: 'none' }}
                       />
                     </label>
                   </div>
-                  <div className="col">
+                  <div className="col" style={{ display: 'flex', flexWrap: 'wrap' }}>
                     {image &&
                       image.map((item, index) => (
-                        <span class="badge badge-primary" key={index}>
-                          {item.name}
-                        </span>
+                        <div
+                          key={index}
+                          style={{
+                            marginRight: '10px',
+                            marginBottom: '10px',
+                            borderRadius: '8px',
+                            overflow: 'hidden',
+                            boxShadow: '0 0 5px rgba(0,0,0,0.1)',
+                          }}
+                        >
+                          <img
+                            src={URL.createObjectURL(item)}
+                            alt={`product-img-${index}`}
+                            style={{
+                              width: '120px',
+                              height: '120px',
+                              objectFit: 'cover',
+                              borderRadius: '8px',
+                            }}
+                          />
+                        </div>
                       ))}
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
           <div className="col-10 row">
@@ -777,6 +832,7 @@ const ProductForm = () => {
                       className="form-control"
                       {...register("quantity9", {
                         required: true,
+                        validate: (value) => value >= 1,
                         min: 1,
                       })}
                     />

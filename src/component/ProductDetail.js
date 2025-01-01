@@ -142,7 +142,7 @@ const ProductDetail = (props) => {
           setCount(value);
         })
         .catch((error) => {
-          toast.warning(error.response.data.Errors);
+          toast.warning(error.response.data.message);
           setCount(1);
         });
     } else {
@@ -157,7 +157,7 @@ const ProductDetail = (props) => {
         setCount(value);
       })
       .catch((error) => {
-        toast.warning(error.response.data);
+        toast.warning(error.response.data.message);
       });
   };
 
@@ -387,17 +387,24 @@ const ProductDetail = (props) => {
                             </div>
                           </div>
                           <div className="d-flex justify-content-between">
-                            <div className="col px-0 ">
+                            <div className="col px-0 " style={{ marginLeft: "-20px" }}>
                               <button
                                 onClick={() => handleShow(item.id)}
                                 className="btn btn-outline-primary btn-block"
                               >
                                 So sánh
+                              </button>
+                              <NavLink
+                                to={`/product-detail/${item.id}`}
+                                exact
+                                className="btn btn-outline-primary btn-block"
+                              >
+                                Thêm vào giỏ
                                 <i
                                   className="fa fa-shopping-basket"
                                   aria-hidden="true"
                                 ></i>
-                              </button>
+                              </NavLink>
                             </div>
                           </div>
                         </div>
@@ -499,14 +506,21 @@ const ProductDetail = (props) => {
                             <div className="col px-0 ">
                               <button
                                 onClick={() => handleShow(item.id)}
-                                className="btn btn-outline-primary btn-block"
+                                className="btn btn-outline-primary btn-block" style={{ marginLeft: "-15px" }}
                               >
                                 So sánh
+                              </button>
+                              <NavLink
+                                to={`/product-detail/${item.id}`}
+                                exact
+                                className="btn btn-outline-primary btn-block"
+                              >
+                                Thêm vào giỏ
                                 <i
                                   className="fa fa-shopping-basket"
                                   aria-hidden="true"
                                 ></i>
-                              </button>
+                              </NavLink>
                             </div>
                           </div>
                         </div>

@@ -35,7 +35,7 @@ const OrderDetail = () => {
   };
 
   return (
-    <div className="container-fluid row padding mb-5 card">
+    <div className="container-fluid row padding mb-5 card" style={{ marginTop: "25px" }}>
       <button style={{ width: 60 }} onClick={() => goBack()}>
         <i
           className="fa fa-arrow-left"
