@@ -227,7 +227,7 @@ const OrderDetail = (props) => {
           <Button variant="primary" onClick={() => handlePaymentMethod("COD")}>
             Thanh toán khi giao hàng
           </Button>
-          <Button variant="secondary" style={{ backgroundColor: blue }} onClick={() => handlePaymentMethod("TRANSFER")}>
+          <Button variant="secondary" style={{ backgroundColor: "blue" }} onClick={() => handlePaymentMethod("TRANSFER")}>
             Chuyển khoản
           </Button>
         </Modal.Body>
