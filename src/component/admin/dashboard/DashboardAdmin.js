@@ -116,6 +116,12 @@ const Dashboard = () => {
       })
       .catch((error) => console.log(error));
   }, []);
+  const [selectedYear, setSelectedYear] = useState("2024");
+
+  const handleYearChange = (event) => {
+    setSelectedYear(event.target.value);
+  };
+
 
   return (
     <div>
@@ -129,7 +135,7 @@ const Dashboard = () => {
                 count={countAcc}
                 title={`Khách hàng`}
                 onClick={() => {
-                  history.push("/admin/customer");
+                  history.push("/admin/account");
                 }}
               />
               <StatusCard
@@ -150,7 +156,7 @@ const Dashboard = () => {
               />
               <StatusCard
                 icon={statusCards[2].icon}
-                count={total && total.toLocaleString()}
+                count={total && `${total.toLocaleString()} Vnđ`}
                 title={`Tổng doanh thu`}
               />
             </div>
@@ -171,7 +177,7 @@ const Dashboard = () => {
         </div>
 
         {/* Doanh thu theo năm */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <div className="card full-height">
             <Chart
               options={yearChartOptions}
@@ -183,7 +189,37 @@ const Dashboard = () => {
               Xem chi tiết
             </Link>
           </div>
+        </div> */}
+        <div className="col-6">
+          <div className="card full-height">
+            <Chart
+              options={yearChartOptions}
+              series={yearChartSeries}
+              type="line"
+              height="400"
+            />
+            <div className="mt-3">
+              <label htmlFor="year-select">Chọn năm:</label>
+              <select
+                id="year-select"
+                value={selectedYear}
+                onChange={handleYearChange}
+                className="form-control"
+              >
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                {/* Thêm các năm khác nếu cần */}
+              </select>
+            </div>
+            <Link
+              to={`/admin/report-month/${selectedYear}`}
+              className="btn btn-primary mt-3"
+            >
+              Xem chi tiết
+            </Link>
+          </div>
         </div>
+
 
         {/* Biểu đồ Donut: Đơn hàng theo danh mục */}
         <div className="col-6">

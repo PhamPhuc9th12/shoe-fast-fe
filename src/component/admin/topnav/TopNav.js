@@ -34,7 +34,7 @@ const TopNav = (props) => {
     await pushNotification()
       .then((resp) => {
         resp.data.map((item) => (
-          item.type == 1 ? toast.success(item.content) : toast.warning(item.content)
+          item.type == 1 ? toast.info(item.content) : toast.warning(item.content)
         ))
       })
       .catch((error) => console.log(error));

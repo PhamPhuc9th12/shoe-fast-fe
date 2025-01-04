@@ -286,9 +286,9 @@ const SearchOrder = () => {
     setFlagSuccess(checked);
   };
   return (
-    <div className="col-12">
+    <div className="col-12" style={{ marginTop: "25px" }}>
       <div className="card">
-        <div className="card__header">
+        {/* <div className="card__header">
           <button style={{ width: 60 }} onClick={() => history.push('/admin/orders')}>
             <i
               className="fa fa-arrow-left"
@@ -297,7 +297,29 @@ const SearchOrder = () => {
             ></i>
             <h3>Đơn hàng</h3>
           </button>
+        </div> */}
+        <div className="card__header">
+          <button
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              width: 'auto',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            onClick={() => history.push('/admin/orders')}
+          >
+            <i
+              className="fa fa-arrow-left"
+              style={{ fontSize: 18 }}
+              aria-hidden="true"
+            ></i>
+            <h3 style={{ margin: 0 }}>Đơn hàng</h3>
+          </button>
         </div>
+
         {loading && (
           <div className="text-center">
             <Spinner></Spinner>

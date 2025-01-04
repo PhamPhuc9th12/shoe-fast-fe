@@ -31,9 +31,9 @@ const ChatAI = () => {
     return (
         <df-messenger
             intent="WELCOME"
-            chat-title="Shoe-Chat-AI-1"
-            agent-id="5adfb73c-7a5f-4395-b452-a1bdcea946a5"
-            language-code="en"
+            chat-title="ShoeFast-AI"
+            agent-id="81266857-f835-4af3-bdc7-872b249db899"
+            language-code="vi"
         ></df-messenger>
     );
 };

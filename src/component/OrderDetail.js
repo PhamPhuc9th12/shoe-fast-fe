@@ -31,6 +31,7 @@ const OrderDetail = (props) => {
       );
       const result = await response.json();
       if (response.ok) {
+        // toast.success('Thành công! Đơn hàng sẽ được chuẩn bị');
         window.location.href = result.data.paymentUrl;
       } else {
         toast.error(result.message || "Thanh toán thất bại.");
@@ -211,12 +212,7 @@ const OrderDetail = (props) => {
           </Card>
 
           {/* Buttons for actions */}
-          <div className="text-center">
-            <Button variant="primary" className="mr-2">
-              In đơn hàng
-            </Button>
-            <Button variant="outline-danger">Đặt lại</Button>
-          </div>
+
         </div>
       </div>
       <Modal show={showModal} onHide={handleCloseModal}>

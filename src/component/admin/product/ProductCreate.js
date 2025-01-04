@@ -251,7 +251,7 @@ const ProductForm = () => {
                   <div
                     className="col-3 mr-5 ml-3 mb-5"
                     style={{
-                      paddingRight: '70px',
+                      paddingRight: '40px',
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
@@ -425,7 +425,7 @@ const ProductForm = () => {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label>Giá(VNĐ)</label>
+                    <label>Giá(Vnđ)</label>
                     <input
                       type="number"
                       className="form-control"
@@ -480,7 +480,7 @@ const ProductForm = () => {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label>Giá(VNĐ)</label>
+                    <label>Giá(Vnđ)</label>
                     <input
                       type="number"
                       className="form-control"
@@ -535,7 +535,7 @@ const ProductForm = () => {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label>Giá(VNĐ)</label>
+                    <label>Giá(Vnđ)</label>
                     <input
                       type="number"
                       className="form-control"
@@ -590,7 +590,7 @@ const ProductForm = () => {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label>Giá(VNĐ)</label>
+                    <label>Giá(Vnđ)</label>
                     <input
                       type="number"
                       className="form-control"
@@ -645,7 +645,7 @@ const ProductForm = () => {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label>Giá(VNĐ)</label>
+                    <label>Giá(Vnđ)</label>
                     <input
                       type="number"
                       className="form-control"
@@ -700,7 +700,7 @@ const ProductForm = () => {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label>Giá(VNĐ)</label>
+                    <label>Giá(Vnđ)</label>
                     <input
                       type="number"
                       className="form-control"
@@ -755,7 +755,7 @@ const ProductForm = () => {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label>Giá(VNĐ)</label>
+                    <label>Giá(Vnđ)</label>
                     <input
                       type="number"
                       className="form-control"
@@ -810,7 +810,7 @@ const ProductForm = () => {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label>Giá(VNĐ)</label>
+                    <label>Giá(Vnđ)</label>
                     <input
                       type="number"
                       className="form-control"
@@ -866,7 +866,7 @@ const ProductForm = () => {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label>Giá(VNĐ)</label>
+                    <label>Giá(Vnđ)</label>
                     <input
                       type="number"
                       className="form-control"

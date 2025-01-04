@@ -39,7 +39,7 @@ const Profile = (props) => {
           .catch((error) => console.error(error));
         history.push("/profile");
       })
-      .catch((error) => toast.error(error.response.data));
+      .catch((error) => toast.error(error.response.data.message));
   };
 
   return (
@@ -163,7 +163,7 @@ const Profile = (props) => {
                       <button className="btn btn-primary btn-lg" type="submit">
                         Cập nhật
                       </button>
-                      <button className="small mb-5 pb-lg-2">
+                      <button className="changepw small mb-5 pb-lg-2">
                         <NavLink className="text-100" to="/change-password">
                           Đổi mật khẩu
                         </NavLink>

@@ -217,7 +217,10 @@ const EditProduct = () => {
           toast.success("Cập nhật thành công!");
           history.push("/admin/products");
         })
-        .catch((error) => console.log(error.response.data.message));
+        .catch((error) => {
+          console.log(error.response.data.message)
+          toast.error(error.response.data.message)
+        });
     }
 
   };
@@ -297,7 +300,7 @@ const EditProduct = () => {
                 </select>
               </div>
               <div className="col-sm-6 mt-5">
-                <label className="form-label">Chương trình giảm giá</label>
+                <label className="form-label">Chương trình giảm Giá</label>
                 <select
                   className="form-control"
                   {...register("saleId", { required: true })}
@@ -454,7 +457,7 @@ const EditProduct = () => {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label>Giá</label>
+                    <label>Giá(Vnđ)</label>
                     <input
                       type="number"
                       className="form-control"
@@ -512,7 +515,7 @@ const EditProduct = () => {
                     )}
                   </div>
                   <div className="form-group col-md-6">
-                    <label>Giá</label>
+                    <label>Giá(Vnđ)</label>
                     <input
                       type="number"
                       className="form-control"
@@ -523,7 +526,7 @@ const EditProduct = () => {
                       })}
                     />
                     {errors.price2 && (
-                      <p className="text-danger mt-2">Giá sản phẩm lớn hơn 0</p>
+                      <p className="text-danger mt-2">Giá(Vnđ) sản phẩm lớn hơn 0</p>
                     )}
                   </div>
                 </div>

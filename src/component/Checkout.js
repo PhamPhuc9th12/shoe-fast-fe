@@ -493,7 +493,7 @@ const Checkout = (props) => {
               )}
             </div> */}
             <button
-              className="btn btn-primary btn-lg mt-5 mb-5"
+              className="order-btn btn btn-primary btn-lg mt-5 mb-5"
               type="submit"
               style={{ marginLeft: 680 }}
             >

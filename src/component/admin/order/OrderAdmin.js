@@ -181,7 +181,7 @@ const Order = () => {
       .catch((error) => console.log(error));
     getAllOrderStatus()
       .then((resp) => setOrderStatuses(resp.data))
-      .catch((error) => console.log(error.response.data));
+      .catch((error) => console.log(error.response.data.message));
   };
 
   const updateStatusHandlerFirst = (orderId, statusId) => {
@@ -223,7 +223,7 @@ const Order = () => {
           .catch((error) => console.log(error));
         toast.success("Cập nhật thành công.");
       })
-      .catch((error) => toast.error(error.response.data));
+      .catch((error) => toast.error(error.response.data.message));
 
     setFlagProcess(false);
     setShowFirst(false);
@@ -251,7 +251,7 @@ const Order = () => {
           .catch((error) => console.log(error));
         toast.success("Cập nhật thành công.");
       })
-      .catch((error) => toast.error(error.response.data));
+      .catch((error) => toast.error(error.response.data.message));
     setShipment(null);
     setCode(null);
     setShipDate(null);
@@ -280,7 +280,7 @@ const Order = () => {
           .catch((error) => console.log(error));
         toast.success("Cập nhật thành công.");
       })
-      .catch((error) => toast.error(error.response.data));
+      .catch((error) => toast.error(error.response.data.message));
 
     setFlagSuccess(null);
     setShowThird(false);
@@ -308,7 +308,7 @@ const Order = () => {
           .catch((error) => console.log(error));
         toast.success("Cập nhật thành công.");
       })
-      .catch((error) => toast.error(error.response.data));
+      .catch((error) => toast.error(error.response.data.message));
 
     setReason(null);
     setDescription(null);
@@ -325,7 +325,7 @@ const Order = () => {
         setOrders(res.data.content);
         setTotal(res.data.totalPages);
       })
-      .catch((error) => console.log(error.response.data));
+      .catch((error) => console.log(error.response.data.message));
   };
 
   const getAllOrdersByPaymentStatus = (paymentMethod) => {
@@ -354,7 +354,7 @@ const Order = () => {
         setOrders(res.data.content);
         setTotal(res.data.totalPages);
       })
-      .catch((error) => console.log(error.response.data));
+      .catch((error) => console.log(error.response.data.message));
   };
 
   const changeYearHandler = (value) => {
@@ -378,7 +378,7 @@ const Order = () => {
           setOrders(res.data.content);
           setTotal(res.data.totalPages);
         })
-        .catch((error) => console.log(error.response.data));
+        .catch((error) => console.log(error.response.data.message));
     }
     // }
   };
@@ -422,9 +422,9 @@ const Order = () => {
               <option value="">
                 Chọn năm
               </option>
-              <option value="2022">2022</option>
               <option value="2023">2023</option>
               <option value="2024">2024</option>
+              <option value="2025">2025</option>
             </select>
           </div>
           <div className="col-sm-4 mt-2">
@@ -474,7 +474,7 @@ const Order = () => {
               className="form-control"
               onChange={(event) => getAllOrdersByPaymentStatus(event.target.value)}
             >
-              <option value="null">Chọn phương thức thanh toán</option>
+              <option value="null">Phương thức thanh toán</option>
               <option value="Thanh toán khi giao hàng(COD)">Thanh toán khi giao hàng (COD)</option>
               <option value="CHUYỂN KHOẢN QUA VNPAY">Chuyển khoản qua VNPay</option>
             </select>
@@ -497,6 +497,7 @@ const Order = () => {
                     <tr>
                       <th scope="col">Mã đơn hàng</th>
                       <th scope="col">Ngày mua</th>
+                      <th scope="col">Hình thức</th>
                       <th scope="col">Thanh toán</th>
                       <th scope="col">Tổng tiền</th>
                       {paymentMethod !== "CHUYỂN KHOẢN QUA VNPAY" && (
@@ -507,7 +508,7 @@ const Order = () => {
                           />
                         </th>
                       )}
-                      <th scope="col">
+                      <th scope="col" >
                         <Badge
                           type={orderStatus["Đang xử lí"]}
                           content={"Đang xử lí"}
@@ -528,7 +529,7 @@ const Order = () => {
                       <th scope="col">
                         <Badge
                           type={orderStatus["Đã hủy"]}
-                          content={"Đã hủy"}
+                          content={"Hủy"}
                         />
                       </th>
 
@@ -552,10 +553,11 @@ const Order = () => {
                           <tr key={index}>
                             <th scope="row">
                               <NavLink to={`/admin/detail-order/${item.id}`} exact>
-                                #{index + 1}
+                                #{item.id}
                               </NavLink>
                             </th>
                             <th>{item.createDate}</th>
+                            <th>{item.payment ? item.payment : "Chưa chọn phương thức thanh toán"}</th>
                             <th>
                               <Badge
                                 type={pendingStatus[item.isPending]}

@@ -109,13 +109,13 @@ const Header = (props) => {
                 Sản phẩm
               </NavLink>
             </li>
-            <li className={`nav-item mr-2 mini-item ${props.header === 3 ? "active" : ""}`}>
+            <li className={`cart nav-item mr-2 mini-item ${props.header === 3 ? "active" : ""}`}>
               <NavLink className="nav-link" to="/cart" exact>
                 Giỏ hàng
               </NavLink>
             </li>
             {props.user && (
-              <li className={`nav-item mr-2 mini-item ${props.header === 5 ? "active" : ""}`}>
+              <li className={`order nav-item mr-2 mini-item ${props.header === 5 ? "active" : ""}`}>
                 <NavLink className="nav-link" to="/order" exact>
                   Đơn hàng
                 </NavLink>
