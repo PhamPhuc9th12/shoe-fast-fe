@@ -125,7 +125,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2 className="page-header" style={{ marginLeft: "25px" }}>Thống kê</h2>
+      <h2 className="page-header" style={{ marginLeft: "35px", marginTop: "30px" }}>Thống kê</h2>
       <div className="row" style={{ marginLeft: "10px" }}>
         <div className="col-6">
           <div className="row container-fluid">

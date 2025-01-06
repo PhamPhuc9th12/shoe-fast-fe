@@ -769,7 +769,7 @@ const Order = () => {
               <option value="Gojek">Gojek</option>
               <option value="AhaMove">AhaMove</option>
             </Form.Select>
-            <Form>
+            {/* <Form>
               <Form.Label style={{ marginRight: 30, marginBottom: 10 }}>
                 Mã vận đơn
               </Form.Label>
@@ -778,7 +778,7 @@ const Order = () => {
                 type="text"
                 onChange={(e) => codeHandler(e.target.value)}
               />
-            </Form>
+            </Form> */}
             <Form>
               <Form.Label style={{ marginRight: 30, marginBottom: 10 }}>
                 Ngày nhận dự kiến
@@ -795,7 +795,7 @@ const Order = () => {
           <Button
             variant="danger"
             onClick={confirmUpdateShip}
-            disabled={!code || !shipDate}
+            disabled={!shipDate}
           >
             Xác nhận
           </Button>

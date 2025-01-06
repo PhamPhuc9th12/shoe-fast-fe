@@ -481,7 +481,7 @@ const OrderDetail = () => {
   const handleCloseModal = () => setShowModal(false);
 
   const handleUpdateShip = async () => {
-    if (!shipment || !code || !shipDate) {
+    if (!shipment || !shipDate) {
       alert("Vui lòng nhập đầy đủ thông tin vận chuyển.");
       return;
     }
@@ -762,7 +762,7 @@ const OrderDetail = () => {
               <option value="AhaMove">AhaMove</option>
             </Form.Select>
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="code">Mã vận chuyển:</label>
             <input
               type="text"
@@ -771,7 +771,7 @@ const OrderDetail = () => {
               value={code}
               onChange={(e) => setCode(e.target.value)}
             />
-          </div>
+          </div> */}
           <div className="form-group">
             <label htmlFor="shipDate">Ngày giao hàng dự kiến:</label>
             <input
