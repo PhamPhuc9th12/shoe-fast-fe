@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import "./signin.css";
 import 'font-awesome/css/font-awesome.min.css';
@@ -6,9 +6,11 @@ import { signIn } from "../api/AuthenticateApi";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { getInformation } from "../api/AccountApi";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const SignIn = (props) => {
   const history = useHistory();
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -85,18 +87,24 @@ const SignIn = (props) => {
                     <label className="form-label" htmlFor="password">
                       Mật khẩu
                     </label>
-                    <input
-                      type="password"
-                      id="password"
-                      className="form-control form-control-lg"
-                      {...register("password", {
-                        required: "Mật khẩu không được để trống!",
-                        pattern: {
-                          value: /^\s*\S+.*/,
-                          message: "Mật khẩu không hợp lệ!",
-                        },
-                      })}
-                    />
+                    <div className="input-group">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        className="form-control form-control-lg"
+                        {...register("password", {
+                          required: true,
+                          pattern: /^\s*\S+.*/,
+                        })}
+                      />
+                      <span
+                        className="input-group-text"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                      </span>
+                    </div>
 
                     {errors.password && (
                       <div className="alert alert-danger" role="alert">

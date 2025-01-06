@@ -332,6 +332,22 @@ const EditProduct = () => {
                     </div>
                   ))}
               </div>
+              {/* <div className="col-12 mt-5 mb-5">
+                <label className="form-label mb-3">Loại sản phẩm</label> <br />
+                {cate && cate.map((i) => (
+                  <div className="col-2 form-check form-check-inline mr-5" key={i.id}>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value={i.id}
+                      defaultChecked={flag.includes(i.id)}  // Kiểm tra xem id của category này có trong flag không
+                      {...register("category", { required: true })}
+                    />
+                    <label className="form-check-label">{i.name}</label>
+                  </div>
+                ))}
+              </div> */}
+
               <div style={{ marginTop: '20px' }}>
                 <label htmlFor="upload-images" style={{ cursor: 'pointer', padding: '10px 20px', backgroundColor: '#007bff', color: '#fff', borderRadius: '5px' }}>
                   Chọn ảnh

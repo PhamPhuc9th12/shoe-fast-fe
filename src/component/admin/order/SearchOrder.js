@@ -335,6 +335,7 @@ const SearchOrder = () => {
                     <tr>
                       <th scope="col">Mã đơn hàng</th>
                       <th scope="col">Ngày mua</th>
+                      <th scope="col">Phương thức thanh toán</th>
                       <th scope="col">Thanh toán</th>
                       <th scope="col">Tổng tiền</th>
                       <th scope="col">
@@ -367,7 +368,7 @@ const SearchOrder = () => {
                           content={"Đã hủy"}
                         />
                       </th>
-                      <th scope="col">#</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -379,6 +380,7 @@ const SearchOrder = () => {
                           </NavLink>
                         </th>
                         <th>{orders.createDate}</th>
+                        <th>{orders.payment ? orders.payment : "Chưa chọn phương thức thanh toán"}</th>
                         <th>
                           <Badge
                             type={pendingStatus[orders.isPending]}
@@ -484,23 +486,7 @@ const SearchOrder = () => {
                             />
                           </div>
                         </th>
-                        <th>
-                          {
-                            orders.orderStatusId !== 4 &&
 
-                              orders.orderStatusId !== 3 &&
-
-                              orders.orderStatusId !== 5 ? (
-                              <NavLink to={`/admin/order-detail/${orders.id}`} exact>
-                                <i
-                                  className="fa fa-pencil-square-o"
-                                  aria-hidden="true"
-                                ></i>
-                              </NavLink>
-                            ) : (
-                              ""
-                            )}
-                        </th>
                       </tr>
                     )}
                   </tbody>

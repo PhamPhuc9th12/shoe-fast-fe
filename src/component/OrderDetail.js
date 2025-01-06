@@ -100,7 +100,7 @@ const OrderDetail = (props) => {
           <Card className="order-card mb-4">
             <Card.Body>
               <h4 className="text-primary">
-                <FaTruck className="mr-2" /> Đơn hàng #{order.id}
+                <FaTruck className="mr-2" /> Chi tiết đơn hàng
               </h4>
               <table className="table table-striped table-hover">
                 <thead className="thead-dark">
@@ -176,6 +176,15 @@ const OrderDetail = (props) => {
                   <p className="text-info">
                     {order && order.orderStatusName}
                   </p>
+                  <p className="text-info">
+                    {order && order.shipDate && order.orderStatusName == "Đang vận chuyển"
+                      ? `Ngày nhận dự kiến: ${new Date(order.shipDate).toLocaleDateString("vi-VN", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                      })}`
+                      : ""}
+                  </p>
                 </Card.Body>
               </Card>
             </div>
@@ -197,7 +206,7 @@ const OrderDetail = (props) => {
           <Card className="mb-4 order-card">
             <Card.Body>
               <h5 className="text-danger">Thông tin mua hàng</h5>
-              <p>Ngày tạo: {order.createDate}</p>
+              <p>Ngày mua hàng:{order.createDate} </p>
               <p>Người nhận: {order.fullName}</p>
               <p>Email: {order.email}</p>
             </Card.Body>

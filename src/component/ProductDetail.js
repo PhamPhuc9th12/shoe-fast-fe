@@ -200,9 +200,9 @@ const ProductDetail = (props) => {
                         price && price.toLocaleString() + " đ"
                       )}
                     </h6>
-                    <span className="card-text text-danger fs-5">Discount: {item.discount}%</span>
+                    <span className="card-text text-danger fs-5">Giảm giá: {item.discount}%</span>
                     <h6 className="card-text fw-bolder fs-5" >
-                      Remain: {stock}
+                      Tồn kho: {stock}
                     </h6>
                     <hr />
                     <div className="div d-flex gap-4 align-items-center">

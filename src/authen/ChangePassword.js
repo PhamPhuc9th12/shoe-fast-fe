@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import "./signin.css";
 import 'font-awesome/css/font-awesome.min.css';
 import { changePassword } from "../api/AuthenticateApi";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const ChangePassword = (props) => {
+    const [showPassword, setShowPassword] = useState(false);
     const history = useHistory();
     const {
         register,
@@ -60,51 +62,68 @@ const ChangePassword = (props) => {
                                             </div>
                                         )}
                                     </div>
-
                                     <div className="form-outline form-white mb-4">
                                         <label className="form-label" htmlFor="password">
                                             Mật khẩu hiện tại
                                         </label>
-                                        <input
-                                            type="password"
-                                            id="password"
-                                            className="form-control form-control-lg"
-                                            {...register("password", {
-                                                required: "Mật khẩu không được để trống!",
-                                                pattern: {
-                                                    value: /^\s*\S+.*/,
-                                                    message: "Mật khẩu không hợp lệ!",
-                                                },
-                                            })}
-                                        />
+                                        <div className="input-group">
+                                            <input
+                                                type={showPassword ? "text" : "password"}
+                                                id="password"
+                                                className="form-control form-control-lg"
+                                                {...register("password", {
+                                                    required: "Mật khẩu không được để trống!",
+                                                    pattern: {
+                                                        value: /^\s*\S+.*/,
+                                                        message: "Mật khẩu không hợp lệ!",
+                                                    },
+                                                })}
+                                            />
+                                            {errors.password && (
+                                                <div className="alert alert-danger" role="alert">
+                                                    {errors.password.message}
+                                                </div>
+                                            )}
+                                            <span
+                                                className="input-group-text"
+                                                style={{ cursor: "pointer" }}
+                                                onClick={() => setShowPassword(!showPassword)}
+                                            >
+                                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                            </span>
+                                        </div>
 
-                                        {errors.password && (
-                                            <div className="alert alert-danger" role="alert">
-                                                {errors.password.message}
-                                            </div>
-                                        )}
                                     </div>
                                     <div className="form-outline form-white mb-4">
                                         <label className="form-label" htmlFor="password">
                                             Mật khẩu mới
                                         </label>
-                                        <input
-                                            type="password"
-                                            id="newPassword"
-                                            className="form-control form-control-lg"
-                                            {...register("newPassword", {
-                                                required: "Mật khẩu không được để trống!",
-                                                pattern: {
-                                                    value: /^\s*\S+.*/,
-                                                    message: "Mật khẩu không hợp lệ!",
-                                                },
-                                            })}
-                                        />
-                                        {errors.password && (
-                                            <div className="alert alert-danger" role="alert">
-                                                {errors.password.message}
-                                            </div>
-                                        )}
+                                        <div className="input-group">
+                                            <input
+                                                type={showPassword ? "text" : "password"}
+                                                id="newPassword"
+                                                className="form-control form-control-lg"
+                                                {...register("newPassword", {
+                                                    required: "Mật khẩu không được để trống!",
+                                                    pattern: {
+                                                        value: /^\s*\S+.*/,
+                                                        message: "Mật khẩu không hợp lệ!",
+                                                    },
+                                                })}
+                                            />
+                                            {errors.password && (
+                                                <div className="alert alert-danger" role="alert">
+                                                    {errors.password.message}
+                                                </div>
+                                            )}
+                                            <span
+                                                className="input-group-text"
+                                                style={{ cursor: "pointer" }}
+                                                onClick={() => setShowPassword(!showPassword)}
+                                            >
+                                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                            </span>
+                                        </div>
                                     </div>
 
                                     <p className="small mb-5 pb-lg-2">

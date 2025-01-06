@@ -5,6 +5,7 @@ import { forgotPassword } from "../api/AuthenticateApi";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
+
 const ForgotPassword = () => {
   const history = useHistory();
 

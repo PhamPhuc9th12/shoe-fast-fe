@@ -123,6 +123,7 @@ const Checkout = (props) => {
   };
 
   const onSubmitHandler = (data) => {
+    setLoading(true);
     if (voucher.length > 0) {
       getVoucherByCode(voucher)
         .then(() => {
@@ -162,12 +163,16 @@ const Checkout = (props) => {
             .catch(() => {
               toast.success("Sản phẩm không tồn tại hoặc số lượng không đủ");
               history.push("/cart")
+            })
+            .finally(() => {
+              setLoading(false);  // Đảm bảo khi API xong, loading sẽ tắt
             });
         })
         .catch((error) => {
           handleCloseFirst();
           toast.error(error.response.data.Errors);
           refreshVoucherHandler();
+          setLoading(false);
         });
     } else {
       setLoading(true);
@@ -203,7 +208,10 @@ const Checkout = (props) => {
         .catch(() => {
           toast.success("Sản phẩm không tồn tại hoặc số lượng không đủ");
           history.push("/cart")
-        });
+        })
+        .finally(() => {
+          setLoading(false);  // Đảm bảo khi API xong, loading sẽ tắt
+        });;
     }
   };
 
@@ -234,7 +242,7 @@ const Checkout = (props) => {
                       {(
                         (item.price * (100 - item.discount)) /
                         100
-                      ).toLocaleString()}{" "}
+                      ).toLocaleString()}{""}
                       x {item.quantity}
                     </small>
                   </div>
@@ -242,7 +250,7 @@ const Checkout = (props) => {
                     {(
                       ((item.price * (100 - item.discount)) / 100) *
                       item.quantity
-                    ).toLocaleString()}
+                    ).toLocaleString()}{"Vnđ"}
                   </strong>
                 </li>
               ))}
@@ -502,7 +510,7 @@ const Checkout = (props) => {
           </form>
         </div>
       </div>
-      <Modal show={showFirst} onHide={handleCloseFirst}>
+      {/* <Modal show={showFirst} onHide={handleCloseFirst}>
         <Modal.Header closeButton>
           <Modal.Title style={{ textAlign: "center" }}>
             Bạn đã chắc chắn chưa?
@@ -518,6 +526,33 @@ const Checkout = (props) => {
             Xác nhận
           </Button>
           <Button variant="primary" onClick={handleCloseFirst}>
+            Đóng
+          </Button>
+        </Modal.Footer>
+      </Modal> */}
+      <Modal show={showFirst} onHide={handleCloseFirst}>
+        <Modal.Header closeButton>
+          <Modal.Title style={{ textAlign: "center" }}>
+            Bạn đã chắc chắn chưa?
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {loading && (
+            <div className="text-center">
+              <Spinner animation="border" variant="primary" />
+              <p>Đang xử lý đơn hàng...</p>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="danger"
+            onClick={() => onSubmitHandler(obj)}
+            disabled={loading}  // Khi loading, không cho phép bấm nút xác nhận
+          >
+            {loading ? 'Đang xử lý...' : 'Xác nhận'}
+          </Button>
+          <Button variant="primary" onClick={handleCloseFirst} disabled={loading}>
             Đóng
           </Button>
         </Modal.Footer>

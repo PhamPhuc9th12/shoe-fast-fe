@@ -107,7 +107,7 @@ const Product = () => {
                     <th scope="col">Mã sản phẩm</th>
                     <th scope="col">Thương hiệu</th>
                     <th scope="col">Hình ảnh</th>
-                    <th scope="col">Giá</th>
+
                     <th scope="col">Trạng thái</th>
                     <th scope="col">Cập nhật</th>
                   </tr>
@@ -133,7 +133,7 @@ const Product = () => {
                             alt=""
                           />
                         </th>
-                        <th>{formatCurrency(item.price)}</th>
+                        {/* <th>{formatCurrency(item.price)}</th> */}
                         <th>{item.isActive ? "Đang bán" : "Dừng bán"}</th>
                         <th>
                           <NavLink to={`/admin/product-detail/${item.id}`} exact>

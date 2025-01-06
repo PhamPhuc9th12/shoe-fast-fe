@@ -179,7 +179,7 @@ const Order = (props) => {
                       <th scope="row">
                         <h6 className="card-title mt-2 bolder">
                           <NavLink to={`/order/detail/${item.id}`} exact>
-                            #{item.id}
+                            #{index}
                           </NavLink>
                         </h6>
                       </th>

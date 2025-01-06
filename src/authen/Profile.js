@@ -160,16 +160,26 @@ const Profile = (props) => {
                       </div>
                     </div>
                     <div className="mt-4 pt-2 mb-3">
-                      <button className="btn btn-primary btn-lg" type="submit">
+                      <button className="btn btn-primary btn-lg" type="submit" style={{ marginLeft: "45%" }}>
                         Cập nhật
                       </button>
-                      <button className="changepw small mb-5 pb-lg-2">
-                        <NavLink className="text-100" to="/change-password">
+                      <div>
+                        <NavLink
+                          to="/change-password"
+                          style={{
+                            fontSize: '1.2rem',
+                            color: '#007bff',
+                            textDecoration: 'none',
+                            padding: '0.5rem 0',
+                            marginLeft: '75%'
+                          }}
+                        >
                           Đổi mật khẩu
                         </NavLink>
-                      </button>
+                      </div>
                     </div>
                   </form>
+
                 </div>
               </div>
             </div>
