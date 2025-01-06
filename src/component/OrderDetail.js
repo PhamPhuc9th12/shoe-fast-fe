@@ -185,6 +185,13 @@ const OrderDetail = (props) => {
                       })}`
                       : ""}
                   </p>
+                  <p className="text" style={{ fontWeight: "bolder" }}>
+                    {order.description && (
+                      <>
+                        Lí do hủy : {order.description}
+                      </>
+                    )}
+                  </p>
                 </Card.Body>
               </Card>
             </div>
