@@ -102,7 +102,7 @@ const Checkout = (props) => {
           toast.success("Áp dụng voucher thành công.");
           setSub((amount * resp.data.discount) / 100);
         })
-        .catch((error) => toast.error(error.response.data.Errors));
+        .catch((error) => toast.error(error.response.data.message));
     }
   };
 
