@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
-import { getAllProductsByBrand } from "../../../api/ProductApi";
+import { getAllProductsByBrand, getListHot } from "../../../api/ProductApi";
 import { NavLink } from "react-router-dom";
 import { getBrands } from "../../../api/BrandApi";
 import { toast } from "react-toastify";
@@ -55,6 +55,15 @@ const Product = () => {
       </button>
     </li>
   ));
+
+  // const getListHotProduct = () => {
+  //   getListHot(0, 20)
+  //     .then((resp) => {
+  //       setProducts(resp.data.content)
+  //       console.log(resp.data.content)
+  //     })
+  //     .catch((error) => console.log(error))
+  // }
 
   const getProductByBrandHandler = (value) => {
     if (value == 0) {

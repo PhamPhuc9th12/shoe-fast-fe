@@ -727,7 +727,7 @@ const Checkout = (props) => {
               history.push(`/order/detail/${resp.data.id}`);
             })
             .catch(() => {
-              toast.success("Sản phẩm không tồn tại hoặc số lượng không đủ");
+              toast.error("Sản phẩm không tồn tại hoặc số lượng không đủ");
               history.push("/cart")
             })
             .finally(() => {

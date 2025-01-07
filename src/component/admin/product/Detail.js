@@ -58,7 +58,7 @@ const Detail = () => {
 
                 <div className="col-md-4">
                   <img
-                    // src={require(`../../static/images/${item.main}`)}
+                    src={item.main}
                     className="img-fluid rounded-start"
                     style={{ width: "600px", height: "400px" }}
                     alt=""

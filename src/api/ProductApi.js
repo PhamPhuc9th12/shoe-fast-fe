@@ -69,6 +69,11 @@ export const getRecommendation = async (id) => {
     return await Instance.get(url);
 }
 
+export const getListHot = async () => {
+    const url = `/api/v1/product/list/hot?page=0&size=10`;
+    return await Instance.get(url);
+}
+
 export const searchByKeyword = async (page, size, keyword) => {
     const url = `/api/v1/product/search?page=${page}&size=${size}&search=${keyword}`;
     return await Instance.get(url);

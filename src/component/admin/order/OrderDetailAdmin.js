@@ -584,6 +584,7 @@ const OrderDetail = () => {
             <thead>
               <tr>
                 <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Hình ảnh</th>
                 <th scope="col">Size</th>
                 <th scope="col">Giá</th>
                 <th scope="col">Số lượng</th>
@@ -594,6 +595,15 @@ const OrderDetail = () => {
               {orderDetail.map((item, index) => (
                 <tr key={index}>
                   <th scope="row">{item.attribute.name}</th>
+                  <th>
+                    {" "}
+                    <img
+                      className="img-fluid"
+                      style={{ width: "100px", height: "100px" }}
+                      src={item.image}
+                      alt=""
+                    />
+                  </th>
                   <td>{item.attribute.size}</td>
                   <td>{item.sellPrice.toLocaleString()}₫</td>
                   <td>{item.quantity}</td>
